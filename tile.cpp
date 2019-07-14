@@ -47,16 +47,16 @@ void Tile::setToHero()
 //	empty = false;
 //}
 
-///************************************ setToTreasure ***************************************************
-//This function sets the Tile object's attributes to a monster. This includes the monster pointer and the
-//appropriate character. (Ex: P for dark priest)
-//*****************************************************************************************************/
-//void Tile::setToTreasure(Treasure* t)
-//{
-//	treasure = t;
-//	symbol = 'T';
-//	empty = false;
-//}
+/************************************ setToTreasure ***************************************************
+This function sets the Tile object's attributes to a treasure. The tile now "owns" that treasure, and it 
+can be transferred to the player's inventory.
+*****************************************************************************************************/
+void Tile::setToTreasure(std::unique_ptr<Treasure>& t)
+{
+	treasure = std::move(t);
+	symbol = 'T';
+	empty = false;
+}
 
 /************************************ setToEmpty ******************************************************
 This function sets the Tile object's attributes to an empty tile. It can be used after a space becomes 
@@ -117,14 +117,14 @@ void Tile::setToBell()
 //	monster = nullptr;
 //}
 //
-///************************************ removeTreasure ***************************************************
-//This sets the treasure pointer to null. The room is responsible for deleting the object.
-//*****************************************************************************************************/
-//void Tile::removeTreasure()
-//{
-//	treasure = nullptr;
-//}
-//
+/************************************ removeTreasure ***************************************************
+This sets the treasure pointer to null. The room is responsible for deleting the object.
+*****************************************************************************************************/
+void Tile::removeTreasure()
+{
+	treasure = nullptr;
+}
+
 ///************************************ getters & setters **********************************************/
 //
 //// monster
@@ -138,12 +138,12 @@ void Tile::setToBell()
 //	monster = m;
 //}
 
-//// treasure
-//Treasure* Tile::getTreasure()
-//{
-//	return treasure;
-//}
-//
+// treasure
+std::unique_ptr<Treasure> Tile::getTreasure()
+{
+	return std::move(treasure);
+}
+
 //void Tile::setTreasure(Treasure* t)
 //{
 //	treasure = t;

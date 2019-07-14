@@ -9,7 +9,7 @@ Date: 07/12/2019
 
 #include "character.hpp"
 #include "tile.hpp"
-//#include "Treasure.hpp"
+#include "treasure.hpp"
 #include "utility.hpp"
 
 #include <iostream>
@@ -62,8 +62,8 @@ class Room
 		Room* below;
 
 		//// treasure 
-		//Treasure* treasure1;
-		//Treasure* treasure2;
+		std::unique_ptr<Treasure> treasure1;
+		std::unique_ptr<Treasure> treasure2;
 
 		//// monsters
 		//Character* monster1;
@@ -75,8 +75,6 @@ class Room
 
 		//// move to Game? 
 		bool bellRung;
-
-		//Utility utility;
 
 		void makeBorders(int rows, int cols);
 };

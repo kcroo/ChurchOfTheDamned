@@ -3,6 +3,7 @@
 
 church/
 *.sln
+*.o
 
 # User-specific files
 *.suo

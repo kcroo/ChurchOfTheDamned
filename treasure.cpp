@@ -4,8 +4,8 @@ File: Treasure.cpp
 Author: Kirsten Corrao
 Date: 03/05/2019
 Description: this is the implementation file for the Treasure class. Treasure is a broad term for 
-weapons, armor, holy water, or key. Weapons determine a Character object's attack damage; armor determines
-armor class; and holy water heals the hero of damage. 
+weapons, armor, holy water, or key. Weapons determine a Character object's attack attack; armor determines
+armor class; and holy water heals the hero of attack. 
 ***************************************************************************************************/
 #include "treasure.hpp"
 
@@ -14,7 +14,7 @@ The constructor takes 5 parameters to set initial values for name, attack bonus,
 much HP the treasure can recover, and an enum for Type (weapon, armor, or holyWater).
 *****************************************************************************************************/
 Treasure::Treasure(std::string n, int dam, int armBonus, int hp, Type t)
-	: name{ n }, damage{ dam }, armorRating{ armBonus }, HPChange{ hp }, type{ t }
+	: name{ n }, attack{ dam }, defense{ armBonus }, HPChange{ hp }, type{ t }
 {
 }
 
@@ -29,8 +29,8 @@ This function prints the treasure's stats.
 *****************************************************************************************************/
 void Treasure::print()
 {
-	utility::printColumns("Item", "Name", "Damage", "Armor", "HP Restored");
-	utility::printColumns("", name, damage, armorRating, HPChange);
+	utility::printColumns("Item", "Name", "attack", "Armor", "HP Restored");
+	utility::printColumns("", name, attack, defense, HPChange);
 }
 
 /************************************ getters and setters  ********************************************/
@@ -42,15 +42,15 @@ std::string Treasure::getName()
 }
 
 // attack bonus
-int Treasure::getDamage()
+int Treasure::getAttack()
 {
-	return damage;
+	return attack;
 }
 
 // armor bonus
-int Treasure::getArmorRating()
+int Treasure::getDefense()
 {
-	return armorRating;
+	return defense;
 }
 
 // HP bonus

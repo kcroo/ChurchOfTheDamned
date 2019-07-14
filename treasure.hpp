@@ -21,20 +21,20 @@ class Treasure
 {
 private:
 	std::string name;
-	int damage;
-	int armorRating;
+	int attack;
+	int defense;
 	int HPChange;
 	Type type;
 
 public:
-	Treasure(std::string name, int attBonus, int armBonus, int hp, Type t);
+	Treasure(std::string name, int att, int def, int hp, Type t);
 	~Treasure();
 	void print();
 
 	// getters and setters
 	std::string getName();
-	int getDamage();
-	int getArmorRating();
+	int getAttack();
+	int getDefense();
 	int getHPChange();
 	Type getType();
 };

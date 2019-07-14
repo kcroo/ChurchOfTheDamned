@@ -15,7 +15,7 @@ Sanctuary::Sanctuary()
 	: Room(9, 14, "Sanctuary")
 {
 	// make door and stairs
-	room[8][8].setToDoor(true);		// door to outside (but is locked and can't leave)
+	room[8][8].setToDoor(true);			// door to outside (but is locked and can't leave)
 	room[0][3].setToStairs();			// to mezzanine
 	room[0][12].setToDoor(true);		// door LOCKED to gallery 
 
@@ -33,8 +33,9 @@ Sanctuary::Sanctuary()
 	//room[2][11].setToMonster(monster2, 'P');
 
 	//// create treasure and move to appropriate tile
-	//treasure1 = new Treasure("Leather Armor", 0, 8, 0, Type::armor);
-	//room[6][10].setToTreasure(treasure1);
+	treasure1 = std::make_unique<Treasure>("Leather Armor", 0, 8, 0, Type::armor);
+	//room[6][10].getTreasure() = std::move(treasure1);
+	room[6][10].setToTreasure(treasure1);
 
 	//treasure2 = new Treasure("Holy Water", 0, 0, 10, Type::holyWater);
 	//room[7][2].setToTreasure(treasure2);

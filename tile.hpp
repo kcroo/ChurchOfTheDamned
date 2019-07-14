@@ -11,14 +11,15 @@ to another room; door to another room; or in the bell tower, a bell.
 #define TILE_HPP
 
 #include "character.hpp"
-//#include "Room.hpp"
-//#include "Treasure.hpp"
+#include "treasure.hpp"
+
+#include <memory>
 
 class Tile
 {
 private:
 	//Character* monster;
-	//Treasure* treasure;
+	std::unique_ptr<Treasure> treasure;
 	char symbol;
 	bool empty;
 	bool isStairsOrDoor;							// used to see if hero goes to other room
@@ -30,20 +31,20 @@ public:
 	char test;
 	void setToHero();
 	//void setToMonster(Character* monst, char c);
-	//void setToTreasure(Treasure* t);
+	void setToTreasure(std::unique_ptr<Treasure>& t);
 	void setToEmpty();			
 	void setToStairs();
 	void setToDoor(bool locked = false);			// doors default to unlocked
 	void setToBell();
 	//void removeMonster();							// sets monster ptr to null
-	//void removeTreasure();							// sets treasure ptr to null
+	void removeTreasure();							// sets treasure ptr to null
 
 	// getters and setters
-	/*Character* getMonster();
-	void setMonster(Character* m);
-	Treasure* getTreasure();
-	void setTreasure(Treasure* t);
-*/
+	// Character* getMonster();
+	// void setMonster(Character* m);
+	std::unique_ptr<Treasure> getTreasure();
+	void setTreasure(std::unique_ptr<Treasure> t);
+
 	char getSymbol();
 	void setSymbol(char c);
 	void setEmpty(bool isEmpty);
