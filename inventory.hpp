@@ -36,18 +36,18 @@ public:
 	//bool foundTreasure(std::unique_ptr<Treasure> t);
 	//bool addItem(Treasure*& t);
 	void add(std::unique_ptr<Treasure> t);
-	//bool deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA);
-	//void deleteItem(int position);
+	bool deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA);
+	void deleteItem(int position);
 
 	//bool hasKey();
 	//int getItemPosition(Type t);
 	//int useHolyWater(int position);
 
-	//int getSize();
-	//bool notFull();
+	int getSize();
 	//Treasure* getTreasure(int position);
 	std::vector<std::unique_ptr<Treasure>>* getInventory();
 	bool notFull();
+	bool isEmpty();
 };
 
 #endif

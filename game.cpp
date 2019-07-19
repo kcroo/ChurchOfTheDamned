@@ -21,7 +21,7 @@ The constructors initializes all member variables.
 Game::Game()
 	: gameContinues{ true }, turns{ 1 }  /*player{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
 	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }*/
-	//playerInventory{ nullptr }
+	//inventory{ nullptr }
 {
 	
 }
@@ -134,7 +134,7 @@ void Game::play()
 //{
 //	std::string playerName{ utility::getString("\nWhat is your name?\n", 10) };
 //	player = new Fighter(playerName);
-//	playerInventory = player->getInventory();
+//	inventory = player->getInventory();
 //}
 //
 /********************************* move ************************************************************
@@ -167,7 +167,7 @@ void Game::move()
 	// manage inventory
 	if (direction == 'i')
 	{
-		//Game::manageInventory();
+		Game::manageInventory();
 	}
 
 	// quit game
@@ -199,14 +199,6 @@ void Game::move()
 			case 3:		// treasure
 			{
 				Game::addTreasureToInv(currentRow, currentCol);
-				
-				
-				/******* problem in add function ******/
-				//heroInventory->add(t);
-
-				//player->addTreasureToInventory(std::move(t));
-				//Game::addTreasureToInv(std::move(t), currentRow, currentCol));
-
 				break;
 			}
 			case 4:		// door is locked
@@ -219,7 +211,7 @@ void Game::move()
 				//}
 
 				//// if player has key, change rooms
-				//else if (playerInventory->hasKey())
+				//else if (inventory->hasKey())
 				//{
 				//	currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 				//	currentRoom->printContents();
@@ -291,86 +283,96 @@ void Game::addTreasureToInv(int row, int col)
 	}
 }
 
-///************************************ manageInventory ***********************************************
-//This function lets the user remove items from inventory and equip other equipment.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::manageInventory()
-//{
-//	bool keepManagingInv{ true };
-//	while (keepManagingInv)
-//	{
-//		playerInventory->print();
-//
-//		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Drink holy water \n4. Exit\n", 1, 4) };
-//		switch (choice)
-//		{
-//			case 1:
-//			{
-//				Game::removeItemInventory();
-//				break;
-//			}
-//			case 2:
-//			{
-//				Game::equipWeaponOrArmor();
-//				break;
-//			}
-//			case 3:
-//			{
-//				Game::drinkHolyWater();
-//				break;
-//			}
-//			case 4: 
-//			{
-//				keepManagingInv = false;
-//				break;
-//			}
-//		}
-//	}
-//}
-//
-///************************************ removeItemInventory ********************************************
-//This function lets the user remove an item from the inventory. If the inventory is empty, it shows 
-//an error message.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::removeItemInventory()
-//{
-//	if (playerInventory->getSize() == 0)
-//	{
-//		std::cout << "\nInventory is empty.";
-//	}
-//	else
-//	{
-//		bool notDone{ true };
-//
-//		while (notDone)
-//		{
-//			// display inventory
-//			playerInventory->print();
-//
-//			int choice{ utility::getInt("\nItem number to remove (or 0 for none): ", 0, playerInventory->getSize()) };
-//
-//			// doesn't want to remove item
-//			if (choice == 0)
-//			{
-//				notDone = false;
-//			}
-//
-//			// remove item (unless it is current weapon or armor)
-//			else
-//			{
-//				if (!playerInventory->deleteIfNotCurrent(choice - 1, player->getCurrentWeapon(), player->getCurrentArmor()))
-//				{
-//					std::cout << "\nError. Cannot remove current weapon or armor.\n";
-//				}
-//			}
-//		}
-//	}
-//}
-//
+/************************************ manageInventory ***********************************************
+This function lets the user remove items from inventory and equip other equipment.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::manageInventory()
+{
+	bool keepManagingInv{ true };
+	while (keepManagingInv)
+	{
+		inventory->print();
+
+		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Drink holy water \n4. Exit\n", 1, 4) };
+		switch (choice)
+		{
+			case 1:
+			{
+				Game::removeItemInventory();
+				break;
+			}
+			case 2:
+			{
+				//Game::equipWeaponOrArmor();
+				break;
+			}
+			case 3:
+			{
+				//Game::drinkHolyWater();
+				break;
+			}
+			case 4: 
+			{
+				keepManagingInv = false;
+				break;
+			}
+		}
+	}
+}
+
+/************************************ removeItemInventory ********************************************
+This function lets the user remove an item from the inventory. If the inventory is empty, it shows 
+an error message.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::removeItemInventory()
+{
+	if (inventory->isEmpty())
+	{
+		std::cout << "\nInventory is empty.";
+	}
+	else
+	{
+		bool notDone{ true };
+
+		while (notDone)
+		{
+			// display inventory
+			inventory->print();
+
+			int choice{ utility::getInt("\nItem number to remove (or 0 for none): ", 0, inventory->getSize()) };
+
+			// doesn't want to remove item
+			if (choice == 0)
+			{
+				notDone = false;
+			}
+
+			// remove item (unless it is current weapon or armor)
+			else
+			{
+				Treasure* w{ new Treasure("weapon", 10, 0, 0, Type::weapon) };
+				Treasure* a{ new Treasure("armor", 10, 0, 0, Type::armor) };
+				/*if (!inventory->deleteIfNotCurrent(choice - 1, player->getCurrentWeapon(), player->getCurrentArmor()))
+				{
+					std::cout << "\nError. Cannot remove current weapon or armor.\n";
+				}*/
+				if (!inventory->deleteIfNotCurrent(choice - 1, w, a))
+				{
+					std::cout << "\nError. Cannot remove current weapon or armor.\n";
+				}
+				delete w;
+				w = nullptr;
+				delete a;
+				a = nullptr;
+			}
+		}
+	}
+}
+
 ///************************************ equipTreasure ***********************************************
 //This function asks the user if they want to equip a treasure item. They can only equip
 //one weapon and one armor at at time.
@@ -386,9 +388,9 @@ void Game::addTreasureToInv(int row, int col)
 //	{
 //		// print currently equipped weapon and armor and inventory
 //		player->printWeaponAndArmor();
-//		playerInventory->print();
+//		inventory->print();
 //
-//		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, playerInventory->getSize());
+//		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
 //
 //		if (choice == 0)
 //		{
@@ -397,7 +399,7 @@ void Game::addTreasureToInv(int row, int col)
 //		else
 //		{
 //			// get treasure from index user specified
-//			Treasure* item{ playerInventory->getTreasure(choice - 1) };
+//			Treasure* item{ inventory->getTreasure(choice - 1) };
 //
 //			// if item can't be equipped, print error
 //			if (!player->equipItem(item))
@@ -416,12 +418,12 @@ void Game::addTreasureToInv(int row, int col)
 //*****************************************************************************************************/
 //void Game::drinkHolyWater()
 //{
-//	int position{ playerInventory->getItemPosition(Type::holyWater) };
+//	int position{ inventory->getItemPosition(Type::holyWater) };
 //
 //	// drink holy water if it's in inventory
 //	if (position != -1)
 //	{
-//		int hpRecovered{ playerInventory->useHolyWater(position) };
+//		int hpRecovered{ inventory->useHolyWater(position) };
 //		player->recoverHP(hpRecovered);
 //		std::cout << "\n" << player->getName() << " drank holy water, restoring " << hpRecovered << " HP.\n";
 //	}
@@ -443,7 +445,7 @@ void Game::addTreasureToInv(int row, int col)
 //{
 //	// get enemy in player's tile and create combat object to start combat
 //	Character* enemy{ currentRoom->getMonster(currentRoom->getplayerRow(), currentRoom->getplayerCol()) };
-//	Combat combat(player, enemy, playerInventory);
+//	Combat combat(player, enemy, inventory);
 //	combat.fightRound();
 //
 //	// print victory message if player wins fight against lich cardinal
@@ -502,11 +504,11 @@ void Game::addTreasureToInv(int row, int col)
 //		if (player->getHP() == 0)
 //		{
 //			// revive player with holy water, if they have any
-//			int position{ playerInventory->getItemPosition(Type::holyWater) };
+//			int position{ inventory->getItemPosition(Type::holyWater) };
 //
 //			if (position != -1)
 //			{
-//				int hpRecovered{ playerInventory->useHolyWater(position) };
+//				int hpRecovered{ inventory->useHolyWater(position) };
 //				player->recoverHP(hpRecovered);
 //				std::cout << "\nThe church's evil energy drained " << player->getName() << "'s last health,"
 //					<< "\nbut holy water in the inventory saved them.\n\n";

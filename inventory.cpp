@@ -124,7 +124,7 @@ void Inventory::print()
 //}
 
 /********************************* add ***********************************************************
-This function adds an item to the hero's inventory, if it has fewer than 5 items. 
+This function adds an item to the hero's inventory.
 Arguments: Treasure pointer by reference
 Returns: void
 ***************************************************************************************************/
@@ -135,40 +135,40 @@ void Inventory::add(std::unique_ptr<Treasure> t)
 	print();
 }
 
-///********************************* deleteIfNotCurrent ************************************************
-//This function removes an item from the vector, unless it is the hero's current weapon or armor.
-//(Hero must un-equip item first before removing from inventory.)
-//Arguments: integer for position in vector
-//Returns: void
-//Source: http://www.cplusplus.com/reference/list/list/end/
-//***************************************************************************************************/
-//bool Inventory::deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA)
-//{
-//	Treasure* invItem{ inventory.at(position) };
-//	if (invItem->getName() != currentW->getName() && invItem->getName() != currentA->getName())
-//	{
-//		delete inventory.at(position);
-//		inventory.erase(inventory.begin() + position);
-//
-//		return true;
-//	}
-//	else
-//	{
-//		return false;
-//	}
-//}
-//
-///********************************* deleteItem *****************************************************
-//This function deletes an item in the inventory, without checking for current weapon/armor.
-//Arguments: integer for position in vector
-//Returns: void
-//***************************************************************************************************/
-//void Inventory::deleteItem(int position)
-//{
-//	delete inventory.at(position);
-//	inventory.erase(inventory.begin() + position);
-//}
-//
+/********************************* deleteIfNotCurrent ************************************************
+This function removes an item from the vector, unless it is the hero's current weapon or armor.
+(Hero must un-equip item first before removing from inventory.)
+Arguments: integer for position in vector
+Returns: void
+Source: http://www.cplusplus.com/reference/list/list/end/
+***************************************************************************************************/
+bool Inventory::deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA)
+{
+	Treasure* invItem{ inventory.at(position).get() };
+	if (invItem->getName() != currentW->getName() && invItem->getName() != currentA->getName())
+	{
+		inventory.at(position).reset();
+		inventory.erase(inventory.begin() + position);
+	
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/********************************* deleteItem *****************************************************
+This function deletes an item in the inventory, without checking for current weapon/armor.
+Arguments: integer for position in vector
+Returns: void
+***************************************************************************************************/
+void Inventory::deleteItem(int position)
+{
+	inventory.at(position);
+	inventory.erase(inventory.begin() + position);
+}
+
 ///********************************* hasKey *******************************************************
 //This function tests if the inventory contains a key.
 //Arguments: none
@@ -224,30 +224,39 @@ void Inventory::add(std::unique_ptr<Treasure> t)
 //	return hpRestored;
 //}
 //
-///********************************* getters and setters  ************************************************/
-//int Inventory::getSize()
-//{
-//	return inventory.size();
-//}
-//
-//bool Inventory::notFull()
-//{
-//	return inventory.size() < CAPACITY;
-//}
-//
+/********************************* getters and setters  ************************************************/
+int Inventory::getSize()
+{
+	return inventory.size();
+}
+
+
 //Treasure* Inventory::getTreasure(int position)
 //{
 //	return inventory.at(position);
 //}
 
+// returns pointer to vector containing Treasure unique_ptrs
 std::vector<std::unique_ptr<Treasure>>* Inventory::getInventory()
 {
 	return &inventory;
 }
 
+// returns true if inventory contains fewer than CAPACITY items (currently 5)
 bool Inventory::notFull()
 {
 	if (inventory.size() < CAPACITY)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// returns true if inventory vector is empty
+bool Inventory::isEmpty()
+{
+	if (inventory.size() == 0)
 	{
 		return true;
 	}

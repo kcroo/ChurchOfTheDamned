@@ -33,10 +33,6 @@ holy water to revive them); or the hero defeats the lich cardinal.
 
 #include <memory>
 
-using std::unique_ptr;
-using std::shared_ptr;
-using std::weak_ptr;
-
 class Game
 {
 	public:
@@ -49,24 +45,24 @@ class Game
 	private:
 		bool gameContinues;
 		int turns;					// # turns so far 
-		unique_ptr<Character> player;
+		std::unique_ptr<Character> player;
 
 		// rooms
-		shared_ptr<Room> currentRoom;
-		shared_ptr<Room> sanctuary;
-		shared_ptr<Room> mezzanine;
-		shared_ptr<Room> bellTower;
-		shared_ptr<Room> gallery;
-		shared_ptr<Room> dungeon;
-		shared_ptr<Room> crypt;
+		std::shared_ptr<Room> currentRoom;
+		std::shared_ptr<Room> sanctuary;
+		std::shared_ptr<Room> mezzanine;
+		std::shared_ptr<Room> bellTower;
+		std::shared_ptr<Room> gallery;
+		std::shared_ptr<Room> dungeon;
+		std::shared_ptr<Room> crypt;
 		//void createRooms();
 	
 		// inventory management
 		Inventory* inventory;
 		//void chooseHero();
 		void addTreasureToInv(int row, int col);
-		//void manageInventory();
-		//void removeItemInventory();
+		void manageInventory();
+		void removeItemInventory();
 		//void equipWeaponOrArmor();
 		//void drinkHolyWater();
 
@@ -76,7 +72,6 @@ class Game
 
 		//// print
 		//void printIntro();
-		////Utility utility;		// many printing functions
 };
 
 
