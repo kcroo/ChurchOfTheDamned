@@ -198,20 +198,7 @@ void Game::move()
 
 			case 3:		// treasure
 			{
-				if (inventory->notFull())
-				{
-					std::unique_ptr<Treasure> treasure = currentRoom->moveTreasure(currentRow, currentCol);
-					treasure->print();
-
-					inventory->add(std::move(treasure));
-
-					inventory->print();
-				}
-				else
-				{
-					std::cout << "\nCan't add treasure. Inventory full.";
-				}
-				
+				Game::addTreasureToInv(currentRow, currentCol);
 				
 				
 				/******* problem in add function ******/
@@ -268,37 +255,41 @@ void Game::move()
 }
 
 
-///************************************ addTreasureToInv ***********************************************
-//This function adds new treasure to the Charactor's inventory.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::addTreasureToInv(std::unique_ptr<Treasure> t, int row, int col)
-//{
-//	std::cout << "\nYou have found a " << t->getName() << "!\n\n";
-//	
-//	// print treasure stats and current inventory
-//	t->print();
-//	std::cout << std::endl;
-//	heroInventory->print();
-//
-//	// ask player to add treasure to inventory
-//	int choice{ utility::getInt("\n1. Add to inventory \n2. Don't add\n", 1, 2) };
-//	if (choice == 1)
-//	{
-//		// add to inventory if there is room
-//		if (heroInventory->add(t))
-//		{
-//			//currentRoom->setTileToHero(row, col);
-//			heroInventory->print();
-//		}
-//		// inventory is full
-//		else
-//		{
-//			std::cout << "\nCan't add to inventory. Inventory already contains 5 items.\n";
-//		}
-//	}
-//}
+/************************************ addTreasureToInv ***********************************************
+This function adds new treasure to the Charactor's inventory.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::addTreasureToInv(int row, int col)
+{
+	Treasure* treasure{ currentRoom->getTreasure(row, col) };
+	
+	std::cout << "\nYou have found a " << treasure->getName() << "!\n\n";
+	
+	// print treasure stats and current inventory
+	treasure->print();
+	std::cout << "\nYour inventory: " << std::endl;
+	inventory->print();
+
+	// ask player to add treasure to inventory
+	int choice{ utility::getInt("\n1. Add to inventory \n2. Don't add\n", 1, 2) };
+	if (choice == 1)
+	{
+		// add to inventory if there is room
+		if (inventory->notFull())
+		{
+			std::unique_ptr<Treasure> t = currentRoom->moveTreasure(row, col);
+			inventory->add(std::move(t));
+			//currentRoom->setTileToHero(row, col);
+			inventory->print();
+		}
+		// inventory is full
+		else
+		{
+			std::cout << "\nCan't add to inventory. Inventory already contains 5 items.\n";
+		}
+	}
+}
 
 ///************************************ manageInventory ***********************************************
 //This function lets the user remove items from inventory and equip other equipment.

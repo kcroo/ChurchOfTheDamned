@@ -71,7 +71,7 @@ void Tile::setToEmpty()
 	if (!isStairsOrDoor)
 	{
 		//monster = nullptr;
-		//treasure = nullptr;
+		treasure = nullptr;
 		symbol = ' ';
 		empty = true;
 	}
@@ -145,7 +145,6 @@ void Tile::removeTreasure()
 /****** RENAME TO CHECK TREASURE ********/
 Treasure* Tile::getTreasure()
 {
-	assert(treasure != nullptr);
 	return treasure.get();
 }
 

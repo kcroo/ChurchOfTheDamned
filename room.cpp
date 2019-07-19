@@ -133,19 +133,18 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, std::shar
 	// if tile is empty, move there 
 	if (room[newRow][newCol].getEmpty())
 	{
-		room[heroRow][heroCol].setToEmpty();
 		room[newRow][newCol].setToHero();
 
-		//// if hero is leaving tile with no treasure, set to empty
-		//if (room[heroRow][heroCol].getTreasure() == nullptr)
-		//{
-		//	room[heroRow][heroCol].setToEmpty();
-		//}
-		//// if hero is leaving tile with treasure they didn't take, set symbol to T
-		//else
-		//{
-		//	room[heroRow][heroCol].setSymbol('T');
-		//}
+		// if hero is leaving tile with no treasure, set to empty
+		if (room[heroRow][heroCol].getTreasure() == nullptr)
+		{
+			room[heroRow][heroCol].setToEmpty();
+		}
+		// if hero is leaving tile with treasure they didn't take, set symbol to T
+		else
+		{
+			room[heroRow][heroCol].setSymbol('T');
+		}
 
 		heroRow = newRow;
 		heroCol = newCol;
@@ -166,7 +165,6 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, std::shar
 	{
 		room[newRow][newCol].setToHero();
 		room[heroRow][heroCol].setToEmpty();
-		std::cout << "\nTreasure on tile " << newRow << " " << newCol << ":\n";
 
 		heroRow = newRow;
 		heroCol = newCol;
