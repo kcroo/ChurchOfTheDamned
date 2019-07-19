@@ -13,11 +13,12 @@ https://stackoverflow.com/questions/14495536/how-to-initialize-const-member-vari
 #define CHARACTER_HPP
 
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
-//#include "Inventory.hpp"
-//#include "Treasure.hpp"
+#include "inventory.hpp"
+#include "treasure.hpp"
 #include "utility.hpp"
 
 class Character
@@ -30,10 +31,10 @@ class Character
 
 		// inventory
 		static const int capacity{ 5 };			// max # of items in inventory
-		//Inventory inventory;					// includes vector to contain weapons, armor, etc.
-		//Treasure* currentWeapon;
-		//Treasure* currentArmor;
-		//Utility utility;			
+		Inventory inventory;					// includes vector to contain weapons, armor, etc.
+		std::vector <std::unique_ptr<Treasure>> inv;
+												//Treasure* currentWeapon;
+		//Treasure* currentArmor;		
 
 	public:
 		Character(int maxHealth, std::string ty, std::string n);
@@ -44,6 +45,8 @@ class Character
 		void recoverHP(int amountHealed);
 		//void printWeaponAndArmor();
 		//bool equipItem(Treasure*& item);
+		void addTreasureToInventory(std::unique_ptr<Treasure> t);
+		void addTreasure(std::unique_ptr<Treasure> t);
 
 		// getters and setters
 		int getHP();
@@ -54,11 +57,11 @@ class Character
 		void setType(std::string ty);
 		std::string getName();
 		void setName(std::string n);
-		/*Inventory* getInventory();
-		Treasure* getCurrentWeapon();
-		void setCurrentWeapon(Treasure* t);
-		Treasure* getCurrentArmor();
-		void setCurrentArmor(Treasure* t);*/
+		Inventory* getInventory();
+		// Treasure* getCurrentWeapon();
+		// void setCurrentWeapon(Treasure* t);
+		// Treasure* getCurrentArmor();
+		// void setCurrentArmor(Treasure* t);*/
 };
 
 #endif

@@ -5,6 +5,7 @@ Author: Kirsten Corrao
 Date: 07/12/2019
 ***************************************************************************************************/
 #include "room.hpp"
+#include <assert.h>
 
 /************************************ constructor ****************************************************
 The constructor creates a 2D array made of Tile objects, then creates a border around the room.
@@ -160,16 +161,18 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, std::shar
 
 	//	return 2;
 	//}
-	//// if tile has treasure, pick up treasure
-	//else if (room[newRow][newCol].getTreasure() != nullptr)
-	//{
-	//	room[newRow][newCol].setToHero();
-	//	room[heroRow][heroCol].setToEmpty();
-	//	heroRow = newRow;
-	//	heroCol = newCol;
+	// if tile has treasure, pick up treasure
+	else if (room[newRow][newCol].getTreasure() != nullptr)
+	{
+		room[newRow][newCol].setToHero();
+		room[heroRow][heroCol].setToEmpty();
+		std::cout << "\nTreasure on tile " << newRow << " " << newCol << ":\n";
 
-	//	return 3;
-	//}
+		heroRow = newRow;
+		heroCol = newCol;
+
+		return 3;
+	}
 	// if door is locked
 	else if (room[newRow][newCol].getIsStairsOrDoor() == true && room[newRow][newCol].getIsLocked() == true)
 	{
@@ -190,17 +193,24 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, std::shar
 	}
 }
 
-///************************************ getTreasure *************************************************
-//This function returns a pointer to the Treasure object at a certain row and column.
-//Parameters: int for row, int for column
-//Returns: Treasure pointer 
-//*****************************************************************************************************/
-//Treasure* Room::getTreasure(int row, int col)
-//{
-//	Treasure* t = room[row][col].getTreasure();
-//	return t;
-//}
-//
+/************************************ getTreasure *************************************************
+This function returns a pointer to the Treasure object at a certain row and column.
+Parameters: int for row, int for column
+Returns: Treasure pointer 
+*****************************************************************************************************/
+Treasure* Room::getTreasure(int row, int col)
+{
+	Treasure* t = room[row][col].getTreasure();			// returns address of smart pointer 
+	assert(t != nullptr);
+	return t;
+}
+
+std::unique_ptr<Treasure> Room::moveTreasure(int row, int col)
+{
+	std::unique_ptr<Treasure> t = room[row][col].moveTreasure();
+	return std::move(t);
+}
+
 ///************************************ getMonster *************************************************
 //This function returns a pointer to the monster at a certain row and column
 //Parameters: int for row, int for column

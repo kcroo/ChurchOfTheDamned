@@ -11,6 +11,7 @@ fighting monsters and collecting items. The game ends when the player's HP reach
 holy water to revive them); or the player defeats the lich cardinal.
 ***************************************************************************************************/
 #include "Game.hpp"
+#include <assert.h>
 
 using std::make_unique;
 
@@ -18,10 +19,11 @@ using std::make_unique;
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, turns{ 1 } /*player{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
+	: gameContinues{ true }, turns{ 1 }  /*player{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
 	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }*/
 	//playerInventory{ nullptr }
 {
+	
 }
 
 /********************************* destructor *****************************************************
@@ -83,6 +85,7 @@ void Game::play()
 	sanctuary = make_unique<Sanctuary>();
 	currentRoom = sanctuary;
 	std::unique_ptr<Character> player = std::make_unique<Fighter>("player name");
+	inventory = player->getInventory();
 
 	while (gameContinues)
 	{
@@ -195,8 +198,28 @@ void Game::move()
 
 			case 3:		// treasure
 			{
-				//Treasure* t{ currentRoom->getTreasure(currentRow, currentCol) };
-				//Game::addTreasureToInv(t, currentRow, currentCol);
+				if (inventory->notFull())
+				{
+					std::unique_ptr<Treasure> treasure = currentRoom->moveTreasure(currentRow, currentCol);
+					treasure->print();
+
+					inventory->add(std::move(treasure));
+
+					inventory->print();
+				}
+				else
+				{
+					std::cout << "\nCan't add treasure. Inventory full.";
+				}
+				
+				
+				
+				/******* problem in add function ******/
+				//heroInventory->add(t);
+
+				//player->addTreasureToInventory(std::move(t));
+				//Game::addTreasureToInv(std::move(t), currentRow, currentCol));
+
 				break;
 			}
 			case 4:		// door is locked
@@ -250,24 +273,24 @@ void Game::move()
 //Parameters: none
 //Returns: void
 //*****************************************************************************************************/
-//void Game::addTreasureToInv(Treasure*& t, int row, int col)
+//void Game::addTreasureToInv(std::unique_ptr<Treasure> t, int row, int col)
 //{
 //	std::cout << "\nYou have found a " << t->getName() << "!\n\n";
 //	
 //	// print treasure stats and current inventory
 //	t->print();
 //	std::cout << std::endl;
-//	playerInventory->print();
+//	heroInventory->print();
 //
 //	// ask player to add treasure to inventory
 //	int choice{ utility::getInt("\n1. Add to inventory \n2. Don't add\n", 1, 2) };
 //	if (choice == 1)
 //	{
 //		// add to inventory if there is room
-//		if (playerInventory->addItem(t))
+//		if (heroInventory->add(t))
 //		{
-//			currentRoom->setTileToplayer(row, col);
-//			playerInventory->print();
+//			//currentRoom->setTileToHero(row, col);
+//			heroInventory->print();
 //		}
 //		// inventory is full
 //		else
@@ -276,7 +299,7 @@ void Game::move()
 //		}
 //	}
 //}
-//
+
 ///************************************ manageInventory ***********************************************
 //This function lets the user remove items from inventory and equip other equipment.
 //Parameters: none

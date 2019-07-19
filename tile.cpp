@@ -8,6 +8,7 @@ for each room. Each tile can contain the hero; a pointer to a monster; a pointer
 to another room; door to another room; or in the bell tower, a bell.
 ***************************************************************************************************/
 
+#include <assert.h>
 #include "tile.hpp"
 
 /*********************************** constructor ****************************************************
@@ -15,8 +16,8 @@ Sets all member variables to null or empty.
 *****************************************************************************************************/
 Tile::Tile()
 	: symbol{ ' ' }, empty{ true },
-	isStairsOrDoor{ false }, isLocked{ false }, test{ 'X' }
-	//monster{ nullptr }, treasure{ nullptr }
+	isStairsOrDoor{ false }, isLocked{ false }, treasure{ nullptr }
+	//monster{ nullptr }
 {
 }
 
@@ -51,9 +52,11 @@ void Tile::setToHero()
 This function sets the Tile object's attributes to a treasure. The tile now "owns" that treasure, and it 
 can be transferred to the player's inventory.
 *****************************************************************************************************/
-void Tile::setToTreasure(std::unique_ptr<Treasure>& t)
+void Tile::setToTreasure(std::string name, int att, int def, int hp, Type t)
 {
-	treasure = std::move(t);
+	treasure = std::make_unique<Treasure>(name, att, def, hp, t);
+	assert(treasure != nullptr);
+	treasure->print();
 	symbol = 'T';
 	empty = false;
 }
@@ -139,7 +142,14 @@ void Tile::removeTreasure()
 //}
 
 // treasure
-std::unique_ptr<Treasure> Tile::getTreasure()
+/****** RENAME TO CHECK TREASURE ********/
+Treasure* Tile::getTreasure()
+{
+	assert(treasure != nullptr);
+	return treasure.get();
+}
+
+std::unique_ptr<Treasure> Tile::moveTreasure()
 {
 	return std::move(treasure);
 }

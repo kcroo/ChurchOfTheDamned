@@ -28,7 +28,8 @@ class Room
 		virtual int moveCharacter(std::unique_ptr<Character>& c, char direction, std::shared_ptr<Room>& currentRoom);
 		//virtual Room* moveNewRoom(int row, int col) = 0;
 
-		//Treasure* getTreasure(int row, int col);
+		Treasure* getTreasure(int row, int col);
+		std::unique_ptr<Treasure> moveTreasure(int row, int col);
 		//Character* getMonster(int row, int col);
 		//void setTileToEmpty(int row, int col);
 		//void setTileToHero(int row, int col);

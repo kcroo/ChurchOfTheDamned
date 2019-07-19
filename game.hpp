@@ -50,6 +50,7 @@ class Game
 		bool gameContinues;
 		int turns;					// # turns so far 
 		unique_ptr<Character> player;
+		//std::vector<std::unique_ptr<Treasure>> inventory;
 
 		// rooms
 		shared_ptr<Room> currentRoom;
@@ -62,9 +63,9 @@ class Game
 		//void createRooms();
 	
 		// inventory management
-		//Inventory* heroInventory;
+		Inventory* inventory;
 		//void chooseHero();
-		//void addTreasureToInv(Treasure*& t, int row, int col);
+		void addTreasureToInv(std::unique_ptr<Treasure> t, int row, int col);
 		//void manageInventory();
 		//void removeItemInventory();
 		//void equipWeaponOrArmor();

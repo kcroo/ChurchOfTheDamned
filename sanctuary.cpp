@@ -33,12 +33,11 @@ Sanctuary::Sanctuary()
 	//room[2][11].setToMonster(monster2, 'P');
 
 	//// create treasure and move to appropriate tile
-	treasure1 = std::make_unique<Treasure>("Leather Armor", 0, 8, 0, Type::armor);
-	//room[6][10].getTreasure() = std::move(treasure1);
-	room[6][10].setToTreasure(treasure1);
+	//treasure1 = std::make_unique<Treasure>("Leather Armor", 0, 8, 0, Type::armor);
+	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
 
-	//treasure2 = new Treasure("Holy Water", 0, 0, 10, Type::holyWater);
-	//room[7][2].setToTreasure(treasure2);
+	//treasure2 = std::make_unique<Treasure>("Holy Water", 0, 0, 10, Type::holyWater);
+	//room[7][2].setToTreasure(std::move(treasure2));
 
 	//// initialize inventories and add extra items
 	//Inventory* monster1Inv{ monster1->getInventory() };

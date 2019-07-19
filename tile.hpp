@@ -19,11 +19,12 @@ class Tile
 {
 private:
 	//Character* monster;
-	std::unique_ptr<Treasure> treasure;
+
 	char symbol;
 	bool empty;
 	bool isStairsOrDoor;							// used to see if hero goes to other room
 	bool isLocked;									// used to see if hero can open door
+	std::unique_ptr<Treasure> treasure;
 
 public:
 	Tile();
@@ -31,7 +32,7 @@ public:
 	char test;
 	void setToHero();
 	//void setToMonster(Character* monst, char c);
-	void setToTreasure(std::unique_ptr<Treasure>& t);
+	void setToTreasure(std::string name, int att, int def, int hp, Type t);
 	void setToEmpty();			
 	void setToStairs();
 	void setToDoor(bool locked = false);			// doors default to unlocked
@@ -42,7 +43,8 @@ public:
 	// getters and setters
 	// Character* getMonster();
 	// void setMonster(Character* m);
-	std::unique_ptr<Treasure> getTreasure();
+	Treasure* getTreasure();
+	std::unique_ptr<Treasure> moveTreasure();
 	void setTreasure(std::unique_ptr<Treasure> t);
 
 	char getSymbol();

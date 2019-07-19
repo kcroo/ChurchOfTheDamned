@@ -119,6 +119,20 @@ void Character::recoverHP(int amountHealed)
 //	}
 //}
 
+///********************************* addTreasureToInventory ******************************************
+//***************************************************************************************************/
+//void Character::addTreasureToInventory(std::unique_ptr<Treasure>& treas)
+//{
+//	inventory.add(treas);
+//	inventory.print();
+//}
+
+
+void Character::addTreasure(std::unique_ptr<Treasure> t)
+{
+	inv.push_back(std::move(t));
+}
+
 /********************************* getters and setters ********************************************
 ***************************************************************************************************/
 
@@ -166,12 +180,12 @@ void Character::setName(std::string n)
 	name = n;
 }
 
-//// inventory
-//Inventory* Character::getInventory()
-//{
-//	return &inventory;
-//}
-//
+// inventory
+Inventory* Character::getInventory()
+{
+	return &inventory;
+}
+
 //// currentWeapon
 //Treasure* Character::getCurrentWeapon()
 //{
