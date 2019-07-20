@@ -13,15 +13,14 @@ holy water to revive them); or the player defeats the lich cardinal.
 #include "Game.hpp"
 #include <assert.h>
 
-using std::make_unique;
 
 /********************************* constructor *****************************************************
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, turns{ 1 }  /*player{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
-	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }*/
-	//inventory{ nullptr }
+	: gameContinues{ true }, turns{ 1 }, hero{ nullptr } /*currentRoom{ nullptr }, sanctuary{ nullptr },
+	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr },
+	inventory{ nullptr }*/
 {
 	
 }
@@ -33,7 +32,7 @@ to null.
 Game::~Game()
 {
 	/*delete player;
-	player = nullptr;
+	hero = nullptr;
 	currentRoom = nullptr;
 	delete sanctuary;
 	sanctuary = nullptr;
@@ -82,10 +81,10 @@ void Game::play()
 {
 	//utility::displayTextFile("title.txt");
 
-	sanctuary = make_unique<Sanctuary>();
+	sanctuary = std::make_unique<Sanctuary>();
 	currentRoom = sanctuary;
-	std::unique_ptr<Character> player = std::make_unique<Fighter>("player name");
-	inventory = player->getInventory();
+	hero = std::make_unique<Fighter>("Hugo");
+	inventory = hero->getInventory();
 
 	while (gameContinues)
 	{
@@ -99,7 +98,7 @@ void Game::play()
 		//	case 1:
 		//	{
 		//		Game::printIntro();
-		//		Game::chooseplayer();							// user chooses player name
+		//		Game::chooseHero();							// user chooses player name
 
 		//		Game::createRooms();
 		//		currentRoom = sanctuary;
@@ -124,17 +123,17 @@ void Game::play()
 	}
 }
 
-///********************************* chooseplayer *****************************************************
+///********************************* chooseHero *****************************************************
 //This function lets the user choose their player's name. It then dynamically creates the Character
 //object and sets it to player.
 //Arguments: none
 //Returns: void
 //***************************************************************************************************/
-//void Game::chooseplayer()
+//void Game::chooseHero()
 //{
-//	std::string playerName{ utility::getString("\nWhat is your name?\n", 10) };
-//	player = new Fighter(playerName);
-//	inventory = player->getInventory();
+//	std::string heroName{ utility::getString("\nWhat is your name?\n", 10) };
+//	hero = new Fighter(heroName);
+//	inventory = hero->getInventory();
 //}
 //
 /********************************* move ************************************************************
@@ -147,15 +146,15 @@ Returns: void
 void Game::move()
 {
 	std::cout << "\nLEGEND\n";
-	utility::printLegend("H - player", "T - treasure", "s - stairs", "d - door", "D - Dark Priest");
+	utility::printLegend("H - hero", "T - treasure", "s - stairs", "d - door", "D - Dark Priest");
 	utility::printLegend("C - Zombie Choir Boy", "O - Corrupted Ghost", "G - Ghoul Tormenter", "L - Lich Cardinal");
 	
-	//Treasure* currentWeapon{ player->getCurrentWeapon() };
-	//Treasure* currentArmor{ player->getCurrentArmor() };
+	Treasure* currentWeapon{ hero->getCurrentWeapon() };
+	Treasure* currentArmor{ hero->getCurrentArmor() };
 
 	std::cout << "\nSTATUS\n";
 	utility::printStatus("Name", "HP", "Weapon", "Armor");
-	//utility::printStatus(player->getName(), player->getHP(), currentWeapon->getName(), currentArmor->getName());
+	utility::printStatus(hero->getName(), hero->getHP(), currentWeapon->getName(), currentArmor->getName());
 
 	std::cout << "\nMOVEMENT\n"
 		<< "w - up    s - down    d - right    a - left    i - inventory    q - quit";
@@ -179,7 +178,7 @@ void Game::move()
 	// move around room
 	else
 	{
-		int action = currentRoom->moveCharacter(player, direction, currentRoom);		// updates playerRow and playerCol
+		int action = currentRoom->moveCharacter(hero, direction, currentRoom);		// updates playerRow and playerCol
 
 		int currentRow{ currentRoom->getHeroRow() };
 		int currentCol{ currentRoom->getHeroCol() };
@@ -228,7 +227,7 @@ void Game::move()
 			{
 				//currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 
-				//// if room is sanctuary and the player rung the bell in the bell tower, fill it with monsters
+				//// if room is sanctuary and the hero rung the bell in the bell tower, fill it with monsters
 				//if (currentRoom == sanctuary && bellTower->getBellRung())
 				//{
 				//	currentRoom->fillRoomMonsters();
@@ -356,7 +355,7 @@ void Game::removeItemInventory()
 			{
 				Treasure* w{ new Treasure("weapon", 10, 0, 0, Type::weapon) };
 				Treasure* a{ new Treasure("armor", 10, 0, 0, Type::armor) };
-				/*if (!inventory->deleteIfNotCurrent(choice - 1, player->getCurrentWeapon(), player->getCurrentArmor()))
+				/*if (!inventory->deleteIfNotCurrent(choice - 1, hero->getCurrentWeapon(), hero->getCurrentArmor()))
 				{
 					std::cout << "\nError. Cannot remove current weapon or armor.\n";
 				}*/
@@ -387,7 +386,7 @@ void Game::removeItemInventory()
 //	while (notDone)
 //	{
 //		// print currently equipped weapon and armor and inventory
-//		player->printWeaponAndArmor();
+//		hero->printWeaponAndArmor();
 //		inventory->print();
 //
 //		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
@@ -402,7 +401,7 @@ void Game::removeItemInventory()
 //			Treasure* item{ inventory->getTreasure(choice - 1) };
 //
 //			// if item can't be equipped, print error
-//			if (!player->equipItem(item))
+//			if (!hero->equipItem(item))
 //			{
 //				std::cout << "\nError: item is not a weapon or armor.\n";
 //			}
@@ -424,8 +423,8 @@ void Game::removeItemInventory()
 //	if (position != -1)
 //	{
 //		int hpRecovered{ inventory->useHolyWater(position) };
-//		player->recoverHP(hpRecovered);
-//		std::cout << "\n" << player->getName() << " drank holy water, restoring " << hpRecovered << " HP.\n";
+//		hero->recoverHP(hpRecovered);
+//		std::cout << "\n" << hero->getName() << " drank holy water, restoring " << hpRecovered << " HP.\n";
 //	}
 //
 //	// display error
@@ -444,15 +443,15 @@ void Game::removeItemInventory()
 //void Game::combat()
 //{
 //	// get enemy in player's tile and create combat object to start combat
-//	Character* enemy{ currentRoom->getMonster(currentRoom->getplayerRow(), currentRoom->getplayerCol()) };
-//	Combat combat(player, enemy, inventory);
+//	Character* enemy{ currentRoom->getMonster(currentRoom->getHeroRow(), currentRoom->getHeroCol()) };
+//	Combat combat(hero, enemy, inventory);
 //	combat.fightRound();
 //
 //	// print victory message if player wins fight against lich cardinal
-//	if (player->getHP() != 0 && enemy->getType() == "Lich Cardinal")
+//	if (hero->getHP() != 0 && enemy->getType() == "Lich Cardinal")
 //	{
 //		gameContinues = false;
-//		std::cout << "\nVICTORY! " << player->getName() << " has defeated the LICH CARDINAL."
+//		std::cout << "\nVICTORY! " << hero->getName() << " has defeated the LICH CARDINAL."
 //			<< "\nHis agonizing scream fades into the darkness, leaving behind a bland copper medallion."
 //			<< "\nAs you make your way out of the church, the unwordly creatures you saw before have vanished--"
 //			<< "\nexcept for the whispered \"THANK YOU\" you hear as you pass where the GHOSTS of your"
@@ -466,17 +465,17 @@ void Game::removeItemInventory()
 //	}
 //
 //	// print defeat message if player dies fighting lich cardinal
-//	else if (player->getHP() == 0 && enemy->getType() == "Lich Cardinal")
+//	else if (hero->getHP() == 0 && enemy->getType() == "Lich Cardinal")
 //	{
 //		gameContinues = false;
-//		std::cout << "\nDEFEAT. The LICH CARDINAL has slain " << player->getName() << ". You hear the"
+//		std::cout << "\nDEFEAT. The LICH CARDINAL has slain " << hero->getName() << ". You hear the"
 //			<< "\nLICH CARDINAL's cackling as your consciousness fades. You succumb to the darkness,"
 //			"\nknowing that your fate will be the same as the other poor souls you found in the church."
 //			"\nYou hope that another player will rise to rescue your body from the CHURCH OF THE DAMNED.\n\n";
 //	}
 //
 //	// print different defeat message if player dies fighting other monster
-//	else if (player->getHP() == 0)
+//	else if (hero->getHP() == 0)
 //	{
 //		gameContinues = false;
 //		std::cout << "\nYou collapse to the ground, dying, as the evil spectres of the church surround you."
@@ -498,10 +497,10 @@ void Game::removeItemInventory()
 //	if (turns % 5 == 0)
 //	{
 //		// player loses 1 HP
-//		player->decreaseHP(1);
+//		hero->decreaseHP(1);
 //
 //		// if the energy drained the player's last HP
-//		if (player->getHP() == 0)
+//		if (hero->getHP() == 0)
 //		{
 //			// revive player with holy water, if they have any
 //			int position{ inventory->getItemPosition(Type::holyWater) };
@@ -509,16 +508,16 @@ void Game::removeItemInventory()
 //			if (position != -1)
 //			{
 //				int hpRecovered{ inventory->useHolyWater(position) };
-//				player->recoverHP(hpRecovered);
-//				std::cout << "\nThe church's evil energy drained " << player->getName() << "'s last health,"
+//				hero->recoverHP(hpRecovered);
+//				std::cout << "\nThe church's evil energy drained " << hero->getName() << "'s last health,"
 //					<< "\nbut holy water in the inventory saved them.\n\n";
 //			}
 //
 //			// otherwise player dies
 //			else
 //			{
-//				std::cout << "\nThe church's evil energy has drained " << player->getName() << "'s last remaining HP!"
-//					<< "\nThe player is dead. The last thing you hear is the cackling of the LICH CARDINAL in your ear."
+//				std::cout << "\nThe church's evil energy has drained " << hero->getName() << "'s last remaining HP!"
+//					<< "\nThe hero is dead. The last thing you hear is the cackling of the LICH CARDINAL in your ear."
 //					<< "\nMay God have mercy on your soul, for the CHURCH OF THE DAMNED will give you none.\n";
 //				gameContinues = false;
 //			}
@@ -527,7 +526,7 @@ void Game::removeItemInventory()
 //		// display that player lost 1 HP
 //		else
 //		{
-//			std::cout << "\nThe church's evil energy has drained 1 HP from " << player->getName() << std::endl;
+//			std::cout << "\nThe church's evil energy has drained 1 HP from " << hero->getName() << std::endl;
 //		}
 //	}
 //}

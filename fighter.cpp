@@ -16,11 +16,16 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 Fighter::Fighter(std::string n)
 	: Character(12, "Fighter", n)		// HP, type, name
 {
-	/*inventory.add(new Treasure("Wooden Mallet", 4, 0, 0, Type::weapon));
-	inventory.add(new Treasure("Wool Clothing", 0, 5, 0, Type::armor));
+	std::unique_ptr<Treasure> weapon = std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, Type::weapon);
+	std::unique_ptr<Treasure> armor = std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, Type::armor);
+	inventory.add(std::move(weapon));
+	inventory.add(std::move(armor));
 	
 	currentWeapon = inventory.getTreasure(0);
-	currentArmor = inventory.getTreasure(1);*/
+	currentArmor = inventory.getTreasure(1);
+	std::cout << "\nIn fighter constructor";
+	currentWeapon->print();
+	currentArmor->print();
 }
 
 /********************************* destructor *****************************************************

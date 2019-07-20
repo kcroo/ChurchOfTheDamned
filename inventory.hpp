@@ -44,7 +44,7 @@ public:
 	//int useHolyWater(int position);
 
 	int getSize();
-	//Treasure* getTreasure(int position);
+	Treasure* getTreasure(int position);
 	std::vector<std::unique_ptr<Treasure>>* getInventory();
 	bool notFull();
 	bool isEmpty();

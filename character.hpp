@@ -32,9 +32,8 @@ class Character
 		// inventory
 		static const int capacity{ 5 };			// max # of items in inventory
 		Inventory inventory;					// includes vector to contain weapons, armor, etc.
-		std::vector <std::unique_ptr<Treasure>> inv;
-												//Treasure* currentWeapon;
-		//Treasure* currentArmor;		
+		Treasure* currentWeapon;
+		Treasure* currentArmor;		
 
 	public:
 		Character(int maxHealth, std::string ty, std::string n);
@@ -45,8 +44,6 @@ class Character
 		void recoverHP(int amountHealed);
 		//void printWeaponAndArmor();
 		//bool equipItem(Treasure*& item);
-		void addTreasureToInventory(std::unique_ptr<Treasure> t);
-		void addTreasure(std::unique_ptr<Treasure> t);
 
 		// getters and setters
 		int getHP();
@@ -58,10 +55,10 @@ class Character
 		std::string getName();
 		void setName(std::string n);
 		Inventory* getInventory();
-		// Treasure* getCurrentWeapon();
-		// void setCurrentWeapon(Treasure* t);
-		// Treasure* getCurrentArmor();
-		// void setCurrentArmor(Treasure* t);*/
+		Treasure* getCurrentWeapon();
+		void setCurrentWeapon(Treasure* t);
+		Treasure* getCurrentArmor();
+		void setCurrentArmor(Treasure* t);
 };
 
 #endif

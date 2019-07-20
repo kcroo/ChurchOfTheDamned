@@ -17,7 +17,6 @@ Arguments: 1 integer for starting/max HP, 1 string for type of character (e.g. f
 ***************************************************************************************************/
 Character::Character(int maxHealth, std::string ty, std::string n)
 	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }
-	//currentWeapon{ nullptr }, currentArmor{ nullptr }
 {
 	// weapon and armor allocated in derived classes
 }
@@ -119,19 +118,6 @@ void Character::recoverHP(int amountHealed)
 //	}
 //}
 
-///********************************* addTreasureToInventory ******************************************
-//***************************************************************************************************/
-//void Character::addTreasureToInventory(std::unique_ptr<Treasure>& treas)
-//{
-//	inventory.add(treas);
-//	inventory.print();
-//}
-
-
-void Character::addTreasure(std::unique_ptr<Treasure> t)
-{
-	inv.push_back(std::move(t));
-}
 
 /********************************* getters and setters ********************************************
 ***************************************************************************************************/
@@ -186,24 +172,24 @@ Inventory* Character::getInventory()
 	return &inventory;
 }
 
-//// currentWeapon
-//Treasure* Character::getCurrentWeapon()
-//{
-//	return currentWeapon;
-//}
-//
-//void Character::setCurrentWeapon(Treasure* t)
-//{
-//	currentWeapon = t;
-//}
-//
-//// currentArmor
-//Treasure* Character::getCurrentArmor()
-//{
-//	return currentArmor;
-//}
-//
-//void Character::setCurrentArmor(Treasure* t)
-//{
-//	currentArmor = t;
-//}
+// currentWeapon
+Treasure* Character::getCurrentWeapon()
+{
+	return currentWeapon;
+}
+
+void Character::setCurrentWeapon(Treasure* t)
+{
+	currentWeapon = t;
+}
+
+// currentArmor
+Treasure* Character::getCurrentArmor()
+{
+	return currentArmor;
+}
+
+void Character::setCurrentArmor(Treasure* t)
+{
+	currentArmor = t;
+}

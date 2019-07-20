@@ -15,8 +15,6 @@ restore HP; and check if the user has any of a certain item (usually used with h
 *****************************************************************************************************/
 Inventory::Inventory() 
 {
-	inventory.push_back(std::make_unique<Treasure>("t", 5, 0, 0, Type::weapon));
-	print();
 }
 
 /************************************ destructor *****************************************************
@@ -231,10 +229,10 @@ int Inventory::getSize()
 }
 
 
-//Treasure* Inventory::getTreasure(int position)
-//{
-//	return inventory.at(position);
-//}
+Treasure* Inventory::getTreasure(int position)
+{
+	return inventory.at(position).get();
+}
 
 // returns pointer to vector containing Treasure unique_ptrs
 std::vector<std::unique_ptr<Treasure>>* Inventory::getInventory()

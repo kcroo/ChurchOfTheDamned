@@ -45,7 +45,7 @@ class Game
 	private:
 		bool gameContinues;
 		int turns;					// # turns so far 
-		std::unique_ptr<Character> player;
+		std::unique_ptr<Character> hero;
 
 		// rooms
 		std::shared_ptr<Room> currentRoom;

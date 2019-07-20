@@ -142,7 +142,6 @@ void Tile::removeTreasure()
 //}
 
 // treasure
-/****** RENAME TO CHECK TREASURE ********/
 Treasure* Tile::getTreasure()
 {
 	return treasure.get();
