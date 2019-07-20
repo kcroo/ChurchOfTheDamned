@@ -30,7 +30,7 @@ class Room
 
 		Treasure* getTreasure(int row, int col);
 		std::unique_ptr<Treasure> moveTreasure(int row, int col);
-		//Character* getMonster(int row, int col);
+		Character* getMonster(int row, int col);
 		//void setTileToEmpty(int row, int col);
 		//void setTileToHero(int row, int col);
 		//virtual void fillRoomMonsters();

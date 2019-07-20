@@ -188,43 +188,43 @@ void Inventory::deleteItem(int position)
 //	return false;
 //}
 //
-///********************************* getItemPosition **************************************************
-//This function looks for an item in the inventory. If it is there, it returns its position in the
-//inventory vector, which will make using it easy.
-//Arguments: Type enum of type of item (e.g. Type::weapon)
-//Returns: position in vector, or -1 if not found 
-//***************************************************************************************************/
-//int Inventory::getItemPosition(Type t)
-//{
-//	// return position of item if in inventory
-//	for (size_t i = 0; i < inventory.size(); ++i)
-//	{
-//		if (inventory.at(i)->getType() == t)
-//		{
-//			return i;
-//		}
-//	}
-//
-//	// index = -1 if item not in inventory 
-//	return -1;
-//}
-//
-///********************************* useHolyWater **************************************************
-//This function removes a holy water item from the inventory and returns how much HP it restores.
-//Arguments: integer for position in inventory
-//Returns: integer for amount of HP restored
-//***************************************************************************************************/
-//int Inventory::useHolyWater(int position)
-//{
-//	int hpRestored{ inventory.at(position)->getHPChange() };
-//
-//	// delete and remove pointer from inventory 
-//	delete inventory.at(position);
-//	inventory.erase(inventory.begin() + position);
-//
-//	return hpRestored;
-//}
-//
+/********************************* getItemPosition **************************************************
+This function looks for an item in the inventory. If it is there, it returns its position in the
+inventory vector, which will make using it easy.
+Arguments: Type enum of type of item (e.g. Type::weapon)
+Returns: position in vector, or -1 if not found 
+***************************************************************************************************/
+int Inventory::getItemPosition(Type t)
+{
+	// return position of item if in inventory
+	for (size_t i = 0; i < inventory.size(); ++i)
+	{
+		if (inventory.at(i)->getType() == t)
+		{
+			return i;
+		}
+	}
+
+	// index = -1 if item not in inventory 
+	return -1;
+}
+
+/********************************* useHolyWater **************************************************
+This function removes a holy water item from the inventory and returns how much HP it restores.
+Arguments: integer for position in inventory
+Returns: integer for amount of HP restored
+***************************************************************************************************/
+int Inventory::useHolyWater(int position)
+{
+	int hpRestored{ inventory.at(position)->getHPChange() };
+
+	// delete and remove pointer from inventory 
+	//delete inventory.at(position);
+	inventory.erase(inventory.begin() + position);
+
+	return hpRestored;
+}
+
 /********************************* getters and setters  ************************************************/
 int Inventory::getSize()
 {
@@ -232,9 +232,16 @@ int Inventory::getSize()
 }
 
 
-Treasure* Inventory::getTreasure(int position)
+Treasure* Inventory::getTreasure(const int position)
 {
 	return inventory.at(position).get();
+}
+
+std::unique_ptr<Treasure> Inventory::moveTreasure(const int position)
+{
+	std::unique_ptr<Treasure> t = std::move(inventory.at(position));
+	inventory.erase(inventory.begin() + position);
+	return std::move(t);
 }
 
 // returns pointer to vector containing Treasure unique_ptrs

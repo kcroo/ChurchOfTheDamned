@@ -143,16 +143,16 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 		heroCol = newCol;
 		return 1;
 	}
-	//// if tile has monster, fight monster
-	//else if (room[newRow][newCol].getMonster() != nullptr)
-	//{
-	//	room[newRow][newCol].setToHero();
-	//	room[heroRow][heroCol].setToEmpty();
-	//	heroRow = newRow;
-	//	heroCol = newCol;
+	// if tile has monster, fight monster
+	else if (room[newRow][newCol].getMonster() != nullptr)
+	{
+		room[newRow][newCol].setToHero();
+		room[heroRow][heroCol].setToEmpty();
+		heroRow = newRow;
+		heroCol = newCol;
 
-	//	return 2;
-	//}
+		return 2;
+	}
 	// if tile has treasure, pick up treasure
 	else if (room[newRow][newCol].getTreasure() != nullptr)
 	{
@@ -208,16 +208,16 @@ std::unique_ptr<Treasure> Room::moveTreasure(int row, int col)
 	return std::move(t);
 }
 
-///************************************ getMonster *************************************************
-//This function returns a pointer to the monster at a certain row and column
-//Parameters: int for row, int for column
-//Returns: Treasure pointer
-//*****************************************************************************************************/
-//Character* Room::getMonster(int row, int col)
-//{
-//	return room[row][col].getMonster();
-//}
-//
+/************************************ getMonster *************************************************
+This function returns a pointer to the monster at a certain row and column
+Parameters: int for row, int for column
+Returns: Treasure pointer
+*****************************************************************************************************/
+Character* Room::getMonster(int row, int col)
+{
+	return room[row][col].getMonster();
+}
+
 ///************************************ setTileToEmpty ************************************************
 //This function sets a tile to empty (for example, after treasure has been taken, or an enemy has been
 //fought.)

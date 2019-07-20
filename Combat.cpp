@@ -18,23 +18,13 @@ or holy water it has.
 /************************************ constructor ****************************************************
 The constructor sets initializes hero to the player and sets enemy to the monster at the same location.
 *****************************************************************************************************/
-Combat::Combat(Character*& h, Character*& e, Inventory* inv)
-	: hero{ h }, enemy{ e }
+Combat::Combat(Character* h, Character* e)
+	: hero{ h }, enemy{ e }, heroWeapon{ hero->getCurrentWeapon() }, heroArmor{ hero->getCurrentArmor() },
+	heroArmorRating{ heroArmor->getDefense() }, enemyWeapon{ enemy->getCurrentWeapon() },
+	enemyArmor{ enemy->getCurrentArmor() }, enemyArmorRating{ enemyArmor->getDefense() }
 {
-	// set hero weapons armor, and combat stats
-	heroWeapon = hero->getCurrentWeapon();
-	heroWeaponDamage = heroWeapon->getDamage();
-	heroArmor = hero->getCurrentArmor();
-	heroArmorRating = heroArmor->getArmorRating();
-
-	// set enemy weapons, armor, and combat stats
-	enemyWeapon = enemy->getCurrentWeapon();
-	enemyWeaponDamage = enemyWeapon->getDamage();
-	enemyArmor = enemy->getCurrentArmor();
-	enemyArmorRating = enemyArmor->getArmorRating();
-
 	// set inventories for hero and enemy
-	inventory = inv;
+	inventory = hero->getInventory();
 	enemyInv = enemy->getInventory();
 }
 
@@ -62,7 +52,7 @@ void Combat::fightRound()
 		/***********hero attacks*****************/
 
 		// see if hero hits (must roll above enemy's armor rating)
-		int attack{ utility.getRandInt(1, chanceHit) };
+		int attack{ utility::getRandInt(1, chanceHit) };
 
 		// hero hits
 		if (attack > enemyArmorRating)
@@ -89,7 +79,7 @@ void Combat::fightRound()
 		{
 			Combat::displayHPWeaponArmor();
 
-			attack = utility.getRandInt(1, chanceHit);
+			attack = utility::getRandInt(1, chanceHit);
 
 			if (attack > heroArmorRating)
 			{
@@ -139,14 +129,14 @@ void Combat::fightRound()
 			{
 				// loot the enemy
 				std::cout << "\nThe " << enemy->getType() << " has been defeated! Loot the body?\n";
-				enemyInv->print();
-
+				
 				bool keepLooting{ true };
 
 				// add item to hero's inventory
 				while (keepLooting)
 				{
-					int choice{ utility.getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
+					enemyInv->print();
+					int choice{ utility::getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
 
 					// stop looting if hero is done or enemy inventory is empty
 					if (choice == 0 || enemyInv->getSize() == 0)
@@ -157,15 +147,18 @@ void Combat::fightRound()
 					// add item from enemy inventory to hero's inventory, unless it's full
 					else
 					{
-						Treasure* loot{ enemyInv->getTreasure(choice - 1) };
-						if (!inventory->addItem(loot))
+						std::unique_ptr<Treasure> loot{ enemyInv->moveTreasure(choice - 1) };
+						if (inventory->notFull())
+						{
+							inventory->add(std::move(loot));
+						}
+						else
 						{
 							std::cout << "\nCan't loot. Inventory full.\n";
 						}
 					}
 				}
 			}
-			
 		}
 
 		// display hero and enemy's HP, weapon, and armor stats
@@ -189,14 +182,14 @@ void Combat::displayWinner()
 	if (hero->getHP() > 0)
 	{
 		std::string heroWins{ hero->getName() + " WINS" };
-		utility.printTitle(heroWins);
+		utility::printTitle(heroWins);
 	}
 
 	// if enemy won
 	else
 	{
 		std::string enemyWins{ enemy->getType() + " WINS" };
-		utility.printTitle(enemyWins);
+		utility::printTitle(enemyWins);
 	}
 }
 
@@ -259,22 +252,22 @@ void Combat::displayHPWeaponArmor()
 		// hero weapon
 		<< std::left << std::setw(10) << "Weapon |"
 		<< std::setw(20) << heroWeapon->getName()
-		<< std::setw(10) << heroWeapon->getDamage()
+		<< std::setw(10) << heroWeapon->getAttack()
 		<< std::setw(5) << " | ";
 	std::cout
 		<< std::left << std::setw(26) << enemyWeapon->getName()
-		<< std::setw(4) << enemyWeapon->getDamage()
+		<< std::setw(4) << enemyWeapon->getAttack()
 		<< std::setw(1) << "  |\n";
 
 	// hero and enemy armor 
 	std::cout
 		<< std::left << std::setw(11) << "Armor  |"
 		<< std::setw(19) << heroArmor->getName()
-		<< std::setw(10) << heroArmor->getArmorRating()
+		<< std::setw(10) << heroArmor->getDefense()
 		<< std::setw(5) << " |";
 	std::cout
 		<< std::left << std::setw(26) << enemyArmor->getName()
-		<< std::setw(4) << enemyArmor->getArmorRating()
+		<< std::setw(4) << enemyArmor->getDefense()
 		<< std::setw(1) << "  |";
 	std::cout << "\n------------------------------------------------------------------------------\n";
 }

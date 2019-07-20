@@ -16,11 +16,10 @@ or holy water it has.
 #ifndef COMBAT_HPP
 #define COMBAT_HPP
 
-#include "Character.hpp"
-#include "Inventory.hpp"
-#include "Space.hpp"
-#include "Treasure.hpp"
-#include "Utility.hpp"
+#include "character.hpp"
+#include "room.hpp"
+#include "treasure.hpp"
+#include "utility.hpp"
 
 class Combat
 {
@@ -52,10 +51,8 @@ private:
 	void displayHPWeaponArmor();
 	void displayHolyWaterUsed(int restoredHP);
 
-	Utility utility;
-
 public:
-	Combat(Character*& hero, Character*& enemy, Inventory* inv);
+	Combat(Character* hero, Character* enemy);
 	~Combat();
 	void fightRound();
 };

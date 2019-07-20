@@ -19,7 +19,7 @@ holy water to revive them); or the hero defeats the lich cardinal.
 #include <string>
 //#include "BellTower.hpp"
 //#include "Character.hpp"
-//#include "Combat.hpp"
+#include "combat.hpp"
 //#include "Crypt.hpp"
 #include "darkPriest.hpp"
 //#include "Dungeon.hpp"
@@ -67,7 +67,7 @@ class Game
 		//void drinkHolyWater();
 
 		//// combat 
-		//void combat();
+		void combat();
 		//void energyDrain();
 
 		//// print

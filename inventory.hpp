@@ -40,11 +40,12 @@ public:
 	void deleteItem(int position);
 
 	//bool hasKey();
-	//int getItemPosition(Type t);
-	//int useHolyWater(int position);
+	int getItemPosition(Type t);
+	int useHolyWater(int position);
 
 	int getSize();
-	Treasure* getTreasure(int position);
+	Treasure* getTreasure(const int position);
+	std::unique_ptr<Treasure> moveTreasure(const int postiion);
 	std::vector<std::unique_ptr<Treasure>>* getInventory();
 	bool notFull();
 	bool isEmpty();

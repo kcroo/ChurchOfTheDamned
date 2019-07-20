@@ -191,7 +191,7 @@ void Game::move()
 			}
 			case 2:		// monster
 			{
-				//Game::combat();					// sets gameContinues to false if player loses or beats lich cardinal
+				Game::combat();					// sets gameContinues to false if player loses or beats lich cardinal
 				break;
 			}
 
@@ -424,56 +424,56 @@ void Game::equipWeaponOrArmor()
 //	}
 //}
 //
-///************************************ combat ********************************************************
-//This function is used when the player enters a tile with an enemy. It creates a Combat object, which
-//is then used to have them fight. If the player dies in combat, then the game is over.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::combat()
-//{
-//	// get enemy in player's tile and create combat object to start combat
-//	Character* enemy{ currentRoom->getMonster(currentRoom->getHeroRow(), currentRoom->getHeroCol()) };
-//	Combat combat(hero, enemy, inventory);
-//	combat.fightRound();
-//
-//	// print victory message if player wins fight against lich cardinal
-//	if (hero->getHP() != 0 && enemy->getType() == "Lich Cardinal")
-//	{
-//		gameContinues = false;
-//		std::cout << "\nVICTORY! " << hero->getName() << " has defeated the LICH CARDINAL."
-//			<< "\nHis agonizing scream fades into the darkness, leaving behind a bland copper medallion."
-//			<< "\nAs you make your way out of the church, the unwordly creatures you saw before have vanished--"
-//			<< "\nexcept for the whispered \"THANK YOU\" you hear as you pass where the GHOSTS of your"
-//			<< "\nfellow villagers had once been trapped. The stained glass of the SANCTUARY has cleared,"
-//			<< "\nrevealing the saints smiling down on you. You exit the church, confident in the fact"
-//			<< "\nthat the LICH CARDINAL will not return."
-//			<< "\n\nBut little do you know that the innocuous copper medallion you had seen in the crypt"
-//			<< "\nholds the very last of the LICH CARDINAL's power. It may take years, centuries, or"
-//			<< "\nmillenia, but he will return. Then once again, a player will have to rise against the"
-//			<< "\nCHURCH OF THE DAMNED.\n\n";
-//	}
-//
-//	// print defeat message if player dies fighting lich cardinal
-//	else if (hero->getHP() == 0 && enemy->getType() == "Lich Cardinal")
-//	{
-//		gameContinues = false;
-//		std::cout << "\nDEFEAT. The LICH CARDINAL has slain " << hero->getName() << ". You hear the"
-//			<< "\nLICH CARDINAL's cackling as your consciousness fades. You succumb to the darkness,"
-//			"\nknowing that your fate will be the same as the other poor souls you found in the church."
-//			"\nYou hope that another player will rise to rescue your body from the CHURCH OF THE DAMNED.\n\n";
-//	}
-//
-//	// print different defeat message if player dies fighting other monster
-//	else if (hero->getHP() == 0)
-//	{
-//		gameContinues = false;
-//		std::cout << "\nYou collapse to the ground, dying, as the evil spectres of the church surround you."
-//			<< "\nYou hope for a quick end, but you're sure it will be anything but. You become another"
-//			<< "\nvictim of the CHURCH OF THE DAMNED.\n\n";
-//	}
-//}
-//
+/************************************ combat ********************************************************
+This function is used when the player enters a tile with an enemy. It creates a Combat object, which
+is then used to have them fight. If the player dies in combat, then the game is over.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::combat()
+{
+	// get enemy in player's tile and create combat object to start combat
+	Character* enemy{ currentRoom->getMonster(currentRoom->getHeroRow(), currentRoom->getHeroCol()) };
+	Combat combat(hero.get(), enemy);
+	combat.fightRound();
+
+	// print victory message if player wins fight against lich cardinal
+	if (hero->getHP() != 0 && enemy->getType() == "Lich Cardinal")
+	{
+		gameContinues = false;
+		std::cout << "\nVICTORY! " << hero->getName() << " has defeated the LICH CARDINAL."
+			<< "\nHis agonizing scream fades into the darkness, leaving behind a bland copper medallion."
+			<< "\nAs you make your way out of the church, the unwordly creatures you saw before have vanished--"
+			<< "\nexcept for the whispered \"THANK YOU\" you hear as you pass where the GHOSTS of your"
+			<< "\nfellow villagers had once been trapped. The stained glass of the SANCTUARY has cleared,"
+			<< "\nrevealing the saints smiling down on you. You exit the church, confident in the fact"
+			<< "\nthat the LICH CARDINAL will not return."
+			<< "\n\nBut little do you know that the innocuous copper medallion you had seen in the crypt"
+			<< "\nholds the very last of the LICH CARDINAL's power. It may take years, centuries, or"
+			<< "\nmillenia, but he will return. Then once again, a player will have to rise against the"
+			<< "\nCHURCH OF THE DAMNED.\n\n";
+	}
+
+	// print defeat message if player dies fighting lich cardinal
+	else if (hero->getHP() == 0 && enemy->getType() == "Lich Cardinal")
+	{
+		gameContinues = false;
+		std::cout << "\nDEFEAT. The LICH CARDINAL has slain " << hero->getName() << ". You hear the"
+			<< "\nLICH CARDINAL's cackling as your consciousness fades. You succumb to the darkness,"
+			"\nknowing that your fate will be the same as the other poor souls you found in the church."
+			"\nYou hope that another player will rise to rescue your body from the CHURCH OF THE DAMNED.\n\n";
+	}
+
+	// print different defeat message if player dies fighting other monster
+	else if (hero->getHP() == 0)
+	{
+		gameContinues = false;
+		std::cout << "\nYou collapse to the ground, dying, as the evil spectres of the church surround you."
+			<< "\nYou hope for a quick end, but you're sure it will be anything but. You become another"
+			<< "\nvictim of the CHURCH OF THE DAMNED.\n\n";
+	}
+}
+
 ///************************************ energyDrain ****************************************************
 //This function causes the player to lose 1 HP every 5 turns due to the evil energy in the church. If this
 //causes the player to have 1 HP, the game is over. This happens even if the player has holy water in their
