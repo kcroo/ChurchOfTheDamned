@@ -75,48 +75,48 @@ void Character::recoverHP(int amountHealed)
 	}
 }
 
-///********************************* printWeaponAndArmor ********************************************
-//This function prints the Character's currently equipped weapon and armor stats.
-//Arguments: none
-//Returns: void
-//***************************************************************************************************/
-//void Character::printWeaponAndArmor()
-//{
-//	std::string hp{ std::to_string(HP) };
-//
-//	std::cout << "--------------------------------------------------------\n";
-//	utility.printColumns(Character::getType(), "Currently Equipped", "", hp + " HP");
-//	std::cout << "--------------------------------------------------------\n";
-//	utility.printColumns("", "Name", "Attack", "Armor");
-//	utility.printColumns("Weapon", currentWeapon->getName(), currentWeapon->getDamage(), "");
-//	utility.printColumns("Armor", currentArmor->getName(), "", currentArmor->getArmorRating());
-//	std::cout << "--------------------------------------------------------\n";
-//}
-//
-///********************************* equipItem *******************************************************
-//This function equips an item as the Character's current weapon or armor. If the item is already 
-//equipped, it just equips it again and returns true. If the item is not a weapon or armor, it returns false.
-//Arguments: Treasure pointer by reference
-//Returns: true if item successfully equipped, false if not
-//***************************************************************************************************/
-//bool Character::equipItem(Treasure*& item)
-//{
-//	// equip weapon
-//	if (item->getType() == Type::weapon)
-//	{
-//		currentWeapon = item;
-//		return true;
-//	}
-//	else if (item->getType() == Type::armor)
-//	{
-//		currentArmor = item;
-//		return true;
-//	}
-//	else
-//	{
-//		return false;
-//	}
-//}
+/********************************* printWeaponAndArmor ********************************************
+This function prints the Character's currently equipped weapon and armor stats.
+Arguments: none
+Returns: void
+***************************************************************************************************/
+void Character::printWeaponAndArmor()
+{
+	std::string hp{ std::to_string(HP) };
+
+	std::cout << "\n--------------------------------------------------------\n";
+	utility::printColumns(Character::getType(), "Currently Equipped", "", hp + " HP");
+	std::cout << "--------------------------------------------------------\n";
+	utility::printColumns("", "Name", "Attack", "Armor");
+	utility::printColumns("Weapon", currentWeapon->getName(), currentWeapon->getAttack(), "");
+	utility::printColumns("Armor", currentArmor->getName(), "", currentArmor->getDefense());
+	std::cout << "--------------------------------------------------------\n";
+}
+
+/********************************* equipItem *******************************************************
+This function equips an item as the Character's current weapon or armor. If the item is already 
+equipped, it just equips it again and returns true. If the item is not a weapon or armor, it returns false.
+Arguments: Treasure pointer by reference
+Returns: true if item successfully equipped, false if not
+***************************************************************************************************/
+bool Character::equipItem(Treasure*& item)
+{
+	// equip weapon
+	if (item->getType() == Type::weapon)
+	{
+		currentWeapon = item;
+		return true;
+	}
+	else if (item->getType() == Type::armor)
+	{
+		currentArmor = item;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 
 /********************************* getters and setters ********************************************

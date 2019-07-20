@@ -304,7 +304,7 @@ void Game::manageInventory()
 			}
 			case 2:
 			{
-				//Game::equipWeaponOrArmor();
+				Game::equipWeaponOrArmor();
 				break;
 			}
 			case 3:
@@ -353,62 +353,52 @@ void Game::removeItemInventory()
 			// remove item (unless it is current weapon or armor)
 			else
 			{
-				Treasure* w{ new Treasure("weapon", 10, 0, 0, Type::weapon) };
-				Treasure* a{ new Treasure("armor", 10, 0, 0, Type::armor) };
-				/*if (!inventory->deleteIfNotCurrent(choice - 1, hero->getCurrentWeapon(), hero->getCurrentArmor()))
-				{
-					std::cout << "\nError. Cannot remove current weapon or armor.\n";
-				}*/
-				if (!inventory->deleteIfNotCurrent(choice - 1, w, a))
+				if (!inventory->deleteIfNotCurrent(choice - 1, hero->getCurrentWeapon(), hero->getCurrentArmor()))
 				{
 					std::cout << "\nError. Cannot remove current weapon or armor.\n";
 				}
-				delete w;
-				w = nullptr;
-				delete a;
-				a = nullptr;
 			}
 		}
 	}
 }
 
-///************************************ equipTreasure ***********************************************
-//This function asks the user if they want to equip a treasure item. They can only equip
-//one weapon and one armor at at time.
-//Parameters: none
-//Returns: void
-//Source for pointer equality: https://stackoverflow.com/questions/9086372/how-to-compare-pointers
-//*****************************************************************************************************/
-//void Game::equipWeaponOrArmor()
-//{
-//	bool notDone{ true };
-//
-//	while (notDone)
-//	{
-//		// print currently equipped weapon and armor and inventory
-//		hero->printWeaponAndArmor();
-//		inventory->print();
-//
-//		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
-//
-//		if (choice == 0)
-//		{
-//			notDone = false;
-//		}
-//		else
-//		{
-//			// get treasure from index user specified
-//			Treasure* item{ inventory->getTreasure(choice - 1) };
-//
-//			// if item can't be equipped, print error
-//			if (!hero->equipItem(item))
-//			{
-//				std::cout << "\nError: item is not a weapon or armor.\n";
-//			}
-//		}
-//	}
-//}
-//
+/************************************ equipTreasure ***********************************************
+This function asks the user if they want to equip a treasure item. They can only equip
+one weapon and one armor at at time.
+Parameters: none
+Returns: void
+Source for pointer equality: https://stackoverflow.com/questions/9086372/how-to-compare-pointers
+*****************************************************************************************************/
+void Game::equipWeaponOrArmor()
+{
+	bool notDone{ true };
+
+	while (notDone)
+	{
+		// print currently equipped weapon and armor and inventory
+		hero->printWeaponAndArmor();
+		inventory->print();
+
+		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
+
+		if (choice == 0)
+		{
+			notDone = false;
+		}
+		else
+		{
+			// get treasure from index user specified
+			Treasure* item{ inventory->getTreasure(choice - 1) };
+
+			// if item can't be equipped, print error
+			if (!hero->equipItem(item))
+			{
+				std::cout << "\nError: item is not a weapon or armor.\n";
+			}
+		}
+	}
+}
+
 ///************************************ drinkHolyWater *******************************************************
 //This function finds the first holy water in the inventory and has the player drink it. The player recovers 
 //how many HP the holy water item specifies.

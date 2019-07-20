@@ -63,7 +63,7 @@ class Game
 		void addTreasureToInv(int row, int col);
 		void manageInventory();
 		void removeItemInventory();
-		//void equipWeaponOrArmor();
+		void equipWeaponOrArmor();
 		//void drinkHolyWater();
 
 		//// combat 

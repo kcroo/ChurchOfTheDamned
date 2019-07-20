@@ -47,7 +47,9 @@ Returns: void
 ***************************************************************************************************/
 void Inventory::print()
 {
-	std::cout << "\n";
+	std::cout << "\n--------------------------------------------------------" 
+		<< "\nInventory" 
+		<< "\n--------------------------------------------------------\n";
 
 	utility::printColumns("Item #", "Name", "Attack", "Armor", "HP Restored");
 	int counter{ 1 };
@@ -64,6 +66,8 @@ void Inventory::print()
 		utility::printColumns(itemNum, name, attackBonus, armorBonus, HPBonus);
 		++counter;
 	}
+
+	std::cout << "--------------------------------------------------------\n";
 }
 
 ///********************************* foundTreasure ****************************************************

@@ -42,8 +42,8 @@ class Character
 		int damageRoll();
 		void decreaseHP(const int& damage);
 		void recoverHP(int amountHealed);
-		//void printWeaponAndArmor();
-		//bool equipItem(Treasure*& item);
+		void printWeaponAndArmor();
+		bool equipItem(Treasure*& item);
 
 		// getters and setters
 		int getHP();
