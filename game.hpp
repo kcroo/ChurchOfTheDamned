@@ -48,13 +48,13 @@ class Game
 		std::unique_ptr<Character> hero;
 
 		// rooms
-		std::shared_ptr<Room> currentRoom;
-		std::shared_ptr<Room> sanctuary;
-		std::shared_ptr<Room> mezzanine;
-		std::shared_ptr<Room> bellTower;
-		std::shared_ptr<Room> gallery;
-		std::shared_ptr<Room> dungeon;
-		std::shared_ptr<Room> crypt;
+		Room* currentRoom;
+		std::unique_ptr<Room> sanctuary;
+		std::unique_ptr<Room> mezzanine;
+		std::unique_ptr<Room> bellTower;
+		std::unique_ptr<Room> gallery;
+		std::unique_ptr<Room> dungeon;
+		std::unique_ptr<Room> crypt;
 		//void createRooms();
 	
 		// inventory management

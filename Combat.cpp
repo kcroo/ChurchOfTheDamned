@@ -1,0 +1,291 @@
+/**************************************************************************************************
+Program Name: Final Project
+File: Combat.cpp
+Author: Kirsten Corrao
+Date: 03/05/2019
+Description: this is the implementation file of the Combat class. This class is used when the hero must fight 
+a monster. The hero attacks first. They roll a 20-sided die, and if that value is above the enemy's 
+armor class, they roll again to see what damage they inflict. Armor class is determined by the 
+currently equipped armor, and the amount of damage is determined by the currently equipped weapon. 
+Combat automatically alternates between the hero and monster attacking each other. If the hero hits 
+0 HP and has holy water in their inventory, they are revived with the amount of HP the holy water 
+indicates. The hero wins if the enemy has 0 HP. If the hero has 0 HP and no holy water, they lose
+and the game is over. After an enemy is defeated, the hero can loot the body of any weapons, armor,
+or holy water it has.
+***************************************************************************************************/
+#include "Combat.hpp"
+
+/************************************ constructor ****************************************************
+The constructor sets initializes hero to the player and sets enemy to the monster at the same location.
+*****************************************************************************************************/
+Combat::Combat(Character*& h, Character*& e, Inventory* inv)
+	: hero{ h }, enemy{ e }
+{
+	// set hero weapons armor, and combat stats
+	heroWeapon = hero->getCurrentWeapon();
+	heroWeaponDamage = heroWeapon->getDamage();
+	heroArmor = hero->getCurrentArmor();
+	heroArmorRating = heroArmor->getArmorRating();
+
+	// set enemy weapons, armor, and combat stats
+	enemyWeapon = enemy->getCurrentWeapon();
+	enemyWeaponDamage = enemyWeapon->getDamage();
+	enemyArmor = enemy->getCurrentArmor();
+	enemyArmorRating = enemyArmor->getArmorRating();
+
+	// set inventories for hero and enemy
+	inventory = inv;
+	enemyInv = enemy->getInventory();
+}
+
+/************************************ destructor ****************************************************
+*****************************************************************************************************/
+Combat::~Combat()
+{
+}
+
+/************************************ fight ****************************************************
+This function has the two Characters set up in the constructor fight. It ends when either has HP = 0. 
+If the hero hits 0 HP and has holy water, they are revived and the holy water is consumed.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Combat::fightRound()
+{
+	bool bothAlive{ true };
+
+	Combat::displayHPWeaponArmor();
+
+	// fight until one character has HP == 0
+	while (bothAlive)
+	{
+		/***********hero attacks*****************/
+
+		// see if hero hits (must roll above enemy's armor rating)
+		int attack{ utility.getRandInt(1, chanceHit) };
+
+		// hero hits
+		if (attack > enemyArmorRating)
+		{
+			// get attack roll, defense roll, and total damage
+			int damage = hero->damageRoll();
+
+			// decrease damage from fighter 2's strength
+			enemy->decreaseHP(damage);
+
+			// display all fight stats
+			Combat::displayHit(hero, attack, damage);
+		}
+
+		// hero misses
+		else
+		{
+			Combat::displayMissed(hero, attack);
+		}
+
+
+		/***************enemy attacks if strength > 0************/
+		if (enemy->getHP() > 0)
+		{
+			Combat::displayHPWeaponArmor();
+
+			attack = utility.getRandInt(1, chanceHit);
+
+			if (attack > heroArmorRating)
+			{
+				// get damage roll
+				int damage = enemy->damageRoll();
+
+				// decrease damage from fighter 2's strength
+				hero->decreaseHP(damage);
+
+				// display all fight stats
+				Combat::displayHit(enemy, attack, damage);
+			}
+			else
+			{
+				Combat::displayMissed(enemy, attack);
+			}
+		}
+
+		// if hero is dead, check inventory for holy water (will revive hero)
+		if (hero->getHP() == 0)
+		{
+			int position{ inventory->getItemPosition(Type::holyWater) };
+
+			// if holy water in inventory, use it and recover hero's HP
+			if (position != -1)
+			{
+				int hpRecovered{ inventory->useHolyWater(position) };
+				hero->recoverHP(hpRecovered);
+				Combat::displayHolyWaterUsed(hpRecovered);
+			}
+
+			// otherwise hero dies
+			else
+			{
+				std::cout << "\n" << hero->getName() << " has been defeated.\n";
+				bothAlive = false;
+			}
+		}
+
+		// if enemy is dead, combat is over
+		else if (enemy->getHP() == 0)
+		{
+			bothAlive = false;
+
+			// hero can loot enemies that aren't lich cardinal
+			if(enemy->getType() != "Lich Cardinal")
+			{
+				// loot the enemy
+				std::cout << "\nThe " << enemy->getType() << " has been defeated! Loot the body?\n";
+				enemyInv->print();
+
+				bool keepLooting{ true };
+
+				// add item to hero's inventory
+				while (keepLooting)
+				{
+					int choice{ utility.getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
+
+					// stop looting if hero is done or enemy inventory is empty
+					if (choice == 0 || enemyInv->getSize() == 0)
+					{
+						keepLooting = false;
+					}
+
+					// add item from enemy inventory to hero's inventory, unless it's full
+					else
+					{
+						Treasure* loot{ enemyInv->getTreasure(choice - 1) };
+						if (!inventory->addItem(loot))
+						{
+							std::cout << "\nCan't loot. Inventory full.\n";
+						}
+					}
+				}
+			}
+			
+		}
+
+		// display hero and enemy's HP, weapon, and armor stats
+		Combat::displayHPWeaponArmor();
+	}
+	
+	// display winner of round 
+	Combat::displayWinner();
+}
+
+/************************************ displayWinner **************************************************
+This prints who won the combat (e.g. the hero or the enemy). It prints the hero's name or enemy's type.
+Arguments: none
+Returns: void
+*****************************************************************************************************/
+void Combat::displayWinner()
+{
+	std::cout << std::endl;
+
+	// if hero won
+	if (hero->getHP() > 0)
+	{
+		std::string heroWins{ hero->getName() + " WINS" };
+		utility.printTitle(heroWins);
+	}
+
+	// if enemy won
+	else
+	{
+		std::string enemyWins{ enemy->getType() + " WINS" };
+		utility.printTitle(enemyWins);
+	}
+}
+
+/************************************ displayMissed **************************************************
+This prints that a Character missed their attack and what they rolled.
+Arguments: Character* pointer, integer for attack roll
+Returns: void
+*****************************************************************************************************/
+void Combat::displayMissed(Character*& c, int attack)
+{
+	if (c->getName() != "")	// hero 
+	{
+		std::cout << "\n" << c->getName() << " MISSES with an attack roll of " << attack << std::endl;
+	}
+	else    // enemy
+	{
+		std::cout << "\nThe " << c->getType() << " MISSES with an attack roll of " << attack << std::endl;
+	}
+}
+
+/************************************ displayHit **************************************************
+This prints that a Character hit their attack and what they rolled.
+Arguments: Character* pointer, integer for attack roll, integer for damage roll
+Returns: void
+*****************************************************************************************************/
+void Combat::displayHit(Character*& c, int attack, int damage)
+{
+	if (c->getName() != "")	// hero 
+	{
+		std::cout << "\n" << c->getName() << " HITS with an attack roll of " << attack 
+			<< " and inflicts " << damage << " points of damage." << std::endl;
+	}
+	else    // enemy
+	{
+		std::cout << "\nThe " << c->getType() << " HITS with an attack roll of " << attack
+			<< " and inflicts " << damage << " points of damage." << std::endl;
+	}
+}
+
+/************************************ displayHPWeaponArmor ******************************************
+This function displays the hero's name and HP; and the enemy's type and HP, in fancy-ish columns.
+Arguments: none
+Returns: void
+*****************************************************************************************************/
+void Combat::displayHPWeaponArmor()
+{
+	// hero and enemy HP
+	std::cout << "\n------------------------------------------------------------------------------\n"
+		<< std::setw(1) << "|"
+		<< std::right << std::setw(20) << hero->getName()
+		<< std::setw(10) << hero->getHP() << " HP"
+		<< std::setw(8) << "|";
+	std::cout  
+		<< std::right << std::setw(20) << enemy->getType()
+		<< std::setw(10) << enemy->getHP() << " HP"
+		<< std::setw(3) << "|";
+
+	// hero and enemy weapons
+	std::cout << "\n------------------------------------------------------------------------------\n"
+		// hero weapon
+		<< std::left << std::setw(10) << "Weapon |"
+		<< std::setw(20) << heroWeapon->getName()
+		<< std::setw(10) << heroWeapon->getDamage()
+		<< std::setw(5) << " | ";
+	std::cout
+		<< std::left << std::setw(26) << enemyWeapon->getName()
+		<< std::setw(4) << enemyWeapon->getDamage()
+		<< std::setw(1) << "  |\n";
+
+	// hero and enemy armor 
+	std::cout
+		<< std::left << std::setw(11) << "Armor  |"
+		<< std::setw(19) << heroArmor->getName()
+		<< std::setw(10) << heroArmor->getArmorRating()
+		<< std::setw(5) << " |";
+	std::cout
+		<< std::left << std::setw(26) << enemyArmor->getName()
+		<< std::setw(4) << enemyArmor->getArmorRating()
+		<< std::setw(1) << "  |";
+	std::cout << "\n------------------------------------------------------------------------------\n";
+}
+
+/************************************ displayHolyWaterUsed ******************************************
+This function displays how much HP was recovered by using holy water.
+Arguments: integer for amount HP restored by holy water
+Returns: void
+*****************************************************************************************************/
+void Combat::displayHolyWaterUsed(int restoredHP)
+{
+	std::cout << "\nHoly water saved " << hero->getName() << " from the brink of death, "
+		<< "restoring " << restoredHP << " hit points.\n";
+}

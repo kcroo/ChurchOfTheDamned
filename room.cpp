@@ -82,14 +82,7 @@ void Room::printRoom()
 	{
 		for (int col = 0; col < roomCols; col++)
 		{
-			if (row == heroRow && col == heroCol)
-			{
-				std::cout << 'H';
-			}
-			else
-			{
-				std::cout << room[row][col].getSymbol();
-			}
+			std::cout << room[row][col].getSymbol();
 		}
 
 		std::cout << std::endl;
@@ -101,7 +94,7 @@ This function moves a character in the room.
 Parameters: none
 Returns: void
 *****************************************************************************************************/
-int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, std::shared_ptr<Room>& currentRoom)
+int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom)
 {
 	int newRow{ heroRow };
 	int newCol{ heroCol };
@@ -203,6 +196,12 @@ Treasure* Room::getTreasure(int row, int col)
 	return t;
 }
 
+/************************************ moveTreasure ***************************************************
+This function moves the unique_ptr to Treasure object from the tile to the function, then returns that 
+moved unique_ptr.
+Parameters: int for row, int for column
+Returns: moved unique_ptr<Treasure>
+*****************************************************************************************************/
 std::unique_ptr<Treasure> Room::moveTreasure(int row, int col)
 {
 	std::unique_ptr<Treasure> t = room[row][col].moveTreasure();

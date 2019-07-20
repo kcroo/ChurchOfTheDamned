@@ -25,7 +25,7 @@ class Room
 		//virtual void setRoomConnections(Room* room1, Room* room2 = nullptr) = 0;
 		void printRoom();
 		virtual void printContents() = 0;
-		virtual int moveCharacter(std::unique_ptr<Character>& c, char direction, std::shared_ptr<Room>& currentRoom);
+		virtual int moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
 		//virtual Room* moveNewRoom(int row, int col) = 0;
 
 		Treasure* getTreasure(int row, int col);
@@ -63,8 +63,8 @@ class Room
 		Room* below;
 
 		//// treasure 
-		std::unique_ptr<Treasure> treasure1;
-		std::unique_ptr<Treasure> treasure2;
+		//std::unique_ptr<Treasure> treasure1;
+		//std::unique_ptr<Treasure> treasure2;
 
 		//// monsters
 		//Character* monster1;

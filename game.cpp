@@ -82,7 +82,7 @@ void Game::play()
 	//utility::displayTextFile("title.txt");
 
 	sanctuary = std::make_unique<Sanctuary>();
-	currentRoom = sanctuary;
+	currentRoom = sanctuary.get();
 	hero = std::make_unique<Fighter>("Hugo");
 	inventory = hero->getInventory();
 
