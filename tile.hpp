@@ -18,7 +18,7 @@ to another room; door to another room; or in the bell tower, a bell.
 class Tile
 {
 private:
-	//Character* monster;
+	std::unique_ptr<Character> monster;
 
 	char symbol;
 	bool empty;
@@ -31,21 +31,21 @@ public:
 	~Tile();
 	char test;
 	void setToHero();
-	//void setToMonster(Character* monst, char c);
+	void setToMonster(std::unique_ptr<Character> monster);
 	void setToTreasure(std::string name, int att, int def, int hp, Type t);
 	void setToEmpty();			
 	void setToStairs();
 	void setToDoor(bool locked = false);			// doors default to unlocked
 	void setToBell();
 	//void removeMonster();							// sets monster ptr to null
-	void removeTreasure();							// sets treasure ptr to null
+	//void removeTreasure();							// sets treasure ptr to null
 
 	// getters and setters
-	// Character* getMonster();
+	Character* getMonster();
 	// void setMonster(Character* m);
 	Treasure* getTreasure();
 	std::unique_ptr<Treasure> moveTreasure();
-	void setTreasure(std::unique_ptr<Treasure> t);
+	//void setTreasure(std::string name, int att, int def, int hp, Type t);
 
 	char getSymbol();
 	void setSymbol(char c);

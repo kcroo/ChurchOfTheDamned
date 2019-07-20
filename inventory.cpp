@@ -134,7 +134,6 @@ void Inventory::add(std::unique_ptr<Treasure> t)
 {
 	std::unique_ptr<Treasure> treasure = std::move(t);
 	inventory.push_back(std::move(treasure));
-	print();
 }
 
 /********************************* deleteIfNotCurrent ************************************************

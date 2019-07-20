@@ -28,6 +28,7 @@ class Character
 		int maxHP;								// max possible hit points (can't restore past max)
 		std::string type;						// e.g. "Dark Priest"
 		std::string name;						// name of Character (empty for monsters)
+		char symbol;
 
 		// inventory
 		static const int capacity{ 5 };			// max # of items in inventory
@@ -36,7 +37,7 @@ class Character
 		Treasure* currentArmor;		
 
 	public:
-		Character(int maxHealth, std::string ty, std::string n);
+		Character(int maxHealth, std::string ty, std::string n, char sym);
 		virtual ~Character() = 0;				
 
 		int damageRoll();
@@ -54,6 +55,7 @@ class Character
 		void setType(std::string ty);
 		std::string getName();
 		void setName(std::string n);
+		char getSymbol();
 		Inventory* getInventory();
 		Treasure* getCurrentWeapon();
 		void setCurrentWeapon(Treasure* t);

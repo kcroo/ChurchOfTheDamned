@@ -21,7 +21,7 @@ holy water to revive them); or the hero defeats the lich cardinal.
 //#include "Character.hpp"
 //#include "Combat.hpp"
 //#include "Crypt.hpp"
-//#include "DarkPriest.hpp"
+#include "darkPriest.hpp"
 //#include "Dungeon.hpp"
 #include "fighter.hpp"
 //#include "Gallery.hpp"

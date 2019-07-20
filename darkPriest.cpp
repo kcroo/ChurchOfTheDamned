@@ -1,24 +1,22 @@
 /**************************************************************************************************
 Program Name: Final Project
-File: Fighter.cpp
+File: DarkPriest.cpp
 Author: Kirsten Corrao
 Date: 03/14/2019
-Description: this is the implementation file for Fighter, which is a derived class of Character. 
-This is the hero--they start with a weak weapon and armor. They must defeat enemies and find 
-Treasure to survive.
+Description: this is the implementation file for DarkPriest, which is a derived class of Character.
 ***************************************************************************************************/
-#include "fighter.hpp"
+#include "darkPriest.hpp"
 
 /********************************* constructor ****************************************************
 Uses the Character base class constructor to create a derived class object. Creates a weapon and 
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
-Fighter::Fighter(std::string n)
-	: Character(12, "Fighter", n, 'H')		// HP, type, name, symbol
+DarkPriest::DarkPriest() 
+	: Character(10, "Dark Priest", "", 'P')		// HP, type, name
 {
-	inventory.add(std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, Type::armor));
-	
+	inventory.add(std::make_unique<Treasure>("Devil's Staff", 3, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Unholy Robes", 0, 4, 0, Type::armor));
+
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);
 }
@@ -26,6 +24,6 @@ Fighter::Fighter(std::string n)
 /********************************* destructor *****************************************************
 New inventory items deleted in Character destructor.
 ***************************************************************************************************/
-Fighter::~Fighter()
+DarkPriest::~DarkPriest()
 {
 }

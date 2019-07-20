@@ -7,6 +7,7 @@ Description: this is the implementation file of the Sanctuary class. It is a der
 Room. The sanctuary contains Dark Priests as enemies.
 ***************************************************************************************************/
 #include "sanctuary.hpp"
+#include "darkPriest.hpp"
 
 /************************************ constructor ****************************************************
 The constructor calls the Room constructor. It creates Treasure and enemies to fight.
@@ -14,36 +15,33 @@ The constructor calls the Room constructor. It creates Treasure and enemies to f
 Sanctuary::Sanctuary()
 	: Room(9, 14, "Sanctuary")
 {
+	const int monst1Row{ 2 };
+	const int monst1Col{ 4 };
+
+	const int monst2Row{ 2 };
+	const int monst2Col{ 11 };
+
 	// make door and stairs
 	room[8][8].setToDoor(true);			// door to outside (but is locked and can't leave)
 	room[0][3].setToStairs();			// to mezzanine
 	room[0][12].setToDoor(true);		// door LOCKED to gallery 
 
 	// put hero in front of door 
-	room[7][8].setToHero();
 	heroRow = 7;
 	heroCol = 8;
+	room[heroRow][heroCol].setToHero();
 
-	//// create monsters
-	//monster1 = new DarkPriest;
-	//monster2 = new DarkPriest;
+	// create monsters
+	room[monst1Row][monst1Col].setToMonster(std::make_unique<DarkPriest>());
+	room[monst2Row][monst2Col].setToMonster(std::make_unique<DarkPriest>());
 
-	//// set monsters to appropriate tiles
-	//room[2][4].setToMonster(monster1, 'P');
-	//room[2][11].setToMonster(monster2, 'P');
-
-	//// create treasure and move to appropriate tile
-	//treasure1 = std::make_unique<Treasure>("Leather Armor", 0, 8, 0, Type::armor);
+	// create treasure
 	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
+	room[7][2].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
 
-	//treasure2 = std::make_unique<Treasure>("Holy Water", 0, 0, 10, Type::holyWater);
-	//room[7][2].setToTreasure(std::move(treasure2));
-
-	//// initialize inventories and add extra items
-	//Inventory* monster1Inv{ monster1->getInventory() };
-	//monster1Inv->add(new Treasure("Holy Water", 0, 0, 8, Type::holyWater));
-	//Inventory* monster2Inv{ monster2->getInventory() };
-	//monster2Inv->add(new Treasure("Hand Axe", 5, 0, 0, Type::weapon));
+	// initialize inventories and add extra items
+	room[monst1Row][monst1Col].getMonster()->getInventory()->add(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
+	room[monst2Row][monst2Col].getMonster()->getInventory()->add(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
 }
 
 /************************************ destructor *****************************************************

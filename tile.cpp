@@ -37,16 +37,16 @@ void Tile::setToHero()
 	empty = false;
 }
 
-///************************************ setToMonster ***************************************************
-//This function sets the Tile object's attributes to a monster. This includes the monster pointer and the
-//appropriate character. (Ex: P for dark priest)
-//*****************************************************************************************************/
-//void Tile::setToMonster(Character* monst, char c)
-//{
-//	monster = monst;
-//	symbol = c;
-//	empty = false;
-//}
+/************************************ setToMonster ***************************************************
+This function sets the Tile object's attributes to a monster. This includes the monster pointer and the
+appropriate character. (Ex: P for dark priest)
+*****************************************************************************************************/
+void Tile::setToMonster(std::unique_ptr<Character> m)
+{
+	monster = std::move(m);
+	symbol = monster->getSymbol();
+	empty = false;
+}
 
 /************************************ setToTreasure ***************************************************
 This function sets the Tile object's attributes to a treasure. The tile now "owns" that treasure, and it 
@@ -55,8 +55,6 @@ can be transferred to the player's inventory.
 void Tile::setToTreasure(std::string name, int att, int def, int hp, Type t)
 {
 	treasure = std::make_unique<Treasure>(name, att, def, hp, t);
-	assert(treasure != nullptr);
-	treasure->print();
 	symbol = 'T';
 	empty = false;
 }
@@ -120,22 +118,22 @@ void Tile::setToBell()
 //	monster = nullptr;
 //}
 //
-/************************************ removeTreasure ***************************************************
-This sets the treasure pointer to null. The room is responsible for deleting the object.
-*****************************************************************************************************/
-void Tile::removeTreasure()
-{
-	treasure = nullptr;
-}
+///************************************ removeTreasure ***************************************************
+//This sets the treasure pointer to null. The room is responsible for deleting the object.
+//*****************************************************************************************************/
+//void Tile::removeTreasure()
+//{
+//	treasure = nullptr;
+//}
 
 ///************************************ getters & setters **********************************************/
 //
-//// monster
-//Character* Tile::getMonster()
-//{
-//	return monster;
-//}
-//
+// monster
+Character* Tile::getMonster()
+{
+	return monster.get();
+}
+
 //void Tile::setMonster(Character* m)
 //{
 //	monster = m;
