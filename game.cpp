@@ -435,7 +435,7 @@ void Game::combat()
 	// get enemy in player's tile and create combat object to start combat
 	Character* enemy{ currentRoom->getMonster(currentRoom->getHeroRow(), currentRoom->getHeroCol()) };
 	Combat combat(hero.get(), enemy);
-	combat.fightRound();
+	combat.fight();
 
 	// print victory message if player wins fight against lich cardinal
 	if (hero->getHP() != 0 && enemy->getType() == "Lich Cardinal")

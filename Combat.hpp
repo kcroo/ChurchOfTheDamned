@@ -51,10 +51,12 @@ private:
 	void displayHPWeaponArmor();
 	void displayHolyWaterUsed(int restoredHP);
 
+	void lootBody();
+
 public:
 	Combat(Character* hero, Character* enemy);
 	~Combat();
-	void fightRound();
+	void fight();
 };
 
 #endif 

@@ -40,7 +40,7 @@ If the hero hits 0 HP and has holy water, they are revived and the holy water is
 Parameters: none
 Returns: void
 *****************************************************************************************************/
-void Combat::fightRound()
+void Combat::fight()
 {
 	bool bothAlive{ true };
 
@@ -124,40 +124,10 @@ void Combat::fightRound()
 		{
 			bothAlive = false;
 
-			// hero can loot enemies that aren't lich cardinal
+			// hero can loot enemies that aren't final boss (lich cardinal)
 			if(enemy->getType() != "Lich Cardinal")
 			{
-				// loot the enemy
-				std::cout << "\nThe " << enemy->getType() << " has been defeated! Loot the body?\n";
-				
-				bool keepLooting{ true };
-
-				// add item to hero's inventory
-				while (keepLooting)
-				{
-					enemyInv->print();
-					int choice{ utility::getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
-
-					// stop looting if hero is done or enemy inventory is empty
-					if (choice == 0 || enemyInv->getSize() == 0)
-					{
-						keepLooting = false;
-					}
-
-					// add item from enemy inventory to hero's inventory, unless it's full
-					else
-					{
-						std::unique_ptr<Treasure> loot{ enemyInv->moveTreasure(choice - 1) };
-						if (inventory->notFull())
-						{
-							inventory->add(std::move(loot));
-						}
-						else
-						{
-							std::cout << "\nCan't loot. Inventory full.\n";
-						}
-					}
-				}
+				Combat::lootBody();
 			}
 		}
 
@@ -281,4 +251,43 @@ void Combat::displayHolyWaterUsed(int restoredHP)
 {
 	std::cout << "\nHoly water saved " << hero->getName() << " from the brink of death, "
 		<< "restoring " << restoredHP << " hit points.\n";
+}
+
+/************************************ lootBody *******************************************************
+This function lets the player loot the body of the enemy they just defeated. Looted items are moved
+into the player's inventory.
+Arguments: none
+Returns: void
+*****************************************************************************************************/
+void Combat::lootBody()
+{
+	std::cout << "\nThe " << enemy->getType() << " has been defeated! Loot the body?\n";
+	bool keepLooting{ true };
+
+	// add item to hero's inventory
+	while (keepLooting)
+	{
+		enemyInv->print();
+		int choice{ utility::getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
+
+		// stop looting if hero is done or enemy inventory is empty
+		if (choice == 0 || enemyInv->getSize() == 0)
+		{
+			keepLooting = false;
+		}
+
+		// add item from enemy inventory to hero's inventory, unless it's full
+		else
+		{
+			std::unique_ptr<Treasure> loot{ enemyInv->moveTreasure(choice - 1) };
+			if (inventory->notFull())
+			{
+				inventory->add(std::move(loot));
+			}
+			else
+			{
+				std::cout << "\nCan't loot. Inventory full.\n";
+			}
+		}
+	}
 }
