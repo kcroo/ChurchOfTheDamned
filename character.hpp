@@ -18,6 +18,7 @@ https://stackoverflow.com/questions/14495536/how-to-initialize-const-member-vari
 #include <vector>
 
 #include "inventory.hpp"
+#include "specialAttack.hpp"
 #include "treasure.hpp"
 #include "utility.hpp"
 
