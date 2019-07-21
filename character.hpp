@@ -29,6 +29,8 @@ class Character
 		std::string type;						// e.g. "Dark Priest"
 		std::string name;						// name of Character (empty for monsters)
 		char symbol;
+		int divineBlessings;
+		int level;
 
 		// inventory
 		static const int capacity{ 5 };			// max # of items in inventory
@@ -37,7 +39,7 @@ class Character
 		Treasure* currentArmor;		
 
 	public:
-		Character(int maxHealth, std::string ty, std::string n, char sym);
+		Character(int maxHealth, std::string ty, std::string n, char sym, int db, int lvl);
 		virtual ~Character() = 0;				
 
 		int damageRoll();
@@ -56,6 +58,8 @@ class Character
 		std::string getName();
 		void setName(std::string n);
 		char getSymbol();
+		void setLevel(int lvl);
+		int getLevel();
 		Inventory* getInventory();
 		Treasure* getCurrentWeapon();
 		void setCurrentWeapon(Treasure* t);

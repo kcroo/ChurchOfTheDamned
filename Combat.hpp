@@ -29,9 +29,14 @@ private:
 
 	// weapons and armor
 	Treasure* heroWeapon;
-	Treasure* enemyWeapon;
+	int heroWeaponDamage;
 	Treasure* heroArmor;
+	int heroArmorRating;
+
+	Treasure* enemyWeapon;
+	int enemyWeaponDamage;
 	Treasure* enemyArmor;
+	int enemyArmorRating;
 
 	// inventory
 	Inventory* inventory;
@@ -39,11 +44,7 @@ private:
 
 	// combat stats 
 	static const int chanceHit = 20;			// 20-sided die
-	int heroWeaponDamage;
-	int enemyWeaponDamage;
-	int heroArmorRating;
-	int enemyArmorRating;
-
+	
 	// print figh results
 	void displayWinner();
 	void displayMissed(Character*& c, int attack);
@@ -52,11 +53,14 @@ private:
 	void displayHolyWaterUsed(int restoredHP);
 
 	void lootBody();
+	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
 
 public:
 	Combat(Character* hero, Character* enemy);
 	~Combat();
+	void fightRevamped();
 	void fight();
+
 };
 
 #endif 

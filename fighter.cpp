@@ -14,7 +14,7 @@ Uses the Character base class constructor to create a derived class object. Crea
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
 Fighter::Fighter(std::string n)
-	: Character(12, "Fighter", n, 'H')		// HP, type, name, symbol
+	: Character(12, "Fighter", n, 'H', 10, 1)		// HP, type, name, symbol
 {
 	inventory.add(std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, Type::weapon));
 	inventory.add(std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, Type::armor));

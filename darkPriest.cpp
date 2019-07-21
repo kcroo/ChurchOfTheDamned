@@ -12,7 +12,7 @@ Uses the Character base class constructor to create a derived class object. Crea
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
 DarkPriest::DarkPriest() 
-	: Character(10, "Dark Priest", "", 'P')		// HP, type, name
+	: Character(10, "Dark Priest", "", 'P', 4, 1)		// HP, type, name, symbol, divineBlessings, level
 {
 	inventory.add(std::make_unique<Treasure>("Devil's Staff", 3, 0, 0, Type::weapon));
 	inventory.add(std::make_unique<Treasure>("Unholy Robes", 0, 4, 0, Type::armor));
