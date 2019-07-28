@@ -21,6 +21,9 @@ or holy water it has.
 #include "treasure.hpp"
 #include "utility.hpp"
 
+#include <algorithm>
+#include <random>
+
 class Combat
 {
 private:
@@ -56,6 +59,7 @@ private:
 	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
 	int chooseSpecialAction(Character* attacker, Character* defender);
 	void executeSpecialAction(Character* attacker, Character* defender, int choice);
+	SpecialAction* randomSpecialAction(Character* attacker);
 
 public:
 	Combat(Character* hero, Character* enemy);

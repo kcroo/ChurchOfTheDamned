@@ -85,6 +85,7 @@ void Combat::fightRevamped()
 			else
 			{
 				std::cout << "\nEnemy executing special attack.\n";
+				Combat::randomSpecialAction(enemy);
 				
 			}
 
@@ -240,6 +241,37 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, int 
 	}
 }
 
+/************************************ randomSpecialAction ******************************************
+
+*****************************************************************************************************/
+SpecialAction* Combat::randomSpecialAction(Character* attacker)
+{
+	if (attacker->getMana() > 0)
+	{
+		int numActions{ attacker->getSpecialActionsSize() };
+		std::vector<SpecialAction*> randomizedActions;
+
+		// 
+		for (int i = 0; i < numActions; i++)
+		{
+			randomizedActions.push_back(attacker->getSpecialActionByIndex(i));
+		}
+
+		std::random_device seed;
+		std::shuffle(randomizedActions.begin(), randomizedActions.end(), std::default_random_engine(seed()));
+
+		for (SpecialAction*& act : randomizedActions)
+		{
+			std::cout << act->getName() << std::endl;
+			if (attacker->getMana() >= act->getManaRequired())
+			{
+				return act;
+			}
+		}
+	}
+	
+	return nullptr;
+}
 
 /************************************ displayWinner **************************************************
 This prints who won the combat (e.g. the hero or the enemy). It prints the hero's name or enemy's type.
