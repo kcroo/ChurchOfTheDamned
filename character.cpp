@@ -155,8 +155,9 @@ void Character::printSpecialActions()
 
 	for (const std::unique_ptr<SpecialAction>& act : specialActions)
 	{
-		std::cout << counter << ". " << act->getName() << ". Mana required: " << ". "
-			<< act->getManaRequired() << act->getDescription() << std::endl;
+		std::cout << counter << ". " << act->getName()
+			<< ". MP required: " << act->getManaRequired() << ". "
+			<< act->getDescription() << std::endl;
 		counter++;
 	}
 }
