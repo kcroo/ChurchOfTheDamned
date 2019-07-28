@@ -15,8 +15,8 @@ This is the Character base class constructor. It takes values for HP, maxHP, typ
 Arguments: 1 integer for starting/max HP, 1 string for type of character (e.g. fighter, dark priest),
 	1 string for name (blank for enemies)
 ***************************************************************************************************/
-Character::Character(int maxHealth, std::string ty, std::string n, char sym, int db, int lvl)
-	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, divineBlessings{ db },
+Character::Character(int maxHealth, std::string ty, std::string n, char sym, int m, int lvl)
+	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, mana{ m },
 	level{ lvl }
 {
 	// weapon and armor allocated in derived classes
@@ -76,6 +76,33 @@ void Character::recoverHP(int amountHealed)
 	}
 }
 
+/********************************* decreaseMana ************************************************
+
+***************************************************************************************************/
+void Character::decreaseMana(const int& amount)
+{
+	mana -= amount;
+	if (mana < 0)
+	{
+		mana = 0;
+	}
+}
+
+/********************************* recoverMana ************************************************
+
+***************************************************************************************************/
+void Character::recoverMana(const int& amount)
+{
+	mana += amount;
+
+	// if restored damage will exceed character's max strength, set it to max 
+	if (mana > maxMana)
+	{
+		mana = maxMana;
+	}
+}
+
+
 /********************************* printWeaponAndArmor ********************************************
 This function prints the Character's currently equipped weapon and armor stats.
 Arguments: none
@@ -117,6 +144,48 @@ bool Character::equipItem(Treasure*& item)
 	{
 		return false;
 	}
+}
+
+/********************************* printSpecialAttacks *********************************************
+
+***************************************************************************************************/
+void Character::printSpecialActions()
+{
+	int counter{ 1 };
+
+	for (const std::unique_ptr<SpecialAction>& act : specialActions)
+	{
+		std::cout << counter << ". " << act->getName() << ". Mana required: " << ". "
+			<< act->getManaRequired() << act->getDescription() << std::endl;
+		counter++;
+	}
+}
+
+/********************************* getRandomSpecialAction ******************************************
+
+***************************************************************************************************/
+SpecialAction* Character::getRandomSpecialAction()
+{
+	if (mana > 0)
+	{
+		std::vector<SpecialAction*> possibleActions;
+
+		for (const std::unique_ptr<SpecialAction>& act : specialActions)
+		{
+			if (act->getManaRequired() <= mana)
+			{
+				possibleActions.push_back(act.get());
+			}
+		}
+
+		if (!possibleActions.empty())
+		{
+			int randIdx{ utility::getRandInt(0, possibleActions.size()) };
+			return possibleActions[randIdx];
+		}
+	}
+	
+	return nullptr;
 }
 
 
@@ -173,6 +242,18 @@ char Character::getSymbol()
 	return symbol;
 }
 
+// mana
+int Character::getMana()
+{
+	return mana;
+}
+
+// maxMana
+int Character::getMaxMana()
+{
+	return maxMana;
+}
+
 // level
 void Character::setLevel(int lvl)
 {
@@ -210,4 +291,15 @@ Treasure* Character::getCurrentArmor()
 void Character::setCurrentArmor(Treasure* t)
 {
 	currentArmor = t;
+}
+
+// specialActions
+int Character::getSpecialActionsSize()
+{
+	return specialActions.size();
+}
+
+SpecialAction* Character::getSpecialActionByIndex(int idx)
+{
+	return specialActions.at(idx).get();
 }

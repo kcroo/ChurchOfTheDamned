@@ -15,8 +15,8 @@ The constructor calls the Room constructor. It creates Treasure and enemies to f
 Sanctuary::Sanctuary()
 	: Room(9, 14, "Sanctuary")
 {
-	const int monst1Row{ 2 };
-	const int monst1Col{ 4 };
+	const int monst1Row{ 6 };
+	const int monst1Col{ 8 };
 
 	const int monst2Row{ 2 };
 	const int monst2Col{ 11 };

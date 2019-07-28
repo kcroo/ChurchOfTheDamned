@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/14495536/how-to-initialize-const-member-vari
 #include <vector>
 
 #include "inventory.hpp"
-#include "specialAttack.hpp"
+#include "specialAction.hpp"
 #include "treasure.hpp"
 #include "utility.hpp"
 
@@ -30,7 +30,8 @@ class Character
 		std::string type;						// e.g. "Dark Priest"
 		std::string name;						// name of Character (empty for monsters)
 		char symbol;
-		int divineBlessings;
+		int mana;
+		int maxMana;
 		int level;
 
 		// inventory
@@ -39,15 +40,24 @@ class Character
 		Treasure* currentWeapon;
 		Treasure* currentArmor;		
 
+		// special attacks
+		std::vector<std::unique_ptr<SpecialAction>> specialActions;
+
 	public:
-		Character(int maxHealth, std::string ty, std::string n, char sym, int db, int lvl);
+		Character(int maxHealth, std::string ty, std::string n, char sym, int m, int lvl);
 		virtual ~Character() = 0;				
 
 		int damageRoll();
 		void decreaseHP(const int& damage);
 		void recoverHP(int amountHealed);
+		void decreaseMana(const int& amount);
+		void recoverMana(const int& amount);
 		void printWeaponAndArmor();
 		bool equipItem(Treasure*& item);
+
+		// special attacks
+		void printSpecialActions();
+		SpecialAction* getRandomSpecialAction();
 
 		// getters and setters
 		int getHP();
@@ -59,6 +69,8 @@ class Character
 		std::string getName();
 		void setName(std::string n);
 		char getSymbol();
+		int getMana();
+		int getMaxMana();
 		void setLevel(int lvl);
 		int getLevel();
 		Inventory* getInventory();
@@ -66,6 +78,8 @@ class Character
 		void setCurrentWeapon(Treasure* t);
 		Treasure* getCurrentArmor();
 		void setCurrentArmor(Treasure* t);
+		int getSpecialActionsSize();
+		SpecialAction* getSpecialActionByIndex(int idx);
 };
 
 #endif

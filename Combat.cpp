@@ -48,21 +48,35 @@ void Combat::fightRevamped()
 		Combat::displayHPWeaponArmor();
 
 		// hero attacks
-		int choice{ utility::getInt("\n1. Standard attack \n2. Special attack\n", 1, 2) };
-		if (choice == 1)
+		bool stillChoosingAttack{ true };
+		while (stillChoosingAttack)
 		{
-			Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
+			int choice{ utility::getInt("\n1. Standard attack \n2. Special attack\n", 1, 2) };
+			if (choice == 1)
+			{
+				Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
+				stillChoosingAttack = false;
+			}
+			else if (choice == 2)
+			{
+				int attackChoice{ Combat::chooseSpecialAction(hero, enemy) };
+				if (attackChoice > 0)
+				{
+					Combat::executeSpecialAction(hero, enemy, attackChoice);
+					stillChoosingAttack = false;
+				}
+			}
 		}
-		else
-		{
-			std::cout << "\nHero executing special attack.\n";
-		}
+		
+
 
 		// enemy attacks
 		if (enemy->getHP() > 0)
 		{
-			utility::pressEnter();
+			//utility::pressEnter();
 			Combat::displayHPWeaponArmor();
+			
+			// random chance of doing special action if enough mana 
 			int randomAttack{ utility::getRandInt(1, 2) };
 			if (randomAttack == 1)
 			{
@@ -71,9 +85,10 @@ void Combat::fightRevamped()
 			else
 			{
 				std::cout << "\nEnemy executing special attack.\n";
+				
 			}
 
-			utility::pressEnter();
+			//utility::pressEnter();
 		}
 
 		// if hero is dead, check inventory for holy water (will revive hero)
@@ -142,110 +157,194 @@ void Combat::standardAttack(Character* attacker, Character* defender, int weapon
 	}
 }
 
-/************************************ fight ****************************************************
-This function has the two Characters set up in the constructor fight. It ends when either has HP = 0. 
-If the hero hits 0 HP and has holy water, they are revived and the holy water is consumed.
-Parameters: none
-Returns: void
+/************************************ specialAttack **************************************************
+
 *****************************************************************************************************/
-void Combat::fight()
+int Combat::chooseSpecialAction(Character* attacker, Character* defender)
 {
-	bool bothAlive{ true };
+	int choice{ -1 };
 
-	Combat::displayHPWeaponArmor();
-
-	// fight until one character has HP == 0
-	while (bothAlive)
+	while (choice == -1)
 	{
-		/***********hero attacks*****************/
-
-		// see if hero hits (must roll above enemy's armor rating)
-		int attack{ utility::getRandInt(1, chanceHit) };
-
-		// hero hits
-		if (attack > enemyArmorRating)
+		attacker->printSpecialActions();
+		choice = utility::getInt("Choose special action (or 0 to go back): ", 0, attacker->getSpecialActionsSize());
+		if (choice > 0 && attacker->getMana() < attacker->getSpecialActionByIndex(choice - 1)->getManaRequired())
 		{
-			// get attack roll, defense roll, and total damage
-			int damage = hero->damageRoll();
-
-			// decrease damage from fighter 2's strength
-			enemy->decreaseHP(damage);
-
-			// display all fight stats
-			Combat::displayHit(hero, attack, damage);
+			std::cout << "\nInsufficient mana to execute that action.";
 		}
-
-		// hero misses
-		else
-		{
-			Combat::displayMissed(hero, attack);
-		}
-
-
-		/***************enemy attacks if strength > 0************/
-		if (enemy->getHP() > 0)
-		{
-			Combat::displayHPWeaponArmor();
-
-			attack = utility::getRandInt(1, chanceHit);
-
-			if (attack > heroArmorRating)
-			{
-				// get damage roll
-				int damage = enemy->damageRoll();
-
-				// decrease damage from fighter 2's strength
-				hero->decreaseHP(damage);
-
-				// display all fight stats
-				Combat::displayHit(enemy, attack, damage);
-			}
-			else
-			{
-				Combat::displayMissed(enemy, attack);
-			}
-		}
-
-		// if hero is dead, check inventory for holy water (will revive hero)
-		if (hero->getHP() == 0)
-		{
-			int position{ inventory->getItemPosition(Type::holyWater) };
-
-			// if holy water in inventory, use it and recover hero's HP
-			if (position != -1)
-			{
-				int hpRecovered{ inventory->useHolyWater(position) };
-				hero->recoverHP(hpRecovered);
-				Combat::displayHolyWaterUsed(hpRecovered);
-			}
-
-			// otherwise hero dies
-			else
-			{
-				std::cout << "\n" << hero->getName() << " has been defeated.\n";
-				bothAlive = false;
-			}
-		}
-
-		// if enemy is dead, combat is over
-		else if (enemy->getHP() == 0)
-		{
-			bothAlive = false;
-
-			// hero can loot enemies that aren't final boss (lich cardinal)
-			if(enemy->getType() != "Lich Cardinal")
-			{
-				Combat::lootBody();
-			}
-		}
-
-		// display hero and enemy's HP, weapon, and armor stats
-		Combat::displayHPWeaponArmor();
 	}
 	
-	// display winner of round 
-	Combat::displayWinner();
+	return choice;
 }
+
+/************************************ executeSpecialAttack *******************************************
+
+*****************************************************************************************************/
+void Combat::executeSpecialAction(Character* attacker, Character* defender, int choice)
+{
+	SpecialAction* action{ attacker->getSpecialActionByIndex(choice - 1) };
+	std::string attackerName;
+	std::string defenderName;
+
+	// set proper names to use in summary statements of special action
+	if (attacker == hero)
+	{
+		attackerName = hero->getName();
+		defenderName = enemy->getType();
+	}
+	else
+	{
+		attackerName = enemy->getType();
+		defenderName = hero->getName();
+	}
+
+
+	switch (action->getActionType())
+	{
+		case ActionType::attack:
+		{
+			int damage{ utility::getRandInt(action->getMinDamage(), action->getMaxDamage()) };
+			defender->decreaseHP(damage);
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to inflict " << damage << " points of damage on " << defenderName;
+			break;
+		}
+		case ActionType::defense:
+		{
+			int defenseIncrease{ action->getArmorIncrease() };
+			if (attacker == hero)
+			{
+				heroArmorRating += defenseIncrease;
+			}
+			else
+			{
+				enemyArmorRating += defenseIncrease;
+			}
+
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to raise their defense rating by " << defenseIncrease;
+			break;
+		}
+		case ActionType::HP:
+		{
+			int hpIncrease{ action->getHpRecovery() };
+			attacker->recoverHP(hpIncrease);
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << hpIncrease << " points of damage";
+			break;
+		}
+		case ActionType::mana:
+		{
+			int manaRecovery{ action->getManaRecovery() };
+			attacker->recoverMana(manaRecovery);
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << manaRecovery << " points of mana";
+			break;
+		}
+	}
+}
+
+//
+///************************************ fight ****************************************************
+//This function has the two Characters set up in the constructor fight. It ends when either has HP = 0. 
+//If the hero hits 0 HP and has holy water, they are revived and the holy water is consumed.
+//Parameters: none
+//Returns: void
+//*****************************************************************************************************/
+//void Combat::fight()
+//{
+//	bool bothAlive{ true };
+//
+//	Combat::displayHPWeaponArmor();
+//
+//	// fight until one character has HP == 0
+//	while (bothAlive)
+//	{
+//		/***********hero attacks*****************/
+//
+//		// see if hero hits (must roll above enemy's armor rating)
+//		int attack{ utility::getRandInt(1, chanceHit) };
+//
+//		// hero hits
+//		if (attack > enemyArmorRating)
+//		{
+//			// get attack roll, defense roll, and total damage
+//			int damage = hero->damageRoll();
+//
+//			// decrease damage from fighter 2's strength
+//			enemy->decreaseHP(damage);
+//
+//			// display all fight stats
+//			Combat::displayHit(hero, attack, damage);
+//		}
+//
+//		// hero misses
+//		else
+//		{
+//			Combat::displayMissed(hero, attack);
+//		}
+//
+//
+//		/***************enemy attacks if strength > 0************/
+//		if (enemy->getHP() > 0)
+//		{
+//			Combat::displayHPWeaponArmor();
+//
+//			attack = utility::getRandInt(1, chanceHit);
+//
+//			if (attack > heroArmorRating)
+//			{
+//				// get damage roll
+//				int damage = enemy->damageRoll();
+//
+//				// decrease damage from fighter 2's strength
+//				hero->decreaseHP(damage);
+//
+//				// display all fight stats
+//				Combat::displayHit(enemy, attack, damage);
+//			}
+//			else
+//			{
+//				Combat::displayMissed(enemy, attack);
+//			}
+//		}
+//
+//		// if hero is dead, check inventory for holy water (will revive hero)
+//		if (hero->getHP() == 0)
+//		{
+//			int position{ inventory->getItemPosition(Type::holyWater) };
+//
+//			// if holy water in inventory, use it and recover hero's HP
+//			if (position != -1)
+//			{
+//				int hpRecovered{ inventory->useHolyWater(position) };
+//				hero->recoverHP(hpRecovered);
+//				Combat::displayHolyWaterUsed(hpRecovered);
+//			}
+//
+//			// otherwise hero dies
+//			else
+//			{
+//				std::cout << "\n" << hero->getName() << " has been defeated.\n";
+//				bothAlive = false;
+//			}
+//		}
+//
+//		// if enemy is dead, combat is over
+//		else if (enemy->getHP() == 0)
+//		{
+//			bothAlive = false;
+//
+//			// hero can loot enemies that aren't final boss (lich cardinal)
+//			if(enemy->getType() != "Lich Cardinal")
+//			{
+//				Combat::lootBody();
+//			}
+//		}
+//
+//		// display hero and enemy's HP, weapon, and armor stats
+//		Combat::displayHPWeaponArmor();
+//	}
+//	
+//	// display winner of round 
+//	Combat::displayWinner();
+//}
 
 /************************************ displayWinner **************************************************
 This prints who won the combat (e.g. the hero or the enemy). It prints the hero's name or enemy's type.

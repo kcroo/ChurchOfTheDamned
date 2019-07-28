@@ -54,6 +54,8 @@ private:
 
 	void lootBody();
 	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
+	int chooseSpecialAction(Character* attacker, Character* defender);
+	void executeSpecialAction(Character* attacker, Character* defender, int choice);
 
 public:
 	Combat(Character* hero, Character* enemy);
