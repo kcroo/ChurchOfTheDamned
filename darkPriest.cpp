@@ -23,7 +23,7 @@ DarkPriest::DarkPriest()
 	currentArmor = inventory.getTreasure(1);
 
 	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::attack, "Satanic Incantations", "Prayers to Satan bring hell on earth, causing 1D6 damage.", 2, 1, 6, 0, 0, 0));
-	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::mana, "Unholy Meditations", "Communing with the priest's hellish overloads restores 4 MP.", 1, 0, 0, 0, 0, 4));
+	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::MP, "Unholy Meditations", "Communing with the priest's hellish overloads restores 4 MP.", 1, 0, 0, 0, 0, 4));
 }
 
 /********************************* destructor *****************************************************

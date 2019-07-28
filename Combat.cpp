@@ -59,10 +59,10 @@ void Combat::fightRevamped()
 			}
 			else if (choice == 2)
 			{
-				int attackChoice{ Combat::chooseSpecialAction(hero, enemy) };
-				if (attackChoice > 0)
+				SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero, enemy) };
+				if (actionChoice != nullptr)
 				{
-					Combat::executeSpecialAction(hero, enemy, attackChoice);
+					Combat::executeSpecialAction(hero, enemy, actionChoice);
 					stillChoosingAttack = false;
 				}
 			}
@@ -84,9 +84,16 @@ void Combat::fightRevamped()
 			}
 			else
 			{
-				std::cout << "\nEnemy executing special attack.\n";
-				Combat::randomSpecialAction(enemy);
-				
+				std::cout << "\nEnemy executing special attack and has " << enemy->getMana() << " MP.\n";
+				SpecialAction* action{ Combat::randomSpecialAction(enemy) };
+				if (action != nullptr)
+				{
+					Combat::executeSpecialAction(enemy, hero, action);
+				}
+				else
+				{
+					Combat::standardAttack(enemy, hero, enemyWeaponDamage, heroArmorRating);
+				}
 			}
 
 			//utility::pressEnter();
@@ -161,29 +168,34 @@ void Combat::standardAttack(Character* attacker, Character* defender, int weapon
 /************************************ specialAttack **************************************************
 
 *****************************************************************************************************/
-int Combat::chooseSpecialAction(Character* attacker, Character* defender)
+SpecialAction* Combat::chooseSpecialAction(Character* attacker, Character* defender)
 {
-	int choice{ -1 };
+	bool done{ false };
 
-	while (choice == -1)
+	while (!done)
 	{
 		attacker->printSpecialActions();
-		choice = utility::getInt("Choose special action (or 0 to go back): ", 0, attacker->getSpecialActionsSize());
-		if (choice > 0 && attacker->getMana() < attacker->getSpecialActionByIndex(choice - 1)->getManaRequired())
+		int choice{ utility::getInt("Choose special action (or 0 to go back): ", 0, attacker->getSpecialActionsSize()) };
+		if (choice > 0)
 		{
-			std::cout << "\nInsufficient mana to execute that action.";
+			SpecialAction* action{ attacker->getSpecialActionByIndex(choice - 1) };
+			if (attacker->getMana() < action->getManaRequired())
+			{
+				std::cout << "\nInsufficient mana to execute that action.";
+			}
+			
+			return action;
 		}
 	}
 	
-	return choice;
+	return nullptr;
 }
 
 /************************************ executeSpecialAttack *******************************************
-
+Executes special action according to its type (attack, defense, HP recovery, or MP recovery).
 *****************************************************************************************************/
-void Combat::executeSpecialAction(Character* attacker, Character* defender, int choice)
+void Combat::executeSpecialAction(Character* attacker, Character* defender, SpecialAction* action)
 {
-	SpecialAction* action{ attacker->getSpecialActionByIndex(choice - 1) };
 	std::string attackerName;
 	std::string defenderName;
 
@@ -198,7 +210,6 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, int 
 		attackerName = enemy->getType();
 		defenderName = hero->getName();
 	}
-
 
 	switch (action->getActionType())
 	{
@@ -231,7 +242,7 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, int 
 			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << hpIncrease << " points of damage";
 			break;
 		}
-		case ActionType::mana:
+		case ActionType::MP:
 		{
 			int manaRecovery{ action->getManaRecovery() };
 			attacker->recoverMana(manaRecovery);
@@ -242,7 +253,11 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, int 
 }
 
 /************************************ randomSpecialAction ******************************************
-
+Generates vector of attacker's special actions, shuffles the vector, then goes through vector sequentially
+and returns SpecialAction pointer if the attacker has enough mana to execute that action. If the attacker 
+has insufficient mana for all actions, it returns null.
+Parameters: Character* for whose actions to choose
+Returns: SpecialAction* if sufficient mana to execute, null if not
 *****************************************************************************************************/
 SpecialAction* Combat::randomSpecialAction(Character* attacker)
 {
@@ -251,18 +266,18 @@ SpecialAction* Combat::randomSpecialAction(Character* attacker)
 		int numActions{ attacker->getSpecialActionsSize() };
 		std::vector<SpecialAction*> randomizedActions;
 
-		// 
+		// generate vector of special actions in order
 		for (int i = 0; i < numActions; i++)
 		{
 			randomizedActions.push_back(attacker->getSpecialActionByIndex(i));
 		}
 
+		// shuffle vector
 		std::random_device seed;
 		std::shuffle(randomizedActions.begin(), randomizedActions.end(), std::default_random_engine(seed()));
 
 		for (SpecialAction*& act : randomizedActions)
 		{
-			std::cout << act->getName() << std::endl;
 			if (attacker->getMana() >= act->getManaRequired())
 			{
 				return act;

@@ -57,8 +57,8 @@ private:
 
 	void lootBody();
 	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
-	int chooseSpecialAction(Character* attacker, Character* defender);
-	void executeSpecialAction(Character* attacker, Character* defender, int choice);
+	SpecialAction* chooseSpecialAction(Character* attacker, Character* defender);
+	void executeSpecialAction(Character* attacker, Character* defender, SpecialAction* act);
 	SpecialAction* randomSpecialAction(Character* attacker);
 
 public:

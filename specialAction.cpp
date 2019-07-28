@@ -56,7 +56,7 @@ int SpecialAction::getMaxDamage()
 
 int SpecialAction::getArmorIncrease()
 {
-	return maxDamage;
+	return armorIncrease;
 }
 
 int SpecialAction::getHpRecovery()

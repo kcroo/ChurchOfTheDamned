@@ -11,7 +11,7 @@ Author: Kirsten Corrao
 
 #include <string>
 
-enum class ActionType { attack, defense, HP, mana };
+enum class ActionType { attack, defense, HP, MP };
 
 class SpecialAction 
 {

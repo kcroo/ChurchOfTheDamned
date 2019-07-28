@@ -162,32 +162,6 @@ void Character::printSpecialActions()
 	}
 }
 
-/********************************* getRandomSpecialAction ******************************************
-
-***************************************************************************************************/
-SpecialAction* Character::getRandomSpecialAction()
-{
-	if (mana > 0)
-	{
-		std::vector<SpecialAction*> possibleActions;
-
-		for (const std::unique_ptr<SpecialAction>& act : specialActions)
-		{
-			if (act->getManaRequired() <= mana)
-			{
-				possibleActions.push_back(act.get());
-			}
-		}
-
-		if (!possibleActions.empty())
-		{
-			int randIdx{ utility::getRandInt(0, possibleActions.size()) };
-			return possibleActions[randIdx];
-		}
-	}
-	
-	return nullptr;
-}
 
 
 /********************************* getters and setters ********************************************

@@ -57,7 +57,6 @@ class Character
 
 		// special attacks
 		void printSpecialActions();
-		SpecialAction* getRandomSpecialAction();
 
 		// getters and setters
 		int getHP();
