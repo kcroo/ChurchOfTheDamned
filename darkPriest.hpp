@@ -8,7 +8,7 @@ Description: this is the header file for DarkPriest, which is a derived class of
 #ifndef DARKPRIEST_HPP
 #define DARKPRIEST_HPP
 
-#include "Character.hpp"
+#include "character.hpp"
 
 class DarkPriest : public Character
 {

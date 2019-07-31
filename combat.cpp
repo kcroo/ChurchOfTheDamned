@@ -13,7 +13,7 @@ indicates. The hero wins if the enemy has 0 HP. If the hero has 0 HP and no holy
 and the game is over. After an enemy is defeated, the hero can loot the body of any weapons, armor,
 or holy water it has.
 ***************************************************************************************************/
-#include "Combat.hpp"
+#include "combat.hpp"
 
 /************************************ constructor ****************************************************
 The constructor sets initializes hero to the player and sets enemy to the monster at the same location.

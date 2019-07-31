@@ -1,6 +1,6 @@
 /**************************************************************************************************
 Program Name: Final Project
-File: Game.cpp
+File: game.cpp
 Author: Kirsten Corrao
 Date: 03/05/2019
 Description: this is the implementation file for Game class. The Game class implements other classes to play
@@ -10,7 +10,7 @@ asked what their name is. The player takes that name. Then the player moves the 
 fighting monsters and collecting items. The game ends when the player's HP reaches 0 (without any more
 holy water to revive them); or the player defeats the lich cardinal.
 ***************************************************************************************************/
-#include "Game.hpp"
+#include "game.hpp"
 #include <assert.h>
 
 
