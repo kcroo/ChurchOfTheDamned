@@ -41,62 +41,19 @@ Introducing new fighting system.
 void Combat::fightRevamped()
 {
 	bool bothAlive{ true };
-	std::cout << "\n-------- COMBAT INITIATED -------\n";
-
-	while (bothAlive)
+	
+    while (bothAlive)
 	{
 		Combat::displayHPWeaponArmor();
 
-		// hero attacks
-		bool stillChoosingAttack{ true };
-		while (stillChoosingAttack)
-		{
-			int choice{ utility::getInt("\n1. Standard attack \n2. Special attack\n", 1, 2) };
-			if (choice == 1)
-			{
-				Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
-				stillChoosingAttack = false;
-			}
-			else if (choice == 2)
-			{
-				SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero, enemy) };
-				if (actionChoice != nullptr)
-				{
-					Combat::executeSpecialAction(hero, enemy, actionChoice);
-					stillChoosingAttack = false;
-				}
-			}
-		}
-		
-
+		// hero attacks first (what about initiative system?)
+	    Combat::heroAttacks();	
 
 		// enemy attacks
 		if (enemy->getHP() > 0)
 		{
-			//utility::pressEnter();
-			Combat::displayHPWeaponArmor();
-			
-			// random chance of doing special action if enough mana 
-			int randomAttack{ utility::getRandInt(1, 2) };
-			if (randomAttack == 1)
-			{
-				Combat::standardAttack(enemy, hero, enemyWeaponDamage, heroArmorRating);
-			}
-			else
-			{
-				std::cout << "\nEnemy executing special attack and has " << enemy->getMana() << " MP.\n";
-				SpecialAction* action{ Combat::randomSpecialAction(enemy) };
-				if (action != nullptr)
-				{
-					Combat::executeSpecialAction(enemy, hero, action);
-				}
-				else
-				{
-					Combat::standardAttack(enemy, hero, enemyWeaponDamage, heroArmorRating);
-				}
-			}
-
-			//utility::pressEnter();
+			Combat::displayHPWeaponArmor();	
+            Combat::enemyAttacks();
 		}
 
 		// if hero is dead, check inventory for holy water (will revive hero)
@@ -136,6 +93,64 @@ void Combat::fightRevamped()
 	Combat::displayWinner();
 }
 
+/************************************ heroAttacks  ***************************************************
+Player chooses between a standard attack or special action. If they choose not to do a special action,
+or don't have enough MP, then they must choose to do a standard attack. 
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Combat::heroAttacks()
+{
+    bool stillChoosingAttack {true};
+
+    while (stillChoosingAttack)
+    {
+        int choice{ utility::getInt("\n1. Standard attack \n2. Special action\n", 1, 2) };
+        if (choice == 1)
+        {
+            Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
+            stillChoosingAttack = false;
+        }
+        else if (choice == 2)
+        {
+            SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero, enemy) };
+            if (actionChoice != nullptr)
+            {
+                Combat::executeSpecialAction(hero, enemy, actionChoice);
+                stillChoosingAttack = false;
+            }
+        }
+    }
+}
+
+/************************************ enemyAttacks ***************************************************
+The enemy has a 50% chance of doing a normal attack, and a 50% chance of doing a special action. If 
+special action is randomly selected, and the enemy has enough MP, then that action is taken. Otherwise,
+a normal attack is done.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Combat::enemyAttacks()
+{
+    int randomAttack{ utility::getRandInt(1, 2) };
+    if (randomAttack == 1)
+    {
+        Combat::standardAttack(enemy, hero, enemyWeaponDamage, heroArmorRating);
+    }
+    else
+    {
+        std::cout << "\nEnemy executing special action and has " << enemy->getMana() << " MP.\n";
+        SpecialAction* action{ Combat::randomSpecialAction(enemy) };
+        if (action != nullptr)
+        {
+            Combat::executeSpecialAction(enemy, hero, action);
+        }
+        else
+        {
+            Combat::standardAttack(enemy, hero, enemyWeaponDamage, heroArmorRating);
+        }
+    }
+}
 
 /************************************ standardAttack ***************************************************
 
