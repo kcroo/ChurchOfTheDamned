@@ -374,13 +374,15 @@ void Combat::displayHPWeaponArmor()
 	// hero and enemy HP
 	std::cout << "\n------------------------------------------------------------------------------\n"
 		<< std::setw(1) << "|"
-		<< std::right << std::setw(20) << hero->getName()
-		<< std::setw(10) << hero->getHP() << " HP"
-		<< std::setw(8) << "|";
+		<< std::right << std::setw(17) << hero->getName()
+		<< std::setw(7) << hero->getHP() << " HP"
+        << std::setw(7) << hero->getMana() << " MP"
+		<< std::setw(4) << "|";
 	std::cout  
-		<< std::right << std::setw(20) << enemy->getType()
-		<< std::setw(10) << enemy->getHP() << " HP"
-		<< std::setw(3) << "|";
+		<< std::right << std::setw(17) << enemy->getType()
+		<< std::setw(6) << enemy->getHP() << " HP"
+        << std::setw(6) << enemy->getMana() << " MP"
+		<< std::setw(1) << "|";
 
 	// hero and enemy weapons
 	std::cout << "\n------------------------------------------------------------------------------\n"

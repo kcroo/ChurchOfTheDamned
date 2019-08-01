@@ -83,7 +83,7 @@ void Game::play()
 
 	sanctuary = std::make_unique<Sanctuary>();
 	currentRoom = sanctuary.get();
-	hero = std::make_unique<Fighter>("Hugo");
+	hero = std::make_unique<Fighter>("Santiago");
 	inventory = hero->getInventory();
 
 	while (gameContinues)
