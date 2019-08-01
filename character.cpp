@@ -132,8 +132,7 @@ bool Character::equipItem(Treasure*& item)
 	// equip weapon
 	if (item->getType() == Type::weapon)
 	{
-		currentWeapon = item;
-		return true;
+		currentWeapon = item; return true;
 	}
 	else if (item->getType() == Type::armor)
 	{
@@ -152,14 +151,18 @@ bool Character::equipItem(Treasure*& item)
 void Character::printSpecialActions()
 {
 	int counter{ 1 };
+    std::cout << std::endl;
 
+    std::cout << "\n------------------ SPECIAL ACTIONS ---------------------";
 	for (const std::unique_ptr<SpecialAction>& act : specialActions)
 	{
-		std::cout << counter << ". " << act->getName()
-			<< ". MP required: " << act->getManaRequired() << ". "
-			<< act->getDescription() << std::endl;
+		std::cout << "\n" << counter << ". " << act->getName()
+			<< "\nMP required: " << act->getManaRequired()
+			<< "\n" << act->getDescription() << std::endl;
 		counter++;
 	}
+
+    std::cout << "---------------------------------------------------------\n\n";
 }
 
 
