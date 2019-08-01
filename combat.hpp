@@ -59,7 +59,7 @@ private:
     void heroAttacks();
     void enemyAttacks();
 	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
-	SpecialAction* chooseSpecialAction(Character* attacker, Character* defender);
+	SpecialAction* chooseSpecialAction(Character* attacker);
 	void executeSpecialAction(Character* attacker, Character* defender, SpecialAction* act);
 	SpecialAction* randomSpecialAction(Character* attacker);
 

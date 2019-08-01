@@ -113,7 +113,7 @@ void Combat::heroAttacks()
         }
         else if (choice == 2)
         {
-            SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero, enemy) };
+            SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero) };
             if (actionChoice != nullptr)
             {
                 Combat::executeSpecialAction(hero, enemy, actionChoice);
@@ -180,10 +180,13 @@ void Combat::standardAttack(Character* attacker, Character* defender, int weapon
 	}
 }
 
-/************************************ specialAttack **************************************************
-
+/************************************ chooseSpecialAction ********************************************
+The player can choose a special action, or press 0 to go back and choose a standard attack. If they 
+choose an action for which they don't have enough MP, an error message is printed.
+Parameters: Character pointer for the attacker (who is choosing an action)
+Returns: pointer to SpecialAction object (null if they didn't choose an action)
 *****************************************************************************************************/
-SpecialAction* Combat::chooseSpecialAction(Character* attacker, Character* defender)
+SpecialAction* Combat::chooseSpecialAction(Character* attacker)
 {
 	while (true)
 	{
