@@ -185,9 +185,7 @@ void Combat::standardAttack(Character* attacker, Character* defender, int weapon
 *****************************************************************************************************/
 SpecialAction* Combat::chooseSpecialAction(Character* attacker, Character* defender)
 {
-	bool done{ false };
-
-	while (!done)
+	while (true)
 	{
 		attacker->printSpecialActions();
 		int choice{ utility::getInt("Choose special action (or 0 to go back): ", 0, attacker->getSpecialActionsSize()) };
@@ -201,11 +199,14 @@ SpecialAction* Combat::chooseSpecialAction(Character* attacker, Character* defen
 			
 			return action;
 		}
+
+        else if (choice == 0)
+        {
+            return nullptr;
+        }
 	}
 	
-	return nullptr;
 }
-
 /************************************ executeSpecialAttack *******************************************
 Executes special action according to its type (attack, defense, HP recovery, or MP recovery).
 *****************************************************************************************************/
