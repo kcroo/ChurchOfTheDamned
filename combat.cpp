@@ -188,27 +188,36 @@ Returns: pointer to SpecialAction object (null if they didn't choose an action)
 *****************************************************************************************************/
 SpecialAction* Combat::chooseSpecialAction(Character* attacker)
 {
-	while (true)
+	SpecialAction* action{ nullptr };
+	bool stillChoosingAction{ true };
+
+	while (stillChoosingAction)
 	{
 		attacker->printSpecialActions();
 		int choice{ utility::getInt("Choose special action (or 0 to go back): ", 0, attacker->getSpecialActionsSize()) };
 		if (choice > 0)
 		{
-			SpecialAction* action{ attacker->getSpecialActionByIndex(choice - 1) };
+			action = attacker->getSpecialActionByIndex(choice - 1);
+
 			if (attacker->getMana() < action->getManaRequired())
 			{
 				std::cout << "\nInsufficient mana to execute that action.";
 			}
-			
-			return action;
+			else
+			{
+
+				stillChoosingAction = false;
+			}
 		}
 
         else if (choice == 0)
         {
-            return nullptr;
+			action = nullptr;
+			stillChoosingAction = false;
         }
 	}
 	
+	return action;
 }
 /************************************ executeSpecialAttack *******************************************
 Executes special action according to its type (attack, defense, HP recovery, or MP recovery).
@@ -269,6 +278,9 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, Spec
 			break;
 		}
 	}
+
+	attacker->decreaseMana(action->getManaRequired());
+	
 }
 
 /************************************ randomSpecialAction ******************************************
