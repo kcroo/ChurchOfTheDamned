@@ -16,7 +16,7 @@ Arguments: 1 integer for starting/max HP, 1 string for type of character (e.g. f
 	1 string for name (blank for enemies)
 ***************************************************************************************************/
 Character::Character(int maxHealth, std::string ty, std::string n, char sym, int m, int lvl)
-	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, mana{ m },
+	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, MP{ m },
 	level{ lvl }
 {
 	// weapon and armor allocated in derived classes
@@ -76,29 +76,29 @@ void Character::recoverHP(int amountHealed)
 	}
 }
 
-/********************************* decreaseMana ************************************************
+/********************************* decreaseMP ************************************************
 
 ***************************************************************************************************/
-void Character::decreaseMana(const int& amount)
+void Character::decreaseMP(const int& amount)
 {
-	mana -= amount;
-	if (mana < 0)
+	MP -= amount;
+	if (MP < 0)
 	{
-		mana = 0;
+		MP = 0;
 	}
 }
 
-/********************************* recoverMana ************************************************
+/********************************* recoverMP ************************************************
 
 ***************************************************************************************************/
-void Character::recoverMana(const int& amount)
+void Character::recoverMP(const int& amount)
 {
-	mana += amount;
+	MP += amount;
 
 	// if restored damage will exceed character's max strength, set it to max 
-	if (mana > maxMana)
+	if (MP > maxMP)
 	{
-		mana = maxMana;
+		MP = maxMP;
 	}
 }
 
@@ -157,7 +157,7 @@ void Character::printSpecialActions()
 	for (const std::unique_ptr<SpecialAction>& act : specialActions)
 	{
 		std::cout << "\n" << counter << ". " << act->getName()
-			<< "\nMP required: " << act->getManaRequired()
+			<< "\nMP required: " << act->getMPRequired()
 			<< "\n" << act->getDescription() << std::endl;
 		counter++;
 	}
@@ -220,16 +220,16 @@ char Character::getSymbol()
 	return symbol;
 }
 
-// mana
-int Character::getMana()
+// MP
+int Character::getMP()
 {
-	return mana;
+	return MP;
 }
 
-// maxMana
-int Character::getMaxMana()
+// maxMP
+int Character::getMaxMP()
 {
-	return maxMana;
+	return maxMP;
 }
 
 // level

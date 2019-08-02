@@ -30,8 +30,8 @@ class Character
 		std::string type;						// e.g. "Dark Priest"
 		std::string name;						// name of Character (empty for monsters)
 		char symbol;
-		int mana;
-		int maxMana;
+		int MP;
+		int maxMP;
 		int level;
 
 		// inventory
@@ -50,8 +50,8 @@ class Character
 		int damageRoll();
 		void decreaseHP(const int& damage);
 		void recoverHP(int amountHealed);
-		void decreaseMana(const int& amount);
-		void recoverMana(const int& amount);
+		void decreaseMP(const int& amount);
+		void recoverMP(const int& amount);
 		void printWeaponAndArmor();
 		bool equipItem(Treasure*& item);
 
@@ -68,8 +68,8 @@ class Character
 		std::string getName();
 		void setName(std::string n);
 		char getSymbol();
-		int getMana();
-		int getMaxMana();
+		int getMP();
+		int getMaxMP();
 		void setLevel(int lvl);
 		int getLevel();
 		Inventory* getInventory();

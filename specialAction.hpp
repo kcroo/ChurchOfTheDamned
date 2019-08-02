@@ -19,12 +19,12 @@ class SpecialAction
 		ActionType type;
 		std::string name;
 		std::string description;
-		int manaRequired;
+		int MPRequired;
 		int minDamage;
 		int maxDamage;
 		int armorIncrease;
 		int hpRecovery;
-		int manaRecovery;
+		int MPRecovered;
 		
 
 	public:
@@ -33,12 +33,12 @@ class SpecialAction
 		ActionType getActionType();
 		std::string getName();
 		std::string getDescription();
-		int getManaRequired();
+		int getMPRequired();
 		int getMinDamage();
 		int getMaxDamage();
 		int getArmorIncrease();
 		int getHpRecovery();
-		int getManaRecovery();
+		int getMPRecovered();
 };
 
 #endif

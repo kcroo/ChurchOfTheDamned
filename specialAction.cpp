@@ -9,9 +9,9 @@ Author: Kirsten Corrao
 /********************************* constructor ****************************************************
 
 ***************************************************************************************************/
-SpecialAction::SpecialAction(ActionType t, std::string n, std::string d, int manaReq, int minD, int maxD, int armor, int hpRecov, int manaRecov)
-	: type{ t }, name{ n }, description{ d }, manaRequired{ manaReq }, minDamage{ minD }, maxDamage{ maxD }, armorIncrease{ armor },
-	hpRecovery{ hpRecov }, manaRecovery{ manaRecov }
+SpecialAction::SpecialAction(ActionType t, std::string n, std::string d, int MPReq, int minD, int maxD, int armor, int hpRecov, int MPRecov)
+	: type{ t }, name{ n }, description{ d }, MPRequired{ MPReq }, minDamage{ minD }, maxDamage{ maxD }, armorIncrease{ armor },
+	hpRecovery{ hpRecov }, MPRecovered{ MPRecov }
 {
 
 }
@@ -39,9 +39,9 @@ std::string SpecialAction::getDescription()
 	return description;
 }
 
-int SpecialAction::getManaRequired()
+int SpecialAction::getMPRequired()
 {
-	return manaRequired;
+	return MPRequired;
 }
 
 int SpecialAction::getMinDamage()
@@ -64,7 +64,7 @@ int SpecialAction::getHpRecovery()
 	return hpRecovery;
 }
 
-int SpecialAction::getManaRecovery()
+int SpecialAction::getMPRecovered()
 {
-	return manaRecovery;
+	return MPRecovered;
 }

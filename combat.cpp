@@ -129,7 +129,7 @@ void Combat::enemyAttacks()
     }
     else
     {
-        std::cout << "\nEnemy executing special action and has " << enemy->getMana() << " MP.\n";
+        std::cout << "\nEnemy executing special action and has " << enemy->getMP() << " MP.\n";
         SpecialAction* action{ Combat::randomSpecialAction(enemy) };
         if (action != nullptr)
         {
@@ -189,7 +189,7 @@ SpecialAction* Combat::chooseSpecialAction(Character* attacker)
 		{
 			action = attacker->getSpecialActionByIndex(choice - 1);
 
-			if (attacker->getMana() < action->getManaRequired())
+			if (attacker->getMP() < action->getMPRequired())
 			{
 				std::cout << "\nInsufficient mana to execute that action.";
 			}
@@ -262,14 +262,14 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, Spec
 		}
 		case ActionType::MP:
 		{
-			int manaRecovery{ action->getManaRecovery() };
-			attacker->recoverMana(manaRecovery);
-			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << manaRecovery << " points of mana";
+			int MPRecovery{ action->getMPRecovered() };
+			attacker->recoverMP(MPRecovery);
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << MPRecovery << " points of mana";
 			break;
 		}
 	}
 
-	attacker->decreaseMana(action->getManaRequired());
+	attacker->decreaseMP(action->getMPRequired());
 	
 }
 
@@ -282,7 +282,7 @@ Returns: SpecialAction* if sufficient mana to execute, null if not
 *****************************************************************************************************/
 SpecialAction* Combat::randomSpecialAction(Character* attacker)
 {
-	if (attacker->getMana() > 0)
+	if (attacker->getMP() > 0)
 	{
 		int numActions{ attacker->getSpecialActionsSize() };
 		std::vector<SpecialAction*> randomizedActions;
@@ -299,7 +299,7 @@ SpecialAction* Combat::randomSpecialAction(Character* attacker)
 
 		for (SpecialAction*& act : randomizedActions)
 		{
-			if (attacker->getMana() >= act->getManaRequired())
+			if (attacker->getMP() >= act->getMPRequired())
 			{
 				return act;
 			}
@@ -381,12 +381,12 @@ void Combat::displayHPWeaponArmor()
 		<< std::setw(1) << "|"
 		<< std::right << std::setw(17) << hero->getName()
 		<< std::setw(7) << hero->getHP() << " HP"
-        << std::setw(7) << hero->getMana() << " MP"
+        << std::setw(7) << hero->getMP() << " MP"
 		<< std::setw(4) << "|";
 	std::cout  
 		<< std::right << std::setw(17) << enemy->getType()
 		<< std::setw(6) << enemy->getHP() << " HP"
-        << std::setw(6) << enemy->getMana() << " MP"
+        << std::setw(6) << enemy->getMP() << " MP"
 		<< std::setw(1) << "|";
 
 	// hero and enemy weapons
