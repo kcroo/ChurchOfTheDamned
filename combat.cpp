@@ -1,17 +1,7 @@
 /**************************************************************************************************
-Program Name: Final Project
-File: Combat.cpp
+Program Name: Church of the Damned
+File: combat.cpp
 Author: Kirsten Corrao
-Date: 03/05/2019
-Description: this is the implementation file of the Combat class. This class is used when the hero must fight 
-a monster. The hero attacks first. They roll a 20-sided die, and if that value is above the enemy's 
-armor class, they roll again to see what damage they inflict. Armor class is determined by the 
-currently equipped armor, and the amount of damage is determined by the currently equipped weapon. 
-Combat automatically alternates between the hero and monster attacking each other. If the hero hits 
-0 HP and has holy water in their inventory, they are revived with the amount of HP the holy water 
-indicates. The hero wins if the enemy has 0 HP. If the hero has 0 HP and no holy water, they lose
-and the game is over. After an enemy is defeated, the hero can loot the body of any weapons, armor,
-or holy water it has.
 ***************************************************************************************************/
 #include "combat.hpp"
 

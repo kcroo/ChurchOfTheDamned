@@ -217,9 +217,6 @@ Returns: integer for amount of HP restored
 int Inventory::useHolyWater(int position)
 {
 	int hpRestored{ inventory.at(position)->getHPChange() };
-
-	// delete and remove pointer from inventory 
-	//delete inventory.at(position);
 	inventory.erase(inventory.begin() + position);
 
 	return hpRestored;
