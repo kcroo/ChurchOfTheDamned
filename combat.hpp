@@ -66,7 +66,7 @@ private:
 public:
 	Combat(Character* hero, Character* enemy);
 	~Combat();
-	void fightRevamped();
+	void fight();
 
 };
 
