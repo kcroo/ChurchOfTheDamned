@@ -16,7 +16,7 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 Fighter::Fighter(std::string n)
 	: Character(12, "Fighter", n, 'H', 5, 1)		// HP, type, name, symbol, mana, level
 {
-	maxMana = mana;
+	maxMP = MP;
 
 	inventory.add(std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, Type::weapon));
 	inventory.add(std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, Type::armor));

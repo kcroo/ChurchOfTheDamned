@@ -14,7 +14,7 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 DarkPriest::DarkPriest() 
 	: Character(10, "Dark Priest", "", 'P', 4, 1)		// HP, type, name, symbol, divineBlessings, level
 {
-	maxMana = mana;
+	maxMP = MP;
 
 	inventory.add(std::make_unique<Treasure>("Devil's Staff", 3, 0, 0, Type::weapon));
 	inventory.add(std::make_unique<Treasure>("Unholy Robes", 0, 4, 0, Type::armor));

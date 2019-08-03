@@ -29,6 +29,7 @@ class Combat
 private:
 	Character* hero;
 	Character* enemy;
+	bool bothAlive;
 
 	// weapons and armor
 	Treasure* heroWeapon;
@@ -56,12 +57,15 @@ private:
 	void displayHolyWaterUsed(int restoredHP);
 
 	void lootBody();
+	void attack(Character* attacker, Character* defender);
     void heroAttacks();
     void enemyAttacks();
 	void standardAttack(Character* attacker, Character* defender, int damage, int defense);
 	SpecialAction* chooseSpecialAction(Character* attacker);
 	void executeSpecialAction(Character* attacker, Character* defender, SpecialAction* act);
 	SpecialAction* randomSpecialAction(Character* attacker);
+	bool checkAlive(Character* defender);
+	bool heroUsesHolyWater();
 
 public:
 	Combat(Character* hero, Character* enemy);

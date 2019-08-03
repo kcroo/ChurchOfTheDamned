@@ -9,7 +9,7 @@ Author: Kirsten Corrao
 The constructor sets initializes hero to the player and sets enemy to the monster at the same location.
 *****************************************************************************************************/
 Combat::Combat(Character* h, Character* e)
-	: hero{ h }, enemy{ e }, heroWeapon{ hero->getCurrentWeapon() }, heroWeaponDamage{ heroWeapon->getAttack() },
+	: hero{ h }, enemy{ e }, bothAlive{ true }, heroWeapon{ hero->getCurrentWeapon() }, heroWeaponDamage{ heroWeapon->getAttack() },
 	heroArmor{ hero->getCurrentArmor() },heroArmorRating{ heroArmor->getDefense() },
 	enemyWeapon{ enemy->getCurrentWeapon() }, enemyWeaponDamage{ enemyWeapon->getAttack() },
 	enemyArmor{ enemy->getCurrentArmor() }, enemyArmorRating{ enemyArmor->getDefense() }
@@ -30,57 +30,63 @@ Introducing new fighting system.
 *****************************************************************************************************/
 void Combat::fight()
 {
-	bool bothAlive{ true };
+	// determine who attacks first
+	int heroInitiative{ utility::getRandInt(1, 20) };
+	int enemyInitiative{ utility::getRandInt(1, 20) };
+	Character* first{ hero };
+	Character* second{ enemy };
+
+	if (enemyInitiative > heroInitiative)
+	{
+		std::swap(first, second);
+	}
 	
-    while (bothAlive)
+	// combat continues until one of them dies
+	while (bothAlive)
 	{
 		Combat::displayHPWeaponArmor();
+		Combat::attack(first, second);
 
-		// hero attacks first (what about initiative system?)
-	    Combat::heroAttacks();	
+		// second attacks if alive;
+		bothAlive = Combat::checkAlive(second);
 
-		// enemy attacks
-		if (enemy->getHP() > 0)
+		if (bothAlive)
 		{
-			Combat::displayHPWeaponArmor();	
-            Combat::enemyAttacks();
-		}
-
-		// if hero is dead, check inventory for holy water (will revive hero)
-		if (hero->getHP() <= 0)
-		{
-			int position{ inventory->getItemPosition(Type::holyWater) };
-
-			// if holy water in inventory, use it and recover hero's HP
-			if (position != -1)
-			{
-				int hpRecovered{ inventory->useHolyWater(position) };
-				hero->recoverHP(hpRecovered);
-				Combat::displayHolyWaterUsed(hpRecovered);
-			}
-
-			// otherwise hero dies
-			else
-			{
-				std::cout << "\n" << hero->getName() << " has been defeated.\n";
-				bothAlive = false;
-			}
-		}
-
-		// if enemy is dead, combat is over
-		else if (enemy->getHP() <= 0)
-		{
-			bothAlive = false;
-
-			// hero can loot enemies that aren't final boss (lich cardinal)
-			if (enemy->getType() != "Lich Cardinal")
-			{
-				Combat::lootBody();
-			}
+			Combat::displayHPWeaponArmor();
+			Combat::attack(second, first);
+			bothAlive = Combat::checkAlive(first);
 		}
 	}
 
+	// display final results after one of them dies
+	Combat::displayHPWeaponArmor();
+
+	if (hero->getHP() > 0)
+	{
+		Combat::lootBody();
+	}
+	else
+	{
+		std::cout << "\n" << hero->getName() << " has been defeated.\n";
+	}
+
 	Combat::displayWinner();
+}
+
+
+/************************************ attack  ***************************************************
+
+*****************************************************************************************************/
+void Combat::attack(Character* attacker, Character* defender)
+{
+	if (attacker == hero)
+	{
+		Combat::heroAttacks();
+	}
+	else
+	{
+		Combat::enemyAttacks();
+	}
 }
 
 /************************************ heroAttacks  ***************************************************
@@ -264,7 +270,7 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, Spec
 		{
 			int MPRecovery{ action->getMPRecovered() };
 			attacker->recoverMP(MPRecovery);
-			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << MPRecovery << " points of mana";
+			std::cout << "\n" << attackerName << " uses " << action->getName() << " to recover " << MPRecovery << " MP";
 			break;
 		}
 	}
@@ -307,6 +313,47 @@ SpecialAction* Combat::randomSpecialAction(Character* attacker)
 	}
 	
 	return nullptr;
+}
+
+/************************************ checkDead **************************************************
+If the defender has >0 HP, returns true. If the defender is dead (0 HP) and is the hero, it uses holy 
+water in the hero's inventory, if there is any.
+Parameters: Character pointer for defending combatant
+Returns: true if their HP > 0, false if HP <= 0
+*****************************************************************************************************/
+bool Combat::checkAlive(Character* defender)
+{
+	if (defender->getHP() > 0)
+	{
+		return true;
+	}
+
+	else if(defender == hero)
+	{
+		return Combat::heroUsesHolyWater();
+	}
+
+	return false;
+}
+
+/************************************ useHolyWater ***************************************************
+
+*****************************************************************************************************/
+bool Combat::heroUsesHolyWater()
+{
+	int position{ inventory->getItemPosition(Type::holyWater) };
+
+	// if holy water in inventory, use it and recover hero's HP
+	if (position != -1)
+	{
+		int hpRecovered{ inventory->useHolyWater(position) };
+		hero->recoverHP(hpRecovered);
+		Combat::displayHolyWaterUsed(hpRecovered);
+		return true;
+	}
+
+	// hero dies 
+	return false;
 }
 
 /************************************ displayWinner **************************************************
@@ -421,7 +468,7 @@ Returns: void
 *****************************************************************************************************/
 void Combat::displayHolyWaterUsed(int restoredHP)
 {
-	std::cout << "\nHoly water saved " << hero->getName() << " from the brink of death, "
+	std::cout << "\nHoly water saves " << hero->getName() << " from the brink of death, "
 		<< "restoring " << restoredHP << " hit points.\n";
 }
 
