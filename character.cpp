@@ -120,18 +120,43 @@ void Character::printWeaponAndArmor()
 	std::cout << "--------------------------------------------------------\n";
 }
 
+///********************************* equipItem *******************************************************
+//This function equips an item as the Character's current weapon or armor. If the item is already 
+//equipped, it just equips it again and returns true. If the item is not a weapon or armor, it returns false.
+//Arguments: Treasure pointer by reference
+//Returns: true if item successfully equipped, false if not
+//***************************************************************************************************/
+//bool Character::equipItem(Treasure*& item)
+//{
+//	// equip weapon
+//	if (item->getType() == Type::weapon)
+//	{
+//		currentWeapon = item; return true;
+//	}
+//	else if (item->getType() == Type::armor)
+//	{
+//		currentArmor = item;
+//		return true;
+//	}
+//	else
+//	{
+//		return false;
+//	}
+//}
+
 /********************************* equipItem *******************************************************
-This function equips an item as the Character's current weapon or armor. If the item is already 
-equipped, it just equips it again and returns true. If the item is not a weapon or armor, it returns false.
-Arguments: Treasure pointer by reference
-Returns: true if item successfully equipped, false if not
+Parameter: index of item to try to equip.
+Returns: true if item equipped successfully, false if not (e.g. item not a weapon or armor)
 ***************************************************************************************************/
-bool Character::equipItem(Treasure*& item)
+bool Character::equipItem(const int idx)
 {
+	Treasure* item{ inventory.getTreasure(idx) };
+
 	// equip weapon
 	if (item->getType() == Type::weapon)
 	{
-		currentWeapon = item; return true;
+		currentWeapon = item;
+		return true;
 	}
 	else if (item->getType() == Type::armor)
 	{
@@ -175,9 +200,16 @@ void Character::addItem(std::unique_ptr<Treasure> t)
 
 /********************************* getInventorySize ***********************************************
 ***************************************************************************************************/
-const int Character::getInventorySize()
+int Character::getInventorySize()
 {
 	return inventory.getSize();
+}
+
+/********************************* getItemByIndex **************************************************
+***************************************************************************************************/
+Treasure* Character::getItemByIndex(const int idx)
+{
+	return inventory.getTreasure(idx);
 }
 
 

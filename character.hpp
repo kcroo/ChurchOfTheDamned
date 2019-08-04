@@ -57,12 +57,15 @@ class Character
 		
 		// inventory
 		void printWeaponAndArmor();
-		bool equipItem(Treasure*& item);
+		//bool equipItem(Treasure*& item);
+		bool equipItem(const int idx);
 		void printInventory();
 		bool inventoryNotFull();
 		bool inventoryEmpty();
 		void addItem(std::unique_ptr<Treasure> t);
-		const int getInventorySize();
+		int getInventorySize();
+		Treasure* getItemByIndex(const int idx);
+		
 
 
 		// special attacks

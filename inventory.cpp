@@ -223,7 +223,7 @@ int Inventory::useHolyWater(int position)
 }
 
 /********************************* getters and setters  ************************************************/
-const int Inventory::getSize()
+int Inventory::getSize()
 {
 	return inventory.size();
 }

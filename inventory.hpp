@@ -43,7 +43,7 @@ public:
 	int getItemPosition(Type t);
 	int useHolyWater(int position);
 
-	const int getSize();
+	int getSize();
 	Treasure* getTreasure(const int position);
 	std::unique_ptr<Treasure> moveTreasure(const int postiion);
 	std::vector<std::unique_ptr<Treasure>>* getInventory();

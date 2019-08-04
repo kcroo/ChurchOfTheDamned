@@ -388,11 +388,8 @@ void Game::equipWeaponOrArmor()
 		}
 		else
 		{
-			// get treasure from index user specified
-			Treasure* item{ inventory->getTreasure(choice - 1) };
-
 			// if item can't be equipped, print error
-			if (!hero->equipItem(item))
+			if (!hero->equipItem(choice - 1))
 			{
 				std::cout << "\nError: item is not a weapon or armor.\n";
 			}
