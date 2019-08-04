@@ -62,6 +62,7 @@ class Character
 		bool inventoryNotFull();
 		bool inventoryEmpty();
 		void addItem(std::unique_ptr<Treasure> t);
+		const int getInventorySize();
 
 
 		// special attacks

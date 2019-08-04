@@ -380,7 +380,7 @@ void Game::equipWeaponOrArmor()
 		hero->printWeaponAndArmor();
 		hero->printInventory();
 
-		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
+		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, hero->getInventorySize());
 
 		if (choice == 0)
 		{
