@@ -136,37 +136,15 @@ void Inventory::add(std::unique_ptr<Treasure> t)
 	inventory.push_back(std::move(treasure));
 }
 
-/********************************* deleteIfNotCurrent ************************************************
-This function removes an item from the vector, unless it is the hero's current weapon or armor.
-(Hero must un-equip item first before removing from inventory.)
-Arguments: integer for position in vector
-Returns: void
-Source: http://www.cplusplus.com/reference/list/list/end/
-***************************************************************************************************/
-bool Inventory::deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA)
-{
-	Treasure* invItem{ inventory.at(position).get() };
-	if (invItem->getName() != currentW->getName() && invItem->getName() != currentA->getName())
-	{
-		inventory.at(position).reset();
-		inventory.erase(inventory.begin() + position);
-	
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
 /********************************* deleteItem *****************************************************
-This function deletes an item in the inventory, without checking for current weapon/armor.
+This function removes an item in the inventory by its index.
 Arguments: integer for position in vector
 Returns: void
 ***************************************************************************************************/
-void Inventory::deleteItem(int position)
+void Inventory::deleteItem(const int position)
 {
-	inventory.at(position);
+	inventory.at(position).reset();
 	inventory.erase(inventory.begin() + position);
 }
 

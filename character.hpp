@@ -63,6 +63,7 @@ class Character
 		bool inventoryNotFull();
 		bool inventoryEmpty();
 		void addItem(std::unique_ptr<Treasure> t);
+		bool removeItem(int idx);
 		int getInventorySize();
 		Treasure* getItemByIndex(const int idx);
 		int drinkHolyWater();

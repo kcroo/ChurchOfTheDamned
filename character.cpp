@@ -170,6 +170,7 @@ bool Character::equipItem(const int idx)
 }
 
 /********************************* printInventory **************************************************
+Uses the Inventory class function to print each item in the inventory.
 ***************************************************************************************************/
 void Character::printInventory()
 {
@@ -177,6 +178,7 @@ void Character::printInventory()
 }
 
 /********************************* isInventoryFull *************************************************
+Returns true if inventory not full (e.g. can add items to it). Returns false if full.
 ***************************************************************************************************/
 bool Character::inventoryNotFull()
 {
@@ -184,6 +186,7 @@ bool Character::inventoryNotFull()
 }
 
 /********************************* inventoryEmpty *************************************************
+Returns true if inventory contains no items
 ***************************************************************************************************/
 bool Character::inventoryEmpty()
 {
@@ -191,6 +194,9 @@ bool Character::inventoryEmpty()
 }
 
 /********************************* addItem *********************************************************
+Adds item to player's inventory. Size of inventory is checked in Game.cpp. 
+Parameters: unique Treasure pointer
+Returns: void
 ***************************************************************************************************/
 void Character::addItem(std::unique_ptr<Treasure> t)
 {
@@ -198,7 +204,26 @@ void Character::addItem(std::unique_ptr<Treasure> t)
 	inventory.add(std::move(treasure));
 }
 
+/********************************* removeItem ******************************************************
+Removes item from player's inventory if that item is not the current weapon or armor.
+Parameter: index of item to remove
+Returns: true if item removed, false if not (because it's the current weapon or armor)
+***************************************************************************************************/
+bool Character::removeItem(int idx)
+{
+	Treasure* item{ inventory.getTreasure(idx) };
+
+	if (item != currentWeapon && item != currentArmor)
+	{
+		inventory.deleteItem(idx);
+		return true;
+	}
+
+	return false;
+}
+
 /********************************* getInventorySize ***********************************************
+Returns current number of items in inventory.
 ***************************************************************************************************/
 int Character::getInventorySize()
 {
@@ -206,6 +231,8 @@ int Character::getInventorySize()
 }
 
 /********************************* getItemByIndex **************************************************
+Returns Treasure pointer to item in player's inventory. 
+Parameters: index of item in inventory
 ***************************************************************************************************/
 Treasure* Character::getItemByIndex(const int idx)
 {

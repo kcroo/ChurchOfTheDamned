@@ -354,7 +354,7 @@ void Game::removeItemInventory()
 			// remove item (unless it is current weapon or armor)
 			else
 			{
-				if (!inventory->deleteIfNotCurrent(choice - 1, hero->getCurrentWeapon(), hero->getCurrentArmor()))
+				if (!hero->removeItem(choice - 1))
 				{
 					std::cout << "\nError. Cannot remove current weapon or armor.\n";
 				}

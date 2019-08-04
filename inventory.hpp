@@ -36,8 +36,7 @@ public:
 	//bool foundTreasure(std::unique_ptr<Treasure> t);
 	//bool addItem(Treasure*& t);
 	void add(std::unique_ptr<Treasure> t);
-	bool deleteIfNotCurrent(int position, Treasure* currentW, Treasure* currentA);
-	void deleteItem(int position);
+	void deleteItem(const int position);
 
 	//bool hasKey();
 	int getItemPosition(Type t);
