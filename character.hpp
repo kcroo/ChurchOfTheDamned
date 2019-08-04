@@ -60,6 +60,7 @@ class Character
 		bool equipItem(Treasure*& item);
 		void printInventory();
 		bool inventoryNotFull();
+		void addItem(std::unique_ptr<Treasure> t);
 
 
 		// special attacks

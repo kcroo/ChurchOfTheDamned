@@ -158,6 +158,13 @@ bool Character::inventoryNotFull()
 	return inventory.notFull();
 }
 
+/********************************* addItem *********************************************************
+***************************************************************************************************/
+void Character::addItem(std::unique_ptr<Treasure> t)
+{
+	std::unique_ptr<Treasure> treasure = std::move(t);
+	inventory.add(std::move(treasure));
+}
 
 /********************************* printSpecialAttacks *********************************************
 
