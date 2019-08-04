@@ -40,6 +40,7 @@ class Character
 		Treasure* currentWeapon;
 		Treasure* currentArmor;		
 
+
 		// special attacks
 		std::vector<std::unique_ptr<SpecialAction>> specialActions;
 
@@ -52,8 +53,13 @@ class Character
 		void recoverHP(int amountHealed);
 		void decreaseMP(const int& amount);
 		void recoverMP(const int& amount);
+		
+		
+		// inventory
 		void printWeaponAndArmor();
 		bool equipItem(Treasure*& item);
+		void printInventory();
+
 
 		// special attacks
 		void printSpecialActions();

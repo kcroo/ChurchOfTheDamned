@@ -260,7 +260,7 @@ void Game::addTreasureToInv(int row, int col)
 	// print treasure stats and current inventory
 	treasure->print();
 	std::cout << "\nYour inventory: " << std::endl;
-	inventory->print();
+	hero->printInventory();
 
 	// ask player to add treasure to inventory
 	int choice{ utility::getInt("\n1. Add to inventory \n2. Don't add\n", 1, 2) };
@@ -272,7 +272,7 @@ void Game::addTreasureToInv(int row, int col)
 			std::unique_ptr<Treasure> t = currentRoom->moveTreasure(row, col);
 			inventory->add(std::move(t));
 			//currentRoom->setTileToHero(row, col);
-			inventory->print();
+			hero->printInventory();
 		}
 		// inventory is full
 		else
@@ -292,7 +292,7 @@ void Game::manageInventory()
 	bool keepManagingInv{ true };
 	while (keepManagingInv)
 	{
-		inventory->print();
+		hero->printInventory();
 
 		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Drink holy water \n4. Exit\n", 1, 4) };
 		switch (choice)
@@ -340,7 +340,7 @@ void Game::removeItemInventory()
 		while (notDone)
 		{
 			// display inventory
-			inventory->print();
+			hero->printInventory();
 
 			int choice{ utility::getInt("\nItem number to remove (or 0 for none): ", 0, inventory->getSize()) };
 
@@ -377,7 +377,7 @@ void Game::equipWeaponOrArmor()
 	{
 		// print currently equipped weapon and armor and inventory
 		hero->printWeaponAndArmor();
-		inventory->print();
+		hero->printInventory();
 
 		int choice = utility::getInt("\nItem # to equip (or 0 to exit): ", 0, inventory->getSize());
 
