@@ -267,7 +267,7 @@ void Game::addTreasureToInv(int row, int col)
 	if (choice == 1)
 	{
 		// add to inventory if there is room
-		if (inventory->notFull())
+		if (hero->isInventoryFull())
 		{
 			std::unique_ptr<Treasure> t = currentRoom->moveTreasure(row, col);
 			inventory->add(std::move(t));

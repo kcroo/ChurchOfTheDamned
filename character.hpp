@@ -35,7 +35,7 @@ class Character
 		int level;
 
 		// inventory
-		static const int capacity{ 5 };			// max # of items in inventory
+		//static const int capacity{ 5 };			// max # of items in inventory
 		Inventory inventory;					// includes vector to contain weapons, armor, etc.
 		Treasure* currentWeapon;
 		Treasure* currentArmor;		
@@ -59,6 +59,7 @@ class Character
 		void printWeaponAndArmor();
 		bool equipItem(Treasure*& item);
 		void printInventory();
+		bool isInventoryFull();
 
 
 		// special attacks
