@@ -329,7 +329,8 @@ Returns: void
 *****************************************************************************************************/
 void Game::removeItemInventory()
 {
-	if (inventory->isEmpty())
+	// do i need this here? will never be empty
+	if (hero->inventoryEmpty())
 	{
 		std::cout << "\nInventory is empty.";
 	}
