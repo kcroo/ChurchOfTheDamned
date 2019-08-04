@@ -59,7 +59,7 @@ class Character
 		void printWeaponAndArmor();
 		bool equipItem(Treasure*& item);
 		void printInventory();
-		bool isInventoryFull();
+		bool inventoryNotFull();
 
 
 		// special attacks

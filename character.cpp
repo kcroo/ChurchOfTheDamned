@@ -153,7 +153,7 @@ void Character::printInventory()
 
 /********************************* isInventoryFull *************************************************
 ***************************************************************************************************/
-bool Character::isInventoryFull()
+bool Character::inventoryNotFull()
 {
 	return inventory.notFull();
 }
