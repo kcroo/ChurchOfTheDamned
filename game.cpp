@@ -337,13 +337,14 @@ void Game::removeItemInventory()
 	else
 	{
 		bool notDone{ true };
+		int sizeInventory{ hero->getInventorySize() };
 
 		while (notDone)
 		{
 			// display inventory
 			hero->printInventory();
 
-			int choice{ utility::getInt("\nItem number to remove (or 0 for none): ", 0, inventory->getSize()) };
+			int choice{ utility::getInt("\nItem number to remove (or 0 for none): ", 0, sizeInventory) };
 
 			// doesn't want to remove item
 			if (choice == 0)
@@ -467,53 +468,47 @@ void Game::combat()
 	}
 }
 
-///************************************ energyDrain ****************************************************
-//This function causes the player to lose 1 HP every 5 turns due to the evil energy in the church. If this
-//causes the player to have 1 HP, the game is over. This happens even if the player has holy water in their
-//inventory.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::energyDrain()
-//{
-//	// every 5 turns
-//	if (turns % 5 == 0)
-//	{
-//		// player loses 1 HP
-//		hero->decreaseHP(1);
-//
-//		// if the energy drained the player's last HP
-//		if (hero->getHP() == 0)
-//		{
-//			// revive player with holy water, if they have any
-//			int position{ inventory->getItemPosition(Type::holyWater) };
-//
-//			if (position != -1)
-//			{
-//				int hpRecovered{ inventory->useHolyWater(position) };
-//				hero->recoverHP(hpRecovered);
-//				std::cout << "\nThe church's evil energy drained " << hero->getName() << "'s last health,"
-//					<< "\nbut holy water in the inventory saved them.\n\n";
-//			}
-//
-//			// otherwise player dies
-//			else
-//			{
-//				std::cout << "\nThe church's evil energy has drained " << hero->getName() << "'s last remaining HP!"
-//					<< "\nThe hero is dead. The last thing you hear is the cackling of the LICH CARDINAL in your ear."
-//					<< "\nMay God have mercy on your soul, for the CHURCH OF THE DAMNED will give you none.\n";
-//				gameContinues = false;
-//			}
-//		}
-//
-//		// display that player lost 1 HP
-//		else
-//		{
-//			std::cout << "\nThe church's evil energy has drained 1 HP from " << hero->getName() << std::endl;
-//		}
-//	}
-//}
-//
+/************************************ energyDrain ****************************************************
+This function causes the player to lose 1 HP every 5 turns due to the evil energy in the church. If this
+causes the player to have 1 HP, the game is over. This happens even if the player has holy water in their
+inventory.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::energyDrain()
+{
+	// every 5 turns
+	if (turns % 5 == 0)
+	{
+		hero->decreaseHP(1);
+
+		// if the energy drained the player's last HP: try to revive with holy water
+		if (hero->getHP() == 0)
+		{
+			int HPRecovered{ hero->drinkHolyWater() };
+
+			if (HPRecovered == -1)
+			{
+				std::cout << "\nThe church's evil energy has drained " << hero->getName() << "'s last remaining HP!"
+					<< "\nThe hero is dead. The last thing you hear is the cackling of the LICH CARDINAL in your ear."
+					<< "\nMay God have mercy on your soul, for the CHURCH OF THE DAMNED will give you none.\n";
+				gameContinues = false;
+			}
+			else
+			{
+				std::cout << "\nThe church's evil energy drained " << hero->getName() << "'s last health,"
+					<< "\nbut holy water in the inventory saved them and recovered " << HPRecovered << " HP.\n\n";
+			}
+		}
+
+		// display that player lost 1 HP
+		else
+		{
+			std::cout << "\nThe church's evil energy has drained 1 HP from " << hero->getName() << std::endl;
+		}
+	}
+}
+
 ///************************************ printIntro ****************************************************
 //This function prints an introduction to the game, including who the player is and what their quest is.
 //It waits to continue until the user presses enter

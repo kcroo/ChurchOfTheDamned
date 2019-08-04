@@ -68,7 +68,7 @@ class Game
 
 		//// combat 
 		void combat();
-		//void energyDrain();
+		void energyDrain();
 
 		//// print
 		//void printIntro();
