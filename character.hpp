@@ -65,6 +65,7 @@ class Character
 		void addItem(std::unique_ptr<Treasure> t);
 		int getInventorySize();
 		Treasure* getItemByIndex(const int idx);
+		int drinkHolyWater();
 		
 
 

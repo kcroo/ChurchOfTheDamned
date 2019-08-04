@@ -212,6 +212,28 @@ Treasure* Character::getItemByIndex(const int idx)
 	return inventory.getTreasure(idx);
 }
 
+/********************************* drinkHolyWater **************************************************
+If there is holy water in the inventory, the hero drinks it and returns the amount of HP the holy
+water restored. Otherwise, it returns -1 to indicate that no holy water was in the inventory.
+***************************************************************************************************/
+int Character::drinkHolyWater()
+{
+	int position{ inventory.getItemPosition(Type::holyWater) };
+
+	if (position != -1)
+	{
+		int hpRecovered{ inventory.useHolyWater(position) };
+		Character::recoverHP(hpRecovered);
+		return hpRecovered;
+	}
+
+	// display error
+	else
+	{
+		return position;
+	}
+}
+
 
 /********************************* printSpecialAttacks *********************************************
 

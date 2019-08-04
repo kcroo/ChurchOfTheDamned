@@ -309,7 +309,7 @@ void Game::manageInventory()
 			}
 			case 3:
 			{
-				//Game::drinkHolyWater();
+				Game::drinkHolyWater();
 				break;
 			}
 			case 4: 
@@ -397,31 +397,26 @@ void Game::equipWeaponOrArmor()
 	}
 }
 
-///************************************ drinkHolyWater *******************************************************
-//This function finds the first holy water in the inventory and has the player drink it. The player recovers 
-//how many HP the holy water item specifies.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::drinkHolyWater()
-//{
-//	int position{ inventory->getItemPosition(Type::holyWater) };
-//
-//	// drink holy water if it's in inventory
-//	if (position != -1)
-//	{
-//		int hpRecovered{ inventory->useHolyWater(position) };
-//		hero->recoverHP(hpRecovered);
-//		std::cout << "\n" << hero->getName() << " drank holy water, restoring " << hpRecovered << " HP.\n";
-//	}
-//
-//	// display error
-//	else
-//	{
-//		std::cout << "\nError. Inventory does not contain holy water.\n";
-//	}
-//}
-//
+/************************************ drinkHolyWater *******************************************************
+This function finds the first holy water in the inventory and has the player drink it. The player recovers 
+how many HP the holy water item specifies.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::drinkHolyWater()
+{
+	int HPRecovered{ hero->drinkHolyWater() };
+
+	if (HPRecovered == -1)
+	{
+		std::cout << "\nError. Inventory does not contain holy water.\n";
+	}
+	else
+	{
+		std::cout << "\n" << hero->getName() << " drank holy water, restoring " << HPRecovered << " HP.\n";
+	}
+}
+
 /************************************ combat ********************************************************
 This function is used when the player enters a tile with an enemy. It creates a Combat object, which
 is then used to have them fight. If the player dies in combat, then the game is over.
