@@ -155,7 +155,7 @@ Returns: true if inventory contains a key, false if not
 ***************************************************************************************************/
 bool Inventory::hasKey()
 {
-	for (std::vector<Treasure*>::iterator it = inventory.begin(); it != inventory.end(); ++it)
+	for (std::vector<std::unique_ptr<Treasure>>::iterator it = inventory.begin(); it != inventory.end(); ++it)
 	{
 		if ((*it)->getType() == Type::key)
 		{
