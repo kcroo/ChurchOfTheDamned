@@ -239,6 +239,15 @@ Treasure* Character::getItemByIndex(const int idx)
 	return inventory.getTreasure(idx);
 }
 
+/********************************* moveTreasure **************************************************
+
+***************************************************************************************************/
+std::unique_ptr<Treasure> Character::moveTreasure(const int idx)
+{
+	std::unique_ptr<Treasure> treasure{ inventory.moveTreasure(idx) };
+	return std::move(treasure);
+}
+
 /********************************* drinkHolyWater **************************************************
 If there is holy water in the inventory, the hero drinks it and returns the amount of HP the holy
 water restored. Otherwise, it returns -1 to indicate that no holy water was in the inventory.

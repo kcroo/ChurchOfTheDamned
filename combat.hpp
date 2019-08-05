@@ -44,7 +44,7 @@ private:
 
 	// inventory
 	//Inventory* inventory;
-	Inventory* enemyInv;
+	//Inventory* enemyInv;
 
 	// combat stats 
 	static const int chanceHit = 20;			// 20-sided die

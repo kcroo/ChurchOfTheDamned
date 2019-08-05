@@ -16,7 +16,7 @@ Combat::Combat(Character* h, Character* e)
 {
 	// set inventories for hero and enemy
 	//inventory = hero->getInventory();
-	enemyInv = enemy->getInventory();
+	//enemyInv = enemy->getInventory();
 }
 
 /************************************ destructor ****************************************************
@@ -474,11 +474,12 @@ void Combat::lootBody()
 	// add item to hero's inventory
 	while (keepLooting)
 	{
-		enemyInv->print();
-		int choice{ utility::getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInv->getSize()) };
+		enemy->printInventory();
+		int enemyInvSize{ enemy->getInventorySize() };
+		int choice{ utility::getInt("\nSelect an item to add to inventory, or 0 to take nothing: ", 0, enemyInvSize) };
 
 		// stop looting if hero is done or enemy inventory is empty
-		if (choice == 0 || enemyInv->getSize() == 0)
+		if (choice == 0 || enemyInvSize == 0)
 		{
 			keepLooting = false;
 		}
@@ -486,7 +487,7 @@ void Combat::lootBody()
 		// add item from enemy inventory to hero's inventory, unless it's full
 		else
 		{
-			std::unique_ptr<Treasure> loot{ enemyInv->moveTreasure(choice - 1) };
+			std::unique_ptr<Treasure> loot{ enemy->moveTreasure(choice - 1) };
 			if (hero->inventoryNotFull())
 			{
 				hero->addItem(std::move(loot));
