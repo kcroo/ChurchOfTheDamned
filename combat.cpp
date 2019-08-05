@@ -14,9 +14,6 @@ Combat::Combat(Character* h, Character* e)
 	enemyWeapon{ enemy->getCurrentWeapon() }, enemyWeaponDamage{ enemyWeapon->getAttack() },
 	enemyArmor{ enemy->getCurrentArmor() }, enemyArmorRating{ enemyArmor->getDefense() }
 {
-	// set inventories for hero and enemy
-	//inventory = hero->getInventory();
-	//enemyInv = enemy->getInventory();
 }
 
 /************************************ destructor ****************************************************
@@ -75,7 +72,9 @@ void Combat::fight()
 
 
 /************************************ attack  ***************************************************
-
+Figures out whether attacker is the hero or the enemy and uses the appropriate function.
+Parameters: Character pointers for attacker and defender
+Returns: void
 *****************************************************************************************************/
 void Combat::attack(Character* attacker, Character* defender)
 {
@@ -149,7 +148,14 @@ void Combat::enemyAttacks()
 }
 
 /************************************ standardAttack ***************************************************
-
+Normal attack that uses no MP. The attacker get a random number between 1 and chanceHit (currently 20).
+If that number is greater than the defender's armorRating, then they hit. If they hit, another random number is found,
+between 1 and whatever their max weapon damage is. The defender's HP is decreased by that amount and a
+message is displayed with the attack information. If the attacker misses, then the defender takes no 
+damage and another message is displayed saying that the attacker missed.
+Parameters: Character pointers for the attacker and defender; ints for the attacker's weapon damage and
+the defender's armor rating.
+Returns: void
 *****************************************************************************************************/
 void Combat::standardAttack(Character* attacker, Character* defender, int weaponDamage, int armorRating)
 {
@@ -216,7 +222,11 @@ SpecialAction* Combat::chooseSpecialAction(Character* attacker)
 	return action;
 }
 /************************************ executeSpecialAttack *******************************************
-Executes special action according to its type (attack, defense, HP recovery, or MP recovery).
+Executes special action according to its type (attack, defense, HP recovery, or MP recovery). The 
+attacker's MP is decreased by the appropriate amount for the action executed.
+Parameters: Character pointers for the attacking and defending Characters; a SpecialAction pointer for 
+the action that will be executed
+Returns: void
 *****************************************************************************************************/
 void Combat::executeSpecialAction(Character* attacker, Character* defender, SpecialAction* action)
 {
@@ -276,7 +286,6 @@ void Combat::executeSpecialAction(Character* attacker, Character* defender, Spec
 	}
 
 	attacker->decreaseMP(action->getMPRequired());
-	
 }
 
 /************************************ randomSpecialAction ******************************************
@@ -315,7 +324,7 @@ SpecialAction* Combat::randomSpecialAction(Character* attacker)
 	return nullptr;
 }
 
-/************************************ checkDead **************************************************
+/************************************ checkAlive **************************************************
 If the defender has >0 HP, returns true. If the defender is dead (0 HP) and is the hero, it uses holy 
 water in the hero's inventory, if there is any.
 Parameters: Character pointer for defending combatant
@@ -385,11 +394,11 @@ Returns: void
 *****************************************************************************************************/
 void Combat::displayMissed(Character*& c, int attack)
 {
-	if (c->getName() != "")	// hero 
+	if (c == hero) 
 	{
 		std::cout << "\n" << c->getName() << " MISSES with an attack roll of " << attack << std::endl;
 	}
-	else    // enemy
+	else
 	{
 		std::cout << "\nThe " << c->getType() << " MISSES with an attack roll of " << attack << std::endl;
 	}

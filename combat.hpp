@@ -42,10 +42,6 @@ private:
 	Treasure* enemyArmor;
 	int enemyArmorRating;
 
-	// inventory
-	//Inventory* inventory;
-	//Inventory* enemyInv;
-
 	// combat stats 
 	static const int chanceHit = 20;			// 20-sided die
 	
