@@ -58,7 +58,6 @@ class Game
 		//void createRooms();
 	
 		// inventory management
-		Inventory* inventory;
 		//void chooseHero();
 		void addTreasureToInv(int row, int col);
 		void manageInventory();

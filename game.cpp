@@ -84,7 +84,6 @@ void Game::play()
 	sanctuary = std::make_unique<Sanctuary>();
 	currentRoom = sanctuary.get();
 	hero = std::make_unique<Fighter>("Santiago");
-	//inventory = hero->getInventory();
 
 	while (gameContinues)
 	{
@@ -408,7 +407,7 @@ void Game::drinkHolyWater()
 {
 	int HPRecovered{ hero->drinkHolyWater() };
 
-	if (HPRecovered == -1)
+	if (HPRecovered == 0)
 	{
 		std::cout << "\nError. Inventory does not contain holy water.\n";
 	}

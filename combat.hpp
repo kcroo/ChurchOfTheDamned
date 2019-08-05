@@ -43,18 +43,17 @@ private:
 	int enemyArmorRating;
 
 	// inventory
-	Inventory* inventory;
+	//Inventory* inventory;
 	Inventory* enemyInv;
 
 	// combat stats 
 	static const int chanceHit = 20;			// 20-sided die
 	
-	// print figh results
+	// print fight results
 	void displayWinner();
 	void displayMissed(Character*& c, int attack);
 	void displayHit(Character*& c, int attack, int damage);
 	void displayHPWeaponArmor();
-	void displayHolyWaterUsed(int restoredHP);
 
 	void lootBody();
 	void attack(Character* attacker, Character* defender);

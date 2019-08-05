@@ -254,10 +254,10 @@ int Character::drinkHolyWater()
 		return hpRecovered;
 	}
 
-	// display error
+	// no holy water: 0 HP recovered
 	else
 	{
-		return position;
+		return 0;
 	}
 }
 

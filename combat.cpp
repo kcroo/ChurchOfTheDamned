@@ -15,7 +15,7 @@ Combat::Combat(Character* h, Character* e)
 	enemyArmor{ enemy->getCurrentArmor() }, enemyArmorRating{ enemyArmor->getDefense() }
 {
 	// set inventories for hero and enemy
-	inventory = hero->getInventory();
+	//inventory = hero->getInventory();
 	enemyInv = enemy->getInventory();
 }
 
@@ -336,23 +336,21 @@ bool Combat::checkAlive(Character* defender)
 	return false;
 }
 
-/************************************ useHolyWater ***************************************************
-
+/************************************ heroUsesHolyWater **********************************************
+Returns true if hero has holy water in inventory that saves them from death. Also displays amount of HP
+recovered. If no holy water, returns false (hero dies).
 *****************************************************************************************************/
 bool Combat::heroUsesHolyWater()
 {
-	int position{ inventory->getItemPosition(Type::holyWater) };
+	int HPRecovered{ hero->drinkHolyWater() };
 
-	// if holy water in inventory, use it and recover hero's HP
-	if (position != -1)
+	if (HPRecovered > 0)
 	{
-		int hpRecovered{ inventory->useHolyWater(position) };
-		hero->recoverHP(hpRecovered);
-		Combat::displayHolyWaterUsed(hpRecovered);
+		std::cout << "\nHoly water saves " << hero->getName() << " from the brink of death, "
+			<< "restoring " << HPRecovered << " HP.\n";
 		return true;
 	}
 
-	// hero dies 
 	return false;
 }
 
@@ -461,16 +459,6 @@ void Combat::displayHPWeaponArmor()
 	std::cout << "\n------------------------------------------------------------------------------\n";
 }
 
-/************************************ displayHolyWaterUsed ******************************************
-This function displays how much HP was recovered by using holy water.
-Arguments: integer for amount HP restored by holy water
-Returns: void
-*****************************************************************************************************/
-void Combat::displayHolyWaterUsed(int restoredHP)
-{
-	std::cout << "\nHoly water saves " << hero->getName() << " from the brink of death, "
-		<< "restoring " << restoredHP << " hit points.\n";
-}
 
 /************************************ lootBody *******************************************************
 This function lets the player loot the body of the enemy they just defeated. Looted items are moved
@@ -499,9 +487,9 @@ void Combat::lootBody()
 		else
 		{
 			std::unique_ptr<Treasure> loot{ enemyInv->moveTreasure(choice - 1) };
-			if (inventory->notFull())
+			if (hero->inventoryNotFull())
 			{
-				inventory->add(std::move(loot));
+				hero->addItem(std::move(loot));
 			}
 			else
 			{
