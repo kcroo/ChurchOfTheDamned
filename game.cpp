@@ -210,7 +210,7 @@ void Game::move()
 				//}
 
 				//// if player has key, change rooms
-				//else if (inventory->hasKey())
+				//else if (hero->hasKey())
 				//{
 				//	currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 				//	currentRoom->printContents();

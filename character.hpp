@@ -67,6 +67,7 @@ class Character
 		int getInventorySize();
 		Treasure* getItemByIndex(const int idx);
 		int drinkHolyWater();
+		bool hasKey();
 		
 
 

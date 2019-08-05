@@ -38,7 +38,7 @@ public:
 	void add(std::unique_ptr<Treasure> t);
 	void deleteItem(const int position);
 
-	//bool hasKey();
+	bool hasKey();
 	int getItemPosition(Type t);
 	int useHolyWater(int position);
 

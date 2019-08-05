@@ -148,24 +148,24 @@ void Inventory::deleteItem(const int position)
 	inventory.erase(inventory.begin() + position);
 }
 
-///********************************* hasKey *******************************************************
-//This function tests if the inventory contains a key.
-//Arguments: none
-//Returns: true if inventory contains a key, false if not
-//***************************************************************************************************/
-//bool Inventory::hasKey()
-//{
-//	for (std::vector<Treasure*>::iterator it = inventory.begin(); it != inventory.end(); ++it)
-//	{
-//		if ((*it)->getType() == Type::key)
-//		{
-//			return true;
-//		}
-//	}
-//
-//	return false;
-//}
-//
+/********************************* hasKey *******************************************************
+This function tests if the inventory contains a key.
+Arguments: none
+Returns: true if inventory contains a key, false if not
+***************************************************************************************************/
+bool Inventory::hasKey()
+{
+	for (std::vector<Treasure*>::iterator it = inventory.begin(); it != inventory.end(); ++it)
+	{
+		if ((*it)->getType() == Type::key)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 /********************************* getItemPosition **************************************************
 This function looks for an item in the inventory. If it is there, it returns its position in the
 inventory vector, which will make using it easy.
