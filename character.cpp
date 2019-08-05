@@ -375,12 +375,6 @@ int Character::getLevel()
 	return level;
 }
 
-// inventory
-Inventory* Character::getInventory()
-{
-	return &inventory;
-}
-
 // currentWeapon
 Treasure* Character::getCurrentWeapon()
 {

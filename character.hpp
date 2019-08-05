@@ -89,7 +89,6 @@ class Character
 		int getMaxMP();
 		void setLevel(int lvl);
 		int getLevel();
-		Inventory* getInventory();
 		Treasure* getCurrentWeapon();
 		void setCurrentWeapon(Treasure* t);
 		Treasure* getCurrentArmor();

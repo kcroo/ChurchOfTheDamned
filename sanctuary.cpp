@@ -40,8 +40,8 @@ Sanctuary::Sanctuary()
 	room[7][2].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
 
 	// initialize inventories and add extra items
-	room[monst1Row][monst1Col].getMonster()->getInventory()->add(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
-	room[monst2Row][monst2Col].getMonster()->getInventory()->add(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
 }
 
 /************************************ destructor *****************************************************
