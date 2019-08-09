@@ -4,40 +4,37 @@ File: Sanctuary.cpp
 Author: Kirsten Corrao
 Date: 03/04/2019
 Description: this is the implementation file of the Mezzanine class. It is a derived class of 
-Space. The mezzanine contains Zombie Choir Boys as enemies.
+Room. The mezzanine contains Zombie Choir Boys as enemies.
 ***************************************************************************************************/
-#include "Character.hpp"
-#include "ChoirBoy.hpp"
-#include "Fighter.hpp"
-#include "Mezzanine.hpp"
+#include "mezzanine.hpp"
 
 /************************************ constructor ****************************************************
-The constructor calls the Space constructor. It creates Treasure and enemies to fight.
+The constructor calls the Room constructor. It creates Treasure and enemies to fight.
 *****************************************************************************************************/
 Mezzanine::Mezzanine()
-	: Space(10, 6, "Mezzanine")
+	: Room(10, 6, "Mezzanine")
 {
 	// make stairs
-	roomArray[0][3].setToStairs();
-	roomArray[9][3].setToStairs();
+	room[0][3].setToStairs();
+	room[9][3].setToStairs();
 
 	// put hero in front of stairs 
-	roomArray[8][3].setToHero();
+	room[8][3].setToHero();
 	heroRow = 8;
 	heroCol = 3;
 
-	// create monsters
-	monster1 = new ChoirBoy;
-	monster2 = new ChoirBoy;
-	roomArray[7][3].setToMonster(monster1, 'C');
-	roomArray[1][3].setToMonster(monster2, 'C');
+	//// create monsters
+	//monster1 = new ChoirBoy;
+	//monster2 = new ChoirBoy;
+	//room[7][3].setToMonster(monster1, 'C');
+	//room[1][3].setToMonster(monster2, 'C');
 
-	// add extra items to monsters
-	Inventory* monster1Inv{ monster1->getInventory() };
-	monster1Inv->add(new Treasure("Holy Water", 0, 0, 6, Type::holyWater));
-	
-	Inventory* monster2Inv{ monster2->getInventory() };
-	monster2Inv->add(new Treasure("Mace", 6, 0, 0, Type::weapon));
+	//// add extra items to monsters
+	//Inventory* monster1Inv{ monster1->getInventory() };
+	//monster1Inv->add(new Treasure("Holy Water", 0, 0, 6, Type::holyWater));
+	//
+	//Inventory* monster2Inv{ monster2->getInventory() };
+	//monster2Inv->add(new Treasure("Mace", 6, 0, 0, Type::weapon));
 }
 
 /************************************ destructor ****************************************************
@@ -49,7 +46,7 @@ Mezzanine::~Mezzanine()
 /************************************ setRoomConnections ********************************************
 This function sets all of the doors/stairs to the rooms they lead to.
 *****************************************************************************************************/
-void Mezzanine::setRoomConnections(Space* room1, Space* room2)
+void Mezzanine::setRoomConnections(Room* room1, Room* room2)
 {
 	below = room1;
 	above = room2;
@@ -74,7 +71,7 @@ void Mezzanine::printContents()
 This function moves the hero to another room when they reach a door or stairs.
 Parameters: 1 Character pointer (hero), int for current row, int for current column
 *****************************************************************************************************/
-Space* Mezzanine::moveNewRoom(int row, int col)
+Room* Mezzanine::moveNewRoom(int row, int col)
 {
 	// to sanctuary
 	if (row == 9 && col == 3)

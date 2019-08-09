@@ -7,8 +7,6 @@ Description: this is the implementation file of the Dungeon class. It is a deriv
 Room. The dungeon contains Ghoul Tormentors as enemies.
 ***************************************************************************************************/
 #include "dungeon.hpp"
-#include "character.hpp"
-//#include "GhoulTormenter.hpp"
 
 /************************************ constructor ****************************************************
 The constructor calls the Room constructor to make the room, then creates Treasure and monsters.
