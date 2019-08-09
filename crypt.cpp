@@ -4,38 +4,36 @@ File: Crypt.cpp
 Author: Kirsten Corrao
 Date: 03/04/2019
 Description: this is the implementation file of the Crypt class. It is a derived class of 
-Space. The crypt contains the Lich Cardinal, who is the final boss of the game. The game ends if the 
+Room. The crypt contains the Lich Cardinal, who is the final boss of the game. The game ends if the 
 hero defeats the Lich Cardinal (or dies).
 ***************************************************************************************************/
-#include "Crypt.hpp"
-#include "Lich.hpp"
+#include "crypt.hpp"
+//#include "Lich.hpp"
 
 /************************************ constructor ****************************************************
-The constructor calls the Space constructor to make the room, then creates Treasure and monsters.
+The constructor calls the Room constructor to make the room, then creates Treasure and monsters.
 *****************************************************************************************************/
 Crypt::Crypt()
-	: Space(10, 8, "Crypt")
+	: Room(10, 8, "Crypt")
 {
 	// make stairs and doors
-	roomArray[0][1].setToStairs();			// up to dungeon
+	room[0][1].setToStairs();			// up to dungeon
 
 	// put hero in front of door 
-	roomArray[1][1].setToHero();
+	room[1][1].setToHero();
 	heroRow = 1;
 	heroCol = 1;
 
 	// create monsters
-	monster1 = new Lich;
+	//monster1 = new Lich;
 
 	// set monsters to appropriate tiles
-	roomArray[5][5].setToMonster(monster1, 'L');
+	//room[5][5].setToMonster(monster1, 'L');
 
 	// create treasure and move to appropriate tile
-	treasure1 = new Treasure("Holy Water", 0, 0, 10, Type::holyWater);
-	roomArray[4][6].setToTreasure(treasure1);
+	room[4][6].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
 	
-	treasure2 = new Treasure("Crusader Plate", 0, 15, 0, Type::armor);
-	roomArray[2][1].setToTreasure(treasure2);
+	room[2][1].setToTreasure("Crusader Plate", 0, 15, 0, Type::armor);
 }
 
 /************************************ destructor *****************************************************
@@ -47,7 +45,7 @@ Crypt::~Crypt()
 /************************************ setRoomConnections ********************************************
 This function sets all of the doors/stairs to the rooms they lead to.
 *****************************************************************************************************/
-void Crypt::setRoomConnections(Space* room1, Space* room2)
+void Crypt::setRoomConnections(Room* room1, Room* room2)
 {
 	above = room1;
 }
@@ -72,7 +70,7 @@ void Crypt::printContents()
 This function moves the hero to another room when they reach a door or stairs.
 Parameters: 1 Character pointer (hero), int for current row, int for current column
 *****************************************************************************************************/
-Space* Crypt::moveNewRoom(int row, int col)
+Room* Crypt::moveNewRoom(int row, int col)
 {
 	above->setHeroRowCol(6, 6);
 	return above;

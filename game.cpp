@@ -42,7 +42,7 @@ void Game::createRooms()
 	bellTower = std::make_unique<BellTower>();
 	//gallery = std::make_unique<Gallery>();
 	//dungeon = std::make_unique<Dungeon>();
-	//crypt = std::make_unique<Crypt>();
+	crypt = std::make_unique<Crypt>();
 
 	//// create connections between rooms
 	//sanctuary->setRoomConnections(mezzanine, gallery);
