@@ -37,12 +37,12 @@ Returns: void
 void Game::createRooms()
 {
 	// create Room objects for rooms
-	sanctuary = std::make_unique<Sanctuary>();
+	//sanctuary = std::make_unique<Sanctuary>();
 	//mezzanine = std::make_unique<Mezzanine>();
-	bellTower = std::make_unique<BellTower>();
+	//bellTower = std::make_unique<BellTower>();
 	//gallery = std::make_unique<Gallery>();
 	//dungeon = std::make_unique<Dungeon>();
-	crypt = std::make_unique<Crypt>();
+	//crypt = std::make_unique<Crypt>();
 
 	//// create connections between rooms
 	//sanctuary->setRoomConnections(mezzanine, gallery);
