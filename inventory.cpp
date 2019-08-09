@@ -219,12 +219,6 @@ std::unique_ptr<Treasure> Inventory::moveTreasure(const int position)
 	return std::move(t);
 }
 
-// returns pointer to vector containing Treasure unique_ptrs
-std::vector<std::unique_ptr<Treasure>>* Inventory::getInventory()
-{
-	return &inventory;
-}
-
 // returns true if inventory contains fewer than CAPACITY items (currently 5)
 bool Inventory::notFull()
 {

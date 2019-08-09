@@ -45,7 +45,6 @@ public:
 	int getSize();
 	Treasure* getTreasure(const int position);
 	std::unique_ptr<Treasure> moveTreasure(const int postiion);
-	std::vector<std::unique_ptr<Treasure>>* getInventory();
 	bool notFull();
 	bool isEmpty();
 };
