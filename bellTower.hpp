@@ -1,29 +1,30 @@
 /***************************************************************************************************
 Program name: Final Project
-File: Sanctuary.hpp
+File: bellTower.hpp
 Author: Kirsten Corrao
 Date: 03/04/2019
-Description: this is the header file of the Sanctuary class. It is a derived class of 
-Room. The sanctuary contains Dark Priests as enemies.
+Description: this is the header file of the BellTower class. It is a derived class of 
+Room. The bell tower contains a Dark Priest as an enemy.
 ***************************************************************************************************/
-#ifndef SANCTUARY_HPP
-#define SANCTUARY_HPP
+#ifndef BELLTOWER_HPP
+#define BELLTOWER_HPP
 
 #include "character.hpp"
-//#include "Inventory.hpp"
 #include "room.hpp"
 
-class Sanctuary : public Room
+class BellTower : public Room
 {
 	public:
-		Sanctuary();
-		~Sanctuary();
+		BellTower();
+		~BellTower();
 		void setRoomConnections(Room* room1, Room* room2) override;
 		void printContents() override;
 		Room* moveNewRoom(int row, int col) override;
-		//void fillRoomMonsters() override;
+		int moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom) override;
+		bool getBellRung();
 
 	private:
 };
 
 #endif 
+

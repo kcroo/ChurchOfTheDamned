@@ -59,14 +59,14 @@ Sanctuary::~Sanctuary()
 	monster6 = nullptr;*/
 }
 
-///************************************ setRoomConnections ********************************************
-//This function sets all of the doors/stairs to the rooms they lead to.
-//*****************************************************************************************************/
-//void Sanctuary::setRoomConnections(Room* room1, Room* room2)
-//{
-//	above = room1;
-//	north = room2;
-//}
+/************************************ setRoomConnections ********************************************
+This function sets all of the doors/stairs to the rooms they lead to.
+*****************************************************************************************************/
+void Sanctuary::setRoomConnections(Room* room1, Room* room2)
+{
+	above = room1;
+	north = room2;
+}
 
 /************************************ printRoomContents **********************************************
 This function prints that the Sanctuary contains 2 Dark Priests, 1 Treasure, and 2 staircases (1 up 
@@ -85,27 +85,27 @@ void Sanctuary::printContents()
 		<< "\nThe right door (d) is closed and conceals the church's mysteries behind it . . .\n";
 }
 
-///************************************ moveNewRoom **********************************************
-//This function moves the hero to another room when they reach a door or stairs.
-//Parameters: 1 Character pointer (hero), int for current row, int for current column
-//*****************************************************************************************************/
-//Room* Sanctuary::moveNewRoom(int row, int col)
-//{
-//	// go to mezzanine
-//	if (row == 0 && col == 3)
-//	{
-//		above->setHeroRowCol(8, 3);
-//		return above;
-//	}
-//	
-//	// go to gallery
-//	else
-//	{
-//		north->setHeroRowCol(3, 10);
-//		return north;
-//	}
-//}
-//
+/************************************ moveNewRoom **********************************************
+This function moves the hero to another room when they reach a door or stairs.
+Parameters: 1 Character pointer (hero), int for current row, int for current column
+*****************************************************************************************************/
+Room* Sanctuary::moveNewRoom(int row, int col)
+{
+	// go to mezzanine
+	if (row == 0 && col == 3)
+	{
+		above->setHeroRowCol(8, 3);
+		return above;
+	}
+	
+	// go to gallery
+	else
+	{
+		north->setHeroRowCol(3, 10);
+		return north;
+	}
+}
+
 ///************************************ fillRoomMonsters **********************************************
 //This function fills the room with new monsters. It overrides the Room base class function. It makes 
 //4 new monsters and puts them in front of doors/stairs, so the hero must fight at least two of them.

@@ -18,60 +18,41 @@ holy water to revive them); or the player defeats the lich cardinal.
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, turns{ 1 }, hero{ nullptr } /*currentRoom{ nullptr }, sanctuary{ nullptr },
-	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr },
-	inventory{ nullptr }*/
+	: gameContinues{ true }, turns{ 1 }, hero{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
+	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }
 {
-	
 }
 
 /********************************* destructor *****************************************************
-This is the Game class destructor. It deletes all dynamically allocated data and sets their pointers
-to null.
 ***************************************************************************************************/
 Game::~Game()
 {
-	/*delete player;
-	hero = nullptr;
-	currentRoom = nullptr;
-	delete sanctuary;
-	sanctuary = nullptr;
-	delete mezzanine;
-	mezzanine = nullptr;
-	delete bellTower;
-	bellTower = nullptr;
-	delete gallery;
-	gallery = nullptr;
-	delete dungeon;
-	dungeon = nullptr;
-	delete crypt;
-	crypt = nullptr;*/
 }
 
-///********************************* createRooms ******************************************************
-// This function creates all rooms in the church.
-//Arguments: none
-//Returns: void
-//***************************************************************************************************/
-//void Game::createRooms()
-//{
-//	// create Room objects for rooms
-//	sanctuary = new Sanctuary();
-//	mezzanine = new Mezzanine();		
-//	bellTower = new BellTower();
-//	gallery = new Gallery();
-//	dungeon = new Dungeon();
-//	crypt = new Crypt();
-//
-//	// create connections between rooms
-//	sanctuary->setRoomConnections(mezzanine, gallery);
-//	mezzanine->setRoomConnections(sanctuary, bellTower);
-//	bellTower->setRoomConnections(mezzanine);
-//	gallery->setRoomConnections(sanctuary, dungeon);
-//	dungeon->setRoomConnections(gallery, crypt);
-//	crypt->setRoomConnections(dungeon);
-//}
-//
+/********************************* createRooms ******************************************************
+ This function creates all rooms in the church.
+Arguments: none
+Returns: void
+***************************************************************************************************/
+void Game::createRooms()
+{
+	// create Room objects for rooms
+	sanctuary = std::make_unique<Sanctuary>();
+	//mezzanine = std::make_unique<Mezzanine>();
+	bellTower = std::make_unique<BellTower>();
+	//gallery = std::make_unique<Gallery>();
+	//dungeon = std::make_unique<Dungeon>();
+	//crypt = std::make_unique<Crypt>();
+
+	//// create connections between rooms
+	//sanctuary->setRoomConnections(mezzanine, gallery);
+	//mezzanine->setRoomConnections(sanctuary, bellTower);
+	//bellTower->setRoomConnections(mezzanine);
+	//gallery->setRoomConnections(sanctuary, dungeon);
+	//dungeon->setRoomConnections(gallery, crypt);
+	//crypt->setRoomConnections(dungeon);
+}
+
 /********************************* play ********************************************************
 This function is the game's start menu. It lets the user start a new game, read instructions, or exit.
 Arguments: none

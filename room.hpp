@@ -22,11 +22,11 @@ class Room
 	public:
 		Room(int rows, int cols, std::string name);
 		virtual ~Room();					
-		//virtual void setRoomConnections(Room* room1, Room* room2 = nullptr) = 0;
+		virtual void setRoomConnections(Room* room1, Room* room2 = nullptr) = 0;
 		void printRoom();
 		virtual void printContents() = 0;
 		virtual int moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
-		//virtual Room* moveNewRoom(int row, int col) = 0;
+		virtual Room* moveNewRoom(int row, int col) = 0;
 
 		Treasure* getTreasure(int row, int col);
 		std::unique_ptr<Treasure> moveTreasure(int row, int col);

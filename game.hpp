@@ -17,16 +17,15 @@ holy water to revive them); or the hero defeats the lich cardinal.
 #include <iomanip>
 #include <iostream>
 #include <string>
-//#include "BellTower.hpp"
-//#include "Character.hpp"
+#include "bellTower.hpp"
+#include "Character.hpp"
 #include "combat.hpp"
-//#include "Crypt.hpp"
+//#include "crypt.hpp"
 #include "darkPriest.hpp"
-//#include "Dungeon.hpp"
+//#include "dungeon.hpp"
 #include "fighter.hpp"
-//#include "Gallery.hpp"
-//#include "Inventory.hpp"
-//#include "Mezzanine.hpp"
+//#include "gallery.hpp"
+//#include "mezzanine.hpp"
 #include "sanctuary.hpp"
 #include "room.hpp"
 #include "utility.hpp"
@@ -55,7 +54,7 @@ class Game
 		std::unique_ptr<Room> gallery;
 		std::unique_ptr<Room> dungeon;
 		std::unique_ptr<Room> crypt;
-		//void createRooms();
+		void createRooms();
 	
 		// inventory management
 		//void chooseHero();
