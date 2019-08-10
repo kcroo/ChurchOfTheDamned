@@ -8,6 +8,7 @@ Date: 07/12/2019
 #define ROOM_HPP
 
 #include "character.hpp"
+#include "phantom.hpp"
 #include "tile.hpp"
 #include "treasure.hpp"
 #include "utility.hpp"
