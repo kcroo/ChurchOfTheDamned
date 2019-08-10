@@ -15,9 +15,8 @@ This is the Character base class constructor. It takes values for HP, maxHP, typ
 Arguments: 1 integer for starting/max HP, 1 string for type of character (e.g. fighter, dark priest),
 	1 string for name (blank for enemies)
 ***************************************************************************************************/
-Character::Character(int maxHealth, std::string ty, std::string n, char sym, int m, int lvl)
-	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, MP{ m },
-	level{ lvl }
+Character::Character(int maxHealth, std::string ty, std::string n, char sym, int m)
+	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, MP{ m }
 {
 	// weapon and armor allocated in derived classes
 }
@@ -362,17 +361,6 @@ int Character::getMP()
 int Character::getMaxMP()
 {
 	return maxMP;
-}
-
-// level
-void Character::setLevel(int lvl)
-{
-	level = lvl;
-}
-
-int Character::getLevel()
-{
-	return level;
 }
 
 // currentWeapon

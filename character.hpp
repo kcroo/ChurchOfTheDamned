@@ -32,7 +32,6 @@ class Character
 		char symbol;
 		int MP;
 		int maxMP;
-		int level;
 
 		// inventory
 		//static const int capacity{ 5 };			// max # of items in inventory
@@ -45,7 +44,7 @@ class Character
 		std::vector<std::unique_ptr<SpecialAction>> specialActions;
 
 	public:
-		Character(int maxHealth, std::string ty, std::string n, char sym, int m, int lvl);
+		Character(int maxHealth, std::string ty, std::string n, char sym, int m);
 		virtual ~Character() = 0;				
 
 		int damageRoll();
@@ -87,8 +86,6 @@ class Character
 		char getSymbol();
 		int getMP();
 		int getMaxMP();
-		void setLevel(int lvl);
-		int getLevel();
 		Treasure* getCurrentWeapon();
 		void setCurrentWeapon(Treasure* t);
 		Treasure* getCurrentArmor();

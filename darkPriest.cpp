@@ -12,7 +12,7 @@ Uses the Character base class constructor to create a derived class object. Crea
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
 DarkPriest::DarkPriest() 
-	: Character(10, "Dark Priest", "", 'P', 4, 1)		// HP, type, name, symbol, MP, level
+	: Character(10, "Dark Priest", "", 'P', 4)		// HP, type, name, symbol, MP, level
 {
 	maxMP = MP;
 

@@ -12,7 +12,7 @@ Uses the Character base class constructor to create a derived class object. Crea
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
 Phantom::Phantom()
-	: Character(6, "Corrupted Phantom", "", 'P', 10, 1)		// HP, type, name
+	: Character(6, "Corrupted Phantom", "", 'P', 10)		// HP, type, name
 {
 	inventory.add(std::make_unique<Treasure>("Soul Suck", 6, 0, 0, Type::weapon));
 	inventory.add(std::make_unique<Treasure>("Ethereal Chain Mail", 0, 10, 0, Type::armor));

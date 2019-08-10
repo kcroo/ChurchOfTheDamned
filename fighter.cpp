@@ -14,7 +14,7 @@ Uses the Character base class constructor to create a derived class object. Crea
 armor in the Character's inventory and sets the Character's currentWeapon and currentArmor to them.
 ***************************************************************************************************/
 Fighter::Fighter(std::string n)
-	: Character(12, "Fighter", n, 'H', 5, 1)		// HP, type, name, symbol, mana, level
+	: Character(12, "Fighter", n, 'H', 5)		// HP, type, name, symbol, mana, level
 {
 	maxMP = MP;
 
