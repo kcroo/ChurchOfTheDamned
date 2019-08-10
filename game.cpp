@@ -183,25 +183,25 @@ void Game::move()
 			}
 			case 4:		// door is locked
 			{
-				//// door to outside of church in sanctuary is always locked
-				//if (currentRoom == sanctuary && currentRow == 7)
-				//{
-				//	std::cout << "\nDark forces have barred the door, preventing your escape."
-				//		<< "\nYou must find another way out of the church.";
-				//}
+				// door to outside of church in sanctuary is always locked
+				if (currentRoom == sanctuary.get() && currentRow == 7)
+				{
+					std::cout << "\nDark forces have barred the door outside, preventing your escape."
+						<< "\nYou must find another way out of the church.";
+				}
 
-				//// if player has key, change rooms
-				//else if (hero->hasKey())
-				//{
-				//	currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
-				//	currentRoom->printContents();
-				//}
+				// if player has key, change rooms
+				else if (hero->hasKey())
+				{
+					currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
+					currentRoom->printContents();
+				}
 
-				//// if player doesn't have key, display error
-				//else
-				//{
-				//	std::cout << "\nThe door is locked. You must find the key to open it.\n";
-				//}
+				// if player doesn't have key, display error
+				else
+				{
+					std::cout << "\nThe door is locked. You must find the key to open it.\n";
+				}
 				break;
 			}
 			case 5:		// move to new room
