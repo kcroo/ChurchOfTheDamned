@@ -230,15 +230,15 @@ Character* Room::getMonster(int row, int col)
 //}
 //
 
-/************************************ setTileToHero ************************************************
-This function sets a tile to hero (sets tile symbol to H)
-Parameters: int for row, int for column
-Returns: void
-*****************************************************************************************************/
-void Room::setTileToHero(int row, int col)
-{
-	room[row][col].setToHero();
-}
+///************************************ setTileToHero ************************************************
+//This function sets a tile to hero (sets tile symbol to H)
+//Parameters: int for row, int for column
+//Returns: void
+//*****************************************************************************************************/
+//void Room::setTileToHero(int row, int col)
+//{
+//	room[row][col].setToHero();
+//}
 
 
 
