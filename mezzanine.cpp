@@ -76,8 +76,9 @@ Room* Mezzanine::moveNewRoom(int row, int col)
 	// to sanctuary
 	if (row == 9 && col == 3)
 	{
-		below->setHeroRow(1);
-		below->setHeroCol(3);
+		below->setHeroRowCol(1, 3);
+		//below->setHeroRow(1);
+		//below->setHeroCol(3);
 
 		return below;
 	}

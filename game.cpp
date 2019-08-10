@@ -37,20 +37,20 @@ Returns: void
 void Game::createRooms()
 {
 	// create Room objects for rooms
-	//sanctuary = std::make_unique<Sanctuary>();
-	//mezzanine = std::make_unique<Mezzanine>();
-	//bellTower = std::make_unique<BellTower>();
-	//gallery = std::make_unique<Gallery>();
-	//dungeon = std::make_unique<Dungeon>();
-	//crypt = std::make_unique<Crypt>();
+	sanctuary = std::make_unique<Sanctuary>();
+	mezzanine = std::make_unique<Mezzanine>();
+	bellTower = std::make_unique<BellTower>();
+	gallery = std::make_unique<Gallery>();
+	dungeon = std::make_unique<Dungeon>();
+	crypt = std::make_unique<Crypt>();
 
-	//// create connections between rooms
-	//sanctuary->setRoomConnections(mezzanine, gallery);
-	//mezzanine->setRoomConnections(sanctuary, bellTower);
-	//bellTower->setRoomConnections(mezzanine);
-	//gallery->setRoomConnections(sanctuary, dungeon);
-	//dungeon->setRoomConnections(gallery, crypt);
-	//crypt->setRoomConnections(dungeon);
+	// create connections between rooms
+	sanctuary->setRoomConnections(mezzanine.get(), gallery.get());
+	mezzanine->setRoomConnections(sanctuary.get(), bellTower.get());
+	bellTower->setRoomConnections(mezzanine.get());
+	gallery->setRoomConnections(sanctuary.get(), dungeon.get());
+	dungeon->setRoomConnections(gallery.get(), crypt.get());
+	crypt->setRoomConnections(dungeon.get());
 }
 
 /********************************* play ********************************************************
@@ -62,9 +62,10 @@ void Game::play()
 {
 	//utility::displayTextFile("title.txt");
 
-	sanctuary = std::make_unique<Sanctuary>();
+	Game::createRooms();
 	currentRoom = sanctuary.get();
 	hero = std::make_unique<Fighter>("Santiago");
+	
 
 	while (gameContinues)
 	{
@@ -205,15 +206,15 @@ void Game::move()
 			}
 			case 5:		// move to new room
 			{
-				//currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
+				currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 
-				//// if room is sanctuary and the hero rung the bell in the bell tower, fill it with monsters
-				//if (currentRoom == sanctuary && bellTower->getBellRung())
-				//{
-				//	currentRoom->fillRoomMonsters();
-				//}
+				// if room is sanctuary and the hero rung the bell in the bell tower, fill it with monsters
+				/*if (currentRoom == sanctuary && bellTower->getBellRung())
+				{
+					currentRoom->fillRoomMonsters();
+				}*/
 
-				//currentRoom->printContents();
+				currentRoom->printContents();
 				break;
 			}
 			case 6:		// invalid move

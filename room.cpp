@@ -229,20 +229,19 @@ Character* Room::getMonster(int row, int col)
 //	room[row][col].setToEmpty();
 //}
 //
-///************************************ setTileToHero ************************************************
-//This function sets a tile to hero (sets hero pointer and character to H)
-//Parameters: int for row, int for column
-//Returns: void
-//*****************************************************************************************************/
-//void Room::setTileToHero(int row, int col)
-//{
-//	room[row][col].setToHero();
-//	room[row][col].removeTreasure();
-//	room[row][col].removeMonster();
-//}
-//
-//
-//
+
+/************************************ setTileToHero ************************************************
+This function sets a tile to hero (sets tile symbol to H)
+Parameters: int for row, int for column
+Returns: void
+*****************************************************************************************************/
+void Room::setTileToHero(int row, int col)
+{
+	room[row][col].setToHero();
+}
+
+
+
 ///************************************ setTileToMonster ************************************************
 //This function fills a room with monsters. It is overridden by Sanctuary, because that room must be filled
 //with monsters if the player rings the bell in the bell tower.
@@ -290,6 +289,7 @@ void Room::setHeroRowCol(int r, int c)
 {
 	heroRow = r;
 	heroCol = c;
+	room[r][c].setToHero();
 }
 
 // heroRow
