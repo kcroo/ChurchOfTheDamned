@@ -14,27 +14,29 @@ The constructor calls the Room constructor. It creates Treasure and enemies to f
 Mezzanine::Mezzanine()
 	: Room(10, 6, "Mezzanine")
 {
+	const int monst1Row{ 7 };
+	const int monst1Col{ 3 };
+	const int monst2Row{ 1 };
+	const int monst2Col{ 3 };
 	// make stairs
 	room[0][3].setToStairs();
 	room[9][3].setToStairs();
 
 	// put hero in front of stairs 
-	room[8][3].setToHero();
 	heroRow = 8;
 	heroCol = 3;
+	room[heroRow][heroCol].setToHero();
 
-	//// create monsters
-	//monster1 = new ChoirBoy;
-	//monster2 = new ChoirBoy;
-	//room[7][3].setToMonster(monster1, 'C');
-	//room[1][3].setToMonster(monster2, 'C');
+	// create monsters and give them extra items
+	room[monst1Row][monst1Col].setToMonster(std::make_unique<ChoirBoy>());
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 6, Type::holyWater));
 
-	//// add extra items to monsters
-	//Inventory* monster1Inv{ monster1->getInventory() };
-	//monster1Inv->add(new Treasure("Holy Water", 0, 0, 6, Type::holyWater));
-	//
-	//Inventory* monster2Inv{ monster2->getInventory() };
-	//monster2Inv->add(new Treasure("Mace", 6, 0, 0, Type::weapon));
+	room[monst2Row][monst2Col].setToMonster(std::make_unique<ChoirBoy>());
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Mace", 6, 0, 0, Type::weapon));
+
+	// create treasure
+	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
+	room[7][2].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
 }
 
 /************************************ destructor ****************************************************
@@ -77,16 +79,13 @@ Room* Mezzanine::moveNewRoom(int row, int col)
 	if (row == 9 && col == 3)
 	{
 		below->setHeroRowCol(1, 3);
-		//below->setHeroRow(1);
-		//below->setHeroCol(3);
 
 		return below;
 	}
 	// to bell tower
 	else
 	{
-		above->setHeroRow(3);
-		above->setHeroCol(2);
+		below->setHeroRowCol(3, 2);
 		return above;
 	}
 }

@@ -10,7 +10,7 @@ Room. The mezzanine contains Zombie Choir Boys as enemies.
 #define MEZZANINE_HPP
 
 #include "room.hpp"
-//#include "ChoirBoy.hpp"
+#include "choirBoy.hpp"
 
 class Mezzanine : public Room
 {

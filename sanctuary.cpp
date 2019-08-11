@@ -31,17 +31,16 @@ Sanctuary::Sanctuary()
 	heroCol = 8;
 	room[heroRow][heroCol].setToHero();
 
-	// create monsters
+	// create monsters and give them extra items
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<DarkPriest>());
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
+	
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<DarkPriest>());
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
 
 	// create treasure
 	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
 	room[7][2].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
-
-	// initialize inventories and add extra items
-	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
-	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 8, Type::holyWater));
 }
 
 /************************************ destructor *****************************************************
