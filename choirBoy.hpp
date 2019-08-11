@@ -8,7 +8,7 @@ Description: this is the header file for ChoirBoy, which is a derived class of C
 #ifndef CHOIRBOY_HPP
 #define CHOIRBOY_HPP
 
-#include "Character.hpp"
+#include "character.hpp"
 
 class ChoirBoy : public Character
 {
