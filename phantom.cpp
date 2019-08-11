@@ -19,6 +19,9 @@ Phantom::Phantom()
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);
+
+	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::attack, "Piercing Scream", "A high-pitched scream that causes 3-6 damage", 3, 3, 6, 0, 0, 0));
+	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::attack, "Ghostly Inhabitation", "Flying its incorporeal form through the hero's body causes 2-8 damage.", 4, 2, 8, 0, 0, 0));
 }
 
 /********************************* destructor *****************************************************
