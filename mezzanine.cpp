@@ -18,6 +18,11 @@ Mezzanine::Mezzanine()
 	const int monst1Col{ 3 };
 	const int monst2Row{ 1 };
 	const int monst2Col{ 3 };
+
+	const int treas1Row{ 2 };
+	const int treas1Col{ 2 };
+	const int treas2Row{ 2 };
+	const int treas2Col{ 4 };
 	// make stairs
 	room[0][3].setToStairs();
 	room[9][3].setToStairs();
@@ -35,8 +40,8 @@ Mezzanine::Mezzanine()
 	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Mace", 6, 0, 0, Type::weapon));
 
 	// create treasure
-	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
-	room[7][2].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
+	room[treas1Row][treas1Col].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
+	room[treas2Row][treas2Col].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
 }
 
 /************************************ destructor ****************************************************

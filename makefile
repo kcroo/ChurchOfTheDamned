@@ -28,10 +28,10 @@ VOPT = --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=y
 # ####### create executable file. be sure to EDIT NAMES OF FILES!!!!!!
 
 # source files (use as shortcut)
-SOURCES = bellTower.cpp character.cpp combat.cpp crypt.cpp darkPriest.cpp dungeon.cpp fighter.cpp gallery.cpp game.cpp inventory.cpp main.cpp mezzanine.cpp phantom.cpp room.cpp sanctuary.cpp specialAction.cpp tile.cpp treasure.cpp utility.cpp
+SOURCES = bellTower.cpp character.cpp choirBoy.cpp combat.cpp crypt.cpp darkPriest.cpp dungeon.cpp fighter.cpp gallery.cpp game.cpp ghoul.cpp lich.cpp inventory.cpp main.cpp mezzanine.cpp phantom.cpp room.cpp sanctuary.cpp specialAction.cpp tile.cpp treasure.cpp utility.cpp
 
 # object files (use as shortcut)
-OBJECTS = bellTower.o character.o combat.o crypt.o darkPriest.o dungeon.o fighter.o gallery.o game.o inventory.o main.o mezzanine.o phantom.o room.o sanctuary.o specialAction.o tile.o treasure.o utility.o
+OBJECTS = bellTower.o character.o choirBoy.o combat.o crypt.o darkPriest.o dungeon.o fighter.o gallery.o game.o ghoul.o lich.o inventory.o main.o mezzanine.o phantom.o room.o sanctuary.o specialAction.o tile.o treasure.o utility.o
 
 # specify the name of the executable
 EXECUTABLE = prog

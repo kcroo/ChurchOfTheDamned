@@ -21,7 +21,7 @@ Ghoul::Ghoul()
 	currentArmor = inventory.getTreasure(1);
 
 	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::attack, "Claw Frenzy", "A frenetic assault of half-rotten claws causes 1-10 damage", 2, 1, 10, 0, 0, 0));
-	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::MP, "Blood Elixer", "An elixir made from the blood of human victims restores 2-4 HP", 1, 0, 0, 4, 0));
+	specialActions.push_back(std::make_unique<SpecialAction>(ActionType::HP, "Blood Elixer", "An elixir made from the blood of human victims restores 2-4 HP", 1, 0, 0, 0, 4, 0));
 }
 
 /********************************* destructor *****************************************************
