@@ -63,8 +63,7 @@ Parameters: 1 Character pointer (hero), int for current row, int for current col
 *****************************************************************************************************/
 Room* BellTower::moveNewRoom(int row, int col)
 {
-	below->setHeroRow(1);
-	below->setHeroCol(3);
+	below->setHeroRowCol(1, 3);
 	return below;
 }
 
