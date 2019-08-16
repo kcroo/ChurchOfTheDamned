@@ -136,7 +136,7 @@ Source: https://stackoverflow.com/questions/972152/how-to-create-a-template-func
 	{
 		std::cout << std::left
 			<< std::setw(10) << val1
-			<< std::setw(15) << val2
+			<< std::setw(20) << val2
 			<< std::setw(10) << val3
 			<< std::setw(10) << val4
 			<< std::setw(10) << val5

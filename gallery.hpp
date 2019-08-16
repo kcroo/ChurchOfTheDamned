@@ -10,7 +10,7 @@ Room. The gallery contains Ghosts as enemies.
 #define GALLERY_HPP
 
 #include "room.hpp"
-//#include "ghost.hpp"
+#include "phantom.hpp"
 
 class Gallery : public Room
 {
