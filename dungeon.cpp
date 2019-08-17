@@ -14,6 +14,16 @@ The constructor calls the Room constructor to make the room, then creates Treasu
 Dungeon::Dungeon()
 	: Room(8, 8, "Dungeon")
 {
+	const int monst1Row{ 1 };
+	const int monst1Col{ 2 };
+	const int monst2Row{ 2 };
+	const int monst2Col{ 1 };
+
+	const int treas1Row{ 4 };
+	const int treas1Col{ 6 };
+	const int treas2Row{ 5 };
+	const int treas2Col{ 6 };
+
 	// make stairs and doors
 	room[7][6].setToStairs();			// to crypt
 	room[0][1].setToStairs();			// to gallery
@@ -24,24 +34,15 @@ Dungeon::Dungeon()
 	room[heroRow][heroCol].setToHero();
 
 	// create monsters
-	//monster1 = new GhoulTormenter;
-	//monster2 = new GhoulTormenter;
+	room[monst1Row][monst1Col].setToMonster(std::make_unique<Ghoul>());
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 10, Type::holyWater));
 
-	//// set monsters to appropriate tiles
-	//room[1][2].setToMonster(monster1, 'G');
-	//room[2][1].setToMonster(monster2, 'G');
+	room[monst2Row][monst2Col].setToMonster(std::make_unique<Ghoul>());
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Long Sword", 10, 0, 0, Type::weapon));
 
 	// create treasure and move to appropriate tile
-	room[4][6].setToTreasure("Holy Water", 0, 0, 5, Type::holyWater);
-	
-	room[5][6].setToTreasure("Partial Plate", 0, 12, 0, Type::armor);
-	
-	//// initialize inventories and add extra items
-	//Inventory* monster1Inv{ monster1->getInventory() };
-	//monster1Inv->add(new Treasure("Holy Water", 0, 0, 10, Type::holyWater));
-	//
-	//Inventory* monster2Inv{ monster2->getInventory() };
-	//monster2Inv->add(new Treasure("Long Sword", 10, 0, 0, Type::weapon));
+	room[treas1Row][treas1Col].setToTreasure("Holy Water", 0, 0, 5, Type::holyWater);
+	room[treas2Row][treas2Col].setToTreasure("Partial Plate", 0, 12, 0, Type::armor);
 }
 
 /************************************ deconstructor *************************************************

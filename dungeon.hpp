@@ -9,9 +9,8 @@ Room. The dungeon contains Ghoul Tormentors as enemies.
 #ifndef DUNGEON_HPP
 #define DUNGEON_HPP
 
-#include "character.hpp"
 #include "room.hpp"
-//#include "GhoulTormenter.hpp"
+#include "ghoul.hpp"
 
 class Dungeon : public Room
 {
