@@ -82,7 +82,7 @@ Parameters: 1 Character pointer (hero), int for current row, int for current col
 Room* Gallery::moveNewRoom(int row, int col)
 {
 	// to sanctuary 
-	if (row == 4 && col == 12)
+	if (row == 4 && col == 10)
 	{
 		south->setHeroRowCol(1, 12);
 		return south;

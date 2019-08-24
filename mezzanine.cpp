@@ -41,7 +41,7 @@ Mezzanine::Mezzanine()
 	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Mace", 6, 0, 0, Type::weapon));
 
 	// create treasure
-	room[treas1Row][treas1Col].setToTreasure("Hatchet", 0, 5, 0, Type::weapon);
+	room[treas1Row][treas1Col].setToTreasure("Hatchet", 5, 0, 0, Type::weapon);
 	room[treas2Row][treas2Col].setToTreasure("Holy Water", 0, 0, 6, Type::holyWater);
 }
 
