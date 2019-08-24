@@ -8,7 +8,6 @@ Room. The crypt contains the Lich Cardinal, who is the final boss of the game. T
 hero defeats the Lich Cardinal (or dies).
 ***************************************************************************************************/
 #include "crypt.hpp"
-//#include "Lich.hpp"
 
 /************************************ constructor ****************************************************
 The constructor calls the Room constructor to make the room, then creates Treasure and monsters.
@@ -16,19 +15,19 @@ The constructor calls the Room constructor to make the room, then creates Treasu
 Crypt::Crypt()
 	: Room(10, 8, "Crypt")
 {
+	const int monst1Row{ 5 };
+	const int monst1Col{ 5 };
+
 	// make stairs and doors
 	room[0][1].setToStairs();			// up to dungeon
 
 	// put hero in front of door 
-	room[1][1].setToHero();
 	heroRow = 1;
 	heroCol = 1;
+	room[heroRow][heroCol].setToHero();
 
 	// create monsters
-	//monster1 = new Lich;
-
-	// set monsters to appropriate tiles
-	//room[5][5].setToMonster(monster1, 'L');
+	room[monst1Row][monst1Col].setToMonster(std::make_unique<Lich>());
 
 	// create treasure and move to appropriate tile
 	room[4][6].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);

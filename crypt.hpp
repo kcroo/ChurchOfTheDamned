@@ -10,8 +10,8 @@ hero defeats the Lich Cardinal (or dies).
 #ifndef CRYPT_HPP
 #define CRYPT_HPP
 
-#include "character.hpp"
 #include "room.hpp"
+#include "lich.hpp"
 
 class Crypt : public Room
 {

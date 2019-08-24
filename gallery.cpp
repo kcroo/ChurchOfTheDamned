@@ -42,7 +42,6 @@ Gallery::Gallery()
 
 	// create treasure and move to appropriate tile
 	room[treas1Row][treas1Col].setToTreasure("Holy Water", 0, 0, 6, Type::holyWater);
-	
 	room[treas2Row][treas2Col].setToTreasure("Holy Water", 0, 0, 8, Type::holyWater);
 }
 
