@@ -314,13 +314,38 @@ SpecialAction* Combat::randomSpecialAction(Character* attacker)
 
 		for (SpecialAction*& act : randomizedActions)
 		{
+			// must have enough MP to execute action 
 			if (attacker->getMP() >= act->getMPRequired())
 			{
-				return act;
+				// only restore HP if restoration won't go above max HP 
+				if (act->getActionType() == ActionType::HP)
+				{
+					int hpRestored{ act->getHpRecovery() };
+					if ((attacker->getHP() + hpRestored) <= attacker->getMaxHP())
+					{
+						return act;
+					}
+				}
+
+				// only restore MP if restoration won't go above max MP 
+				else if (act->getActionType() == ActionType::MP)
+				{
+					int mpRestored{ act->getMPRecovered() };
+					if ((attacker->getMP() + mpRestored) <= attacker->getMaxMP())
+					{
+						return act;
+					}
+				}
+
+				else
+				{
+					return act;
+				}
 			}
 		}
 	}
 	
+	// no actions needed or possible 
 	return nullptr;
 }
 
