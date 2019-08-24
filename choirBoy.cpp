@@ -14,8 +14,8 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 ChoirBoy::ChoirBoy()
 	: Character(5, "Zombie Choir Boy", "", 'Z', 12)		// HP, type, name
 {
-	inventory.add(std::make_unique<Treasure>("Satanic Hymnal", 2, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Choir Robes", 0, 2, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Satanic Hymnal", 2, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Choir Robes", 0, 2, 0, 0, Type::armor));
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);

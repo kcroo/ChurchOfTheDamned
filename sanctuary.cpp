@@ -33,14 +33,14 @@ Sanctuary::Sanctuary()
 
 	// create monsters and give them extra items
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<DarkPriest>());
-	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, Type::bread));
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, 0, Type::bread));
 	
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<DarkPriest>());
-	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, Type::bread));
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, 0, Type::bread));
 
 	// create treasure
-	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, Type::armor);
-	room[7][2].setToTreasure("Sacramental Bread", 0, 0, 10, Type::bread);
+	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, 0, Type::armor);
+	room[7][2].setToTreasure("Sacramental Bread", 0, 0, 10, 0, Type::bread);
 }
 
 /************************************ destructor *****************************************************

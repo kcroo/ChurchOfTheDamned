@@ -16,8 +16,8 @@ DarkPriest::DarkPriest()
 {
 	maxMP = MP;
 
-	inventory.add(std::make_unique<Treasure>("Devil's Staff", 3, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Unholy Robes", 0, 4, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Devil's Staff", 3, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Unholy Robes", 0, 4, 0, 0, Type::armor));
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);

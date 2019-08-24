@@ -51,7 +51,7 @@ void Inventory::print()
 		<< "\nInventory" 
 		<< "\n--------------------------------------------------------\n";
 
-	utility::printColumns("Item #", "Name", "Attack", "Armor", "HP Restored");
+	utility::printColumns("Item #", "Name", "Attack", "Armor", "HP+", "MP+");
 	int counter{ 1 };
 
 	for (std::vector<std::unique_ptr<Treasure>>::iterator it = inventory.begin(); it != inventory.end(); ++it)
@@ -62,8 +62,9 @@ void Inventory::print()
 		int attackBonus{ (*it)->getAttack() };
 		int armorBonus{ (*it)->getDefense() };
 		int HPBonus{ (*it)->getHPChange() };
+		int MPBonus{ (*it)->getMPChange() };
 
-		utility::printColumns(itemNum, name, attackBonus, armorBonus, HPBonus);
+		utility::printColumns(itemNum, name, attackBonus, armorBonus, HPBonus, MPBonus);
 		++counter;
 	}
 
@@ -187,8 +188,8 @@ int Inventory::getItemPosition(Type t)
 	return -1;
 }
 
-/********************************* useHolyWater **************************************************
-This function removes a holy water item from the inventory and returns how much HP it restores.
+/********************************* useSacramentalBread **************************************************
+This function removes a sacramental wine item from the inventory and returns how much HP it restores.
 Arguments: integer for position in inventory
 Returns: integer for amount of HP restored
 ***************************************************************************************************/
@@ -198,6 +199,19 @@ int Inventory::useSacramentalBread(int position)
 	inventory.erase(inventory.begin() + position);
 
 	return hpRestored;
+}
+
+/********************************* useSacramentalWine **************************************************
+This function removes a sacramental wine item from the inventory and returns how much MP it restores.
+Arguments: integer for position in inventory
+Returns: integer for amount of MP restored
+***************************************************************************************************/
+int Inventory::useSacramentalWine(int position)
+{
+	int mpRestored{ inventory.at(position)->getMPChange() };
+	inventory.erase(inventory.begin() + position);
+
+	return mpRestored;
 }
 
 /********************************* getters and setters  ************************************************/

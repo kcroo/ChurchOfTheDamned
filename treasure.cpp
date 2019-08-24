@@ -13,8 +13,8 @@ armor class; and holy water heals the hero of attack.
 The constructor takes 5 parameters to set initial values for name, attack bonus, armor bonus, how 
 much HP the treasure can recover, and an enum for Type (weapon, armor, or holyWater).
 *****************************************************************************************************/
-Treasure::Treasure(std::string n, int dam, int armBonus, int hp, Type t)
-	: name{ n }, attack{ dam }, defense{ armBonus }, HPChange{ hp }, type{ t }
+Treasure::Treasure(std::string n, int dam, int armBonus, int hp, int mp, Type t)
+	: name{ n }, attack{ dam }, defense{ armBonus }, HPChange{ hp }, MPChange{ mp }, type{ t }
 {
 }
 
@@ -29,8 +29,8 @@ This function prints the treasure's stats.
 *****************************************************************************************************/
 void Treasure::print()
 {
-	utility::printColumns("Item", "Name", "attack", "Armor", "HP Restored");
-	utility::printColumns("", name, attack, defense, HPChange);
+	utility::printColumns("Item", "Name", "Attack", "Armor", "HP+", "MP+");
+	utility::printColumns("", name, attack, defense, HPChange, MPChange);
 }
 
 /************************************ getters and setters  ********************************************/
@@ -53,10 +53,16 @@ int Treasure::getDefense()
 	return defense;
 }
 
-// HP bonus
+// HP restored
 int Treasure::getHPChange()
 {
 	return HPChange;
+}
+
+// MP restored
+int Treasure::getMPChange()
+{
+	return MPChange;
 }
 
 // type

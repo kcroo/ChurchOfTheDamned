@@ -370,9 +370,9 @@ bool Combat::checkAlive(Character* defender)
 	return false;
 }
 
-/************************************ heroUsesHolyWater **********************************************
-Returns true if hero has holy water in inventory that saves them from death. Also displays amount of HP
-recovered. If no holy water, returns false (hero dies).
+/************************************ heroEatsBread **********************************************
+Returns true if hero has sacramental bread in inventory that saves them from death. Also displays amount of HP
+recovered. If no sacramental bread, returns false (hero dies).
 *****************************************************************************************************/
 bool Combat::heroEatsBread()
 {

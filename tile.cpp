@@ -52,9 +52,9 @@ void Tile::setToMonster(std::unique_ptr<Character> m)
 This function sets the Tile object's attributes to a treasure. The tile now "owns" that treasure, and it 
 can be transferred to the player's inventory.
 *****************************************************************************************************/
-void Tile::setToTreasure(std::string name, int att, int def, int hp, Type t)
+void Tile::setToTreasure(std::string name, int att, int def, int hp, int mp, Type t)
 {
-	treasure = std::make_unique<Treasure>(name, att, def, hp, t);
+	treasure = std::make_unique<Treasure>(name, att, def, hp, mp, t);
 	symbol = 'T';
 	empty = false;
 }

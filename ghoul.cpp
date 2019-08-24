@@ -14,8 +14,8 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 Ghoul::Ghoul()
 	: Character(6, "Ghoul", "", 'G', 4)		// HP, type, name, symbol, MP
 {
-	inventory.add(std::make_unique<Treasure>("Human Arm", 5, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Human Leather", 0, 6, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Human Arm", 5, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Human Leather", 0, 6, 0, 0, Type::armor));
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);

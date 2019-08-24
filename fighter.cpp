@@ -18,8 +18,8 @@ Fighter::Fighter(std::string n)
 {
 	maxMP = MP;
 
-	inventory.add(std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Wooden Mallet", 4, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Wool Clothing", 0, 5, 0, 0, Type::armor));
 	
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);

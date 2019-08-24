@@ -269,6 +269,28 @@ int Character::eatSacramentalBread()
 	}
 }
 
+/********************************* drinkSacramentalWine **************************************************
+If there is sacramental wine in the inventory, the hero drinks it and returns the amount of MP the bread
+restored. Otherwise, it returns -1 to indicate that no wine was in the inventory.
+***************************************************************************************************/
+int Character::drinkSacramentalWine()
+{
+	int position{ inventory.getItemPosition(Type::wine) };
+
+	if (position != -1)
+	{
+		int mpRecovered{ inventory.useSacramentalWine(position) };
+		Character::recoverMP(mpRecovered);
+		return mpRecovered;
+	}
+
+	// no sacramental wine: 0 MP recovered
+	else
+	{
+		return 0;
+	}
+}
+
 /********************************* hasKey *********************************************************
 Returns true if inventory contains key. Returns false if it does not.
 ***************************************************************************************************/

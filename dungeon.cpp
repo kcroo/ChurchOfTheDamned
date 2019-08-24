@@ -35,14 +35,14 @@ Dungeon::Dungeon()
 
 	// create monsters
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<Ghoul>());
-	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 10, Type::bread));
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 10, 0, Type::bread));
 
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<Ghoul>());
-	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Long Sword", 10, 0, 0, Type::weapon));
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Long Sword", 10, 0, 0, 0, Type::weapon));
 
 	// create treasure and move to appropriate tile
-	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 5, Type::bread);
-	room[treas2Row][treas2Col].setToTreasure("Partial Plate", 0, 12, 0, Type::armor);
+	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 5, 0, Type::bread);
+	room[treas2Row][treas2Col].setToTreasure("Partial Plate", 0, 12, 0, 0, Type::armor);
 }
 
 /************************************ deconstructor *************************************************

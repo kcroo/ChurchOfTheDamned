@@ -24,10 +24,11 @@ private:
 	int attack;
 	int defense;
 	int HPChange;
+	int MPChange;
 	Type type;
 
 public:
-	Treasure(std::string name, int att, int def, int hp, Type t);
+	Treasure(std::string name, int att, int def, int hp, int mp, Type t);
 	~Treasure();
 	void print();
 
@@ -36,6 +37,7 @@ public:
 	int getAttack();
 	int getDefense();
 	int getHPChange();
+	int getMPChange();
 	Type getType();
 };
 

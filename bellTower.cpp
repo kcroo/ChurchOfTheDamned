@@ -27,7 +27,7 @@ BellTower::BellTower()
 	room[1][1].setToBell();
 
 	// create treasure and move to appropriate tile
-	room[3][3].setToTreasure("Key", 0, 0, 0, Type::key);
+	room[3][3].setToTreasure("Key", 0, 0, 0, 0, Type::key);
 }
 
 /************************************ destructor *****************************************************

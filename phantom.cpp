@@ -14,8 +14,8 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 Phantom::Phantom()
 	: Character(6, "Corrupted Phantom", "", 'P', 10)		// HP, type, name
 {
-	inventory.add(std::make_unique<Treasure>("Soul Suck", 6, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Ethereal Chain Mail", 0, 10, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Soul Suck", 6, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Ethereal Chain Mail", 0, 10, 0, 0, Type::armor));
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);

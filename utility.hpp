@@ -128,11 +128,11 @@ Source: https://stackoverflow.com/questions/972152/how-to-create-a-template-func
 			<< std::endl;
 	}
 
-	/********************************* printColumns (template, 5 values) ******************************
+	/********************************* printColumns (template, 6 values) ******************************
 	This function uses a template and takes 4 values to print in columns.
 	**************************************************************************************************/
-	template <class T1, class T2, class T3, class T4, class T5>
-	void printColumns(T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
+	template <class T1, class T2, class T3, class T4, class T5, class T6>
+	void printColumns(T1 val1, T2 val2, T3 val3, T4 val4, T5 val5, T6 val6)
 	{
 		std::cout << std::left
 			<< std::setw(10) << val1
@@ -140,6 +140,7 @@ Source: https://stackoverflow.com/questions/972152/how-to-create-a-template-func
 			<< std::setw(10) << val3
 			<< std::setw(10) << val4
 			<< std::setw(10) << val5
+			<< std::setw(10) << val6
 			<< std::endl;
 	}
 }

@@ -32,7 +32,7 @@ public:
 	char test;
 	void setToHero();
 	void setToMonster(std::unique_ptr<Character> monster);
-	void setToTreasure(std::string name, int att, int def, int hp, Type t);
+	void setToTreasure(std::string name, int att, int def, int hp, int mp, Type t);
 	void setToEmpty();			
 	void setToStairs();
 	void setToDoor(bool locked = false);			// doors default to unlocked

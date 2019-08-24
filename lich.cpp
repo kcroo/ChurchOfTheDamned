@@ -15,8 +15,8 @@ armor in the Character's inventory and sets the Character's currentWeapon and cu
 Lich::Lich()
 	: Character(20, "Lich Cardinal", "", 'L', 12)		// HP, type, name
 {
-	inventory.add(std::make_unique<Treasure>("Sword of the Spirits", 10, 0, 0, Type::weapon));
-	inventory.add(std::make_unique<Treasure>("Aura of Unrighteousness", 0, 12, 0, Type::armor));
+	inventory.add(std::make_unique<Treasure>("Sword of the Spirits", 10, 0, 0, 0, Type::weapon));
+	inventory.add(std::make_unique<Treasure>("Aura of Unrighteousness", 0, 12, 0, 0, Type::armor));
 
 	currentWeapon = inventory.getTreasure(0);
 	currentArmor = inventory.getTreasure(1);
