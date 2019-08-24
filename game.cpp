@@ -275,7 +275,7 @@ void Game::manageInventory()
 	{
 		hero->printInventory();
 
-		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Eat sacramental bread (restores HP) \n4. Exit\n", 1, 4) };
+		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Eat sacramental bread (restores HP) \n4. Drink sacramental wine (restores MP) \n5. Exit\n", 1, 5) };
 		switch (choice)
 		{
 			case 1:
@@ -293,7 +293,12 @@ void Game::manageInventory()
 				Game::eatSacramentalBread();
 				break;
 			}
-			case 4: 
+			case 4:
+			{
+				Game::drinkSacramentalWine();
+				break;
+			}
+			case 5: 
 			{
 				keepManagingInv = false;
 				break;
@@ -380,8 +385,8 @@ void Game::equipWeaponOrArmor()
 }
 
 /************************************ eatSacramentalBread *******************************************************
-This function finds the first holy water in the inventory and has the player drink it. The player recovers 
-how many HP the holy water item specifies.
+This function finds the first sacramental break in the inventory and has the player eat it. The player recovers 
+how many HP the bread item specifies.
 Parameters: none
 Returns: void
 *****************************************************************************************************/
@@ -391,11 +396,31 @@ void Game::eatSacramentalBread()
 
 	if (HPRecovered == 0)
 	{
-		std::cout << "\nError. Inventory does not contain holy water.\n";
+		std::cout << "\nError. Inventory does not contain sacramental bread.\n";
 	}
 	else
 	{
 		std::cout << "\n" << hero->getName() << " ate sacramental bread, restoring " << HPRecovered << " HP.\n";
+	}
+}
+
+/************************************ drinkSacramentalWine *******************************************************
+This function finds the first sacramental wine in the inventory and has the player drink it. The player recovers
+how many MP the wine item specifies.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::drinkSacramentalWine()
+{
+	int MPRecovered{ hero->drinkSacramentalWine() };
+
+	if (MPRecovered == 0)
+	{
+		std::cout << "\nError. Inventory does not contain sacramental wine.\n";
+	}
+	else
+	{
+		std::cout << "\n" << hero->getName() << " drank sacramental wine, restoring " << MPRecovered << " MP.\n";
 	}
 }
 

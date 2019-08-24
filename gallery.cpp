@@ -41,8 +41,8 @@ Gallery::Gallery()
 	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 4, 0, Type::bread));
 
 	// create treasure and move to appropriate tile
-	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 6, 0, Type::bread);
-	room[treas2Row][treas2Col].setToTreasure("Sacramental Bread", 0, 0, 8, 0, Type::bread);
+	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 8, 0, Type::bread);
+	room[treas2Row][treas2Col].setToTreasure("Sacramental Wine", 0, 0, 0, 0, Type::wine);
 }
 
 /************************************ deconstructor *************************************************

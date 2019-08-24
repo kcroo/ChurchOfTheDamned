@@ -36,7 +36,7 @@ Sanctuary::Sanctuary()
 	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, 0, Type::bread));
 	
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<DarkPriest>());
-	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, 0, Type::bread));
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Wine", 0, 0, 0, 4, Type::wine));
 
 	// create treasure
 	room[6][10].setToTreasure("Leather Armor", 0, 8, 0, 0, Type::armor);

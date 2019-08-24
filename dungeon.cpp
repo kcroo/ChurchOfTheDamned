@@ -35,7 +35,7 @@ Dungeon::Dungeon()
 
 	// create monsters
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<Ghoul>());
-	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 10, 0, Type::bread));
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Wine", 0, 0, 0, 6, Type::wine));
 
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<Ghoul>());
 	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Long Sword", 10, 0, 0, 0, Type::weapon));

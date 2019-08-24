@@ -35,7 +35,7 @@ Mezzanine::Mezzanine()
 
 	// create monsters and give them extra items
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<ChoirBoy>());
-	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 6, 0, Type::bread));
+	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Wine", 0, 0, 0, 5, Type::wine));
 
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<ChoirBoy>());
 	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Mace", 6, 0, 0, 0, Type::weapon));
