@@ -100,7 +100,7 @@ void Combat::heroAttacks()
 
     while (stillChoosingAttack)
     {
-        int choice{ utility::getInt("\n1. Standard attack \n2. Special action\n", 1, 2) };
+        int choice{ utility::getInt("\n1. Standard attack \n2. Special action \n3. Drink sacramental wine\n", 1, 3) };
         if (choice == 1)
         {
             Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
@@ -115,6 +115,20 @@ void Combat::heroAttacks()
                 stillChoosingAttack = false;
             }
         }
+		else if (choice == 3)
+		{
+			int MPRecovered{ hero->drinkSacramentalWine() };
+
+			if (MPRecovered == 0)
+			{
+				std::cout << "\nError. Inventory does not contain sacramental wine.\n";
+			}
+			else
+			{
+				std::cout << "\n" << hero->getName() << " drank sacramental wine, restoring " << MPRecovered << " MP.\n";
+				stillChoosingAttack = false;
+			}
+		}
     }
 }
 
