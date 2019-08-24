@@ -28,7 +28,7 @@ class SpecialAction
 		
 
 	public:
-		SpecialAction(ActionType t, std::string n, std::string d, int manaReq, int minD, int maxD, int maxAr, int hp, int mana);
+		SpecialAction(ActionType t, std::string n, std::string d, int mpReq, int minD, int maxD, int maxAr, int hpRestored, int mpRestored);
 		~SpecialAction();
 		ActionType getActionType();
 		std::string getName();

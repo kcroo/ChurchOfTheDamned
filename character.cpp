@@ -16,7 +16,7 @@ Arguments: 1 integer for starting/max HP, 1 string for type of character (e.g. f
 	1 string for name (blank for enemies)
 ***************************************************************************************************/
 Character::Character(int maxHealth, std::string ty, std::string n, char sym, int m)
-	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, MP{ m }
+	: HP{ maxHealth }, maxHP{ maxHealth }, type{ ty }, name{ n }, symbol{ sym }, MP{ m }, maxMP{ m }
 {
 	// weapon and armor allocated in derived classes
 }
