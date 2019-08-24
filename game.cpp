@@ -436,7 +436,7 @@ void Game::combat()
 		std::cout << "\nDEFEAT. The LICH CARDINAL has slain " << hero->getName() << ". You hear the"
 			<< "\nLICH CARDINAL's cackling as your consciousness fades. You succumb to the darkness,"
 			"\nknowing that your fate will be the same as the other poor souls you found in the church."
-			"\nYou hope that another player will rise to rescue your body from the CHURCH OF THE DAMNED.\n\n";
+			"\nYou hope that another hero will rise to rescue your body and soul from the CHURCH OF THE DAMNED.\n\n";
 	}
 
 	// print different defeat message if player dies fighting other monster
