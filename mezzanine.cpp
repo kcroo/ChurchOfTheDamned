@@ -91,7 +91,7 @@ Room* Mezzanine::moveNewRoom(int row, int col)
 	// to bell tower
 	else
 	{
-		below->setHeroRowCol(3, 2);
+		above->setHeroRowCol(3, 2);
 		return above;
 	}
 }
