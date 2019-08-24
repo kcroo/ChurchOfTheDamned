@@ -66,7 +66,7 @@ class Character
 		int getInventorySize();
 		Treasure* getItemByIndex(const int idx);
 		std::unique_ptr<Treasure> moveTreasure(const int idx);
-		int drinkHolyWater();
+		int eatSacramentalBread();
 		bool hasKey();
 		
 

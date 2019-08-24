@@ -30,7 +30,7 @@ Crypt::Crypt()
 	room[monst1Row][monst1Col].setToMonster(std::make_unique<Lich>());
 
 	// create treasure and move to appropriate tile
-	room[4][6].setToTreasure("Holy Water", 0, 0, 10, Type::holyWater);
+	room[4][6].setToTreasure("Sacramental Bread", 0, 0, 10, Type::bread);
 	
 	room[2][1].setToTreasure("Crusader Plate", 0, 15, 0, Type::armor);
 }

@@ -38,11 +38,11 @@ Gallery::Gallery()
 	room[monst1Row][monst1Col].getMonster()->addItem(std::make_unique<Treasure>("Bastard Sword", 11, 0, 0, Type::weapon));
 
 	room[monst2Row][monst2Col].setToMonster(std::make_unique<Phantom>());
-	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Holy Water", 0, 0, 4, Type::holyWater));
+	room[monst2Row][monst2Col].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 4, Type::bread));
 
 	// create treasure and move to appropriate tile
-	room[treas1Row][treas1Col].setToTreasure("Holy Water", 0, 0, 6, Type::holyWater);
-	room[treas2Row][treas2Col].setToTreasure("Holy Water", 0, 0, 8, Type::holyWater);
+	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 6, Type::bread);
+	room[treas2Row][treas2Col].setToTreasure("Sacramental Bread", 0, 0, 8, Type::bread);
 }
 
 /************************************ deconstructor *************************************************

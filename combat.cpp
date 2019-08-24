@@ -364,7 +364,7 @@ bool Combat::checkAlive(Character* defender)
 
 	else if(defender == hero)
 	{
-		return Combat::heroUsesHolyWater();
+		return Combat::heroEatsBread();
 	}
 
 	return false;
@@ -374,13 +374,13 @@ bool Combat::checkAlive(Character* defender)
 Returns true if hero has holy water in inventory that saves them from death. Also displays amount of HP
 recovered. If no holy water, returns false (hero dies).
 *****************************************************************************************************/
-bool Combat::heroUsesHolyWater()
+bool Combat::heroEatsBread()
 {
-	int HPRecovered{ hero->drinkHolyWater() };
+	int HPRecovered{ hero->eatSacramentalBread() };
 
 	if (HPRecovered > 0)
 	{
-		std::cout << "\nHoly water saves " << hero->getName() << " from the brink of death, "
+		std::cout << "\nSacramental bread saves " << hero->getName() << " from the brink of death, "
 			<< "restoring " << HPRecovered << " HP.\n";
 		return true;
 	}

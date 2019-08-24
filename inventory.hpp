@@ -40,7 +40,7 @@ public:
 
 	bool hasKey();
 	int getItemPosition(Type t);
-	int useHolyWater(int position);
+	int useSacramentalBread(int position);
 
 	int getSize();
 	Treasure* getTreasure(const int position);

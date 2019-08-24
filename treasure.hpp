@@ -15,7 +15,7 @@ treasure in other classes.
 #include <iostream>
 #include <string>
 
-enum class Type { weapon, armor, holyWater, key };
+enum class Type { weapon, armor, bread, wine, key };
 
 class Treasure
 {

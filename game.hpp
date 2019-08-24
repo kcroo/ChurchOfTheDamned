@@ -62,7 +62,7 @@ class Game
 		void manageInventory();
 		void removeItemInventory();
 		void equipWeaponOrArmor();
-		void drinkHolyWater();
+		void eatSacramentalBread();
 
 		//// combat 
 		void combat();

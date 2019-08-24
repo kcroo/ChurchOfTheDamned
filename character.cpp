@@ -247,22 +247,22 @@ std::unique_ptr<Treasure> Character::moveTreasure(const int idx)
 	return std::move(treasure);
 }
 
-/********************************* drinkHolyWater **************************************************
-If there is holy water in the inventory, the hero drinks it and returns the amount of HP the holy
-water restored. Otherwise, it returns -1 to indicate that no holy water was in the inventory.
+/********************************* eatSacramentalBread **************************************************
+If there is sacramental bread in the inventory, the hero eats it and returns the amount of HP the bread
+restored. Otherwise, it returns -1 to indicate that no bread was in the inventory.
 ***************************************************************************************************/
-int Character::drinkHolyWater()
+int Character::eatSacramentalBread()
 {
-	int position{ inventory.getItemPosition(Type::holyWater) };
+	int position{ inventory.getItemPosition(Type::bread) };
 
 	if (position != -1)
 	{
-		int hpRecovered{ inventory.useHolyWater(position) };
+		int hpRecovered{ inventory.useSacramentalBread(position) };
 		Character::recoverHP(hpRecovered);
 		return hpRecovered;
 	}
 
-	// no holy water: 0 HP recovered
+	// no sacramental bread: 0 HP recovered
 	else
 	{
 		return 0;

@@ -275,7 +275,7 @@ void Game::manageInventory()
 	{
 		hero->printInventory();
 
-		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Drink holy water \n4. Exit\n", 1, 4) };
+		int choice{ utility::getInt("\n1. Remove item from inventory \n2. Equip weapon/armor \n3. Eat sacramental bread (restores HP) \n4. Exit\n", 1, 4) };
 		switch (choice)
 		{
 			case 1:
@@ -290,7 +290,7 @@ void Game::manageInventory()
 			}
 			case 3:
 			{
-				Game::drinkHolyWater();
+				Game::eatSacramentalBread();
 				break;
 			}
 			case 4: 
@@ -379,15 +379,15 @@ void Game::equipWeaponOrArmor()
 	}
 }
 
-/************************************ drinkHolyWater *******************************************************
+/************************************ eatSacramentalBread *******************************************************
 This function finds the first holy water in the inventory and has the player drink it. The player recovers 
 how many HP the holy water item specifies.
 Parameters: none
 Returns: void
 *****************************************************************************************************/
-void Game::drinkHolyWater()
+void Game::eatSacramentalBread()
 {
-	int HPRecovered{ hero->drinkHolyWater() };
+	int HPRecovered{ hero->eatSacramentalBread() };
 
 	if (HPRecovered == 0)
 	{
@@ -395,7 +395,7 @@ void Game::drinkHolyWater()
 	}
 	else
 	{
-		std::cout << "\n" << hero->getName() << " drank holy water, restoring " << HPRecovered << " HP.\n";
+		std::cout << "\n" << hero->getName() << " ate sacramental bread, restoring " << HPRecovered << " HP.\n";
 	}
 }
 
@@ -466,7 +466,7 @@ void Game::energyDrain()
 		// if the energy drained the player's last HP: try to revive with holy water
 		if (hero->getHP() == 0)
 		{
-			int HPRecovered{ hero->drinkHolyWater() };
+			int HPRecovered{ hero->eatSacramentalBread() };
 
 			if (HPRecovered == -1)
 			{
@@ -478,7 +478,7 @@ void Game::energyDrain()
 			else
 			{
 				std::cout << "\nThe church's evil energy drained " << hero->getName() << "'s last health,"
-					<< "\nbut holy water in the inventory saved them and recovered " << HPRecovered << " HP.\n\n";
+					<< "\nbut sacramental bread in the inventory saved them and recovered " << HPRecovered << " HP.\n\n";
 			}
 		}
 

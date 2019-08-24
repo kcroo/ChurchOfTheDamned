@@ -60,7 +60,7 @@ private:
 	void executeSpecialAction(Character* attacker, Character* defender, SpecialAction* act);
 	SpecialAction* randomSpecialAction(Character* attacker);
 	bool checkAlive(Character* defender);
-	bool heroUsesHolyWater();
+	bool heroEatsBread();
 
 public:
 	Combat(Character* hero, Character* enemy);

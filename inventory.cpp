@@ -192,7 +192,7 @@ This function removes a holy water item from the inventory and returns how much 
 Arguments: integer for position in inventory
 Returns: integer for amount of HP restored
 ***************************************************************************************************/
-int Inventory::useHolyWater(int position)
+int Inventory::useSacramentalBread(int position)
 {
 	int hpRestored{ inventory.at(position)->getHPChange() };
 	inventory.erase(inventory.begin() + position);
