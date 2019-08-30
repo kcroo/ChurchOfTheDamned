@@ -18,7 +18,7 @@ holy water to revive them); or the hero defeats the lich cardinal.
 #include <iostream>
 #include <string>
 #include "bellTower.hpp"
-#include "Character.hpp"
+#include "character.hpp"
 #include "combat.hpp"
 #include "crypt.hpp"
 #include "darkPriest.hpp"
