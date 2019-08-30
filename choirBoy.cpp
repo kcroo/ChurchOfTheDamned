@@ -5,7 +5,7 @@ Author: Kirsten Corrao
 Date: 03/14/2019
 Description: this is the implementation file for ChoirBoy, which is a derived class of Character.
 ***************************************************************************************************/
-#include "ChoirBoy.hpp"
+#include "choirBoy.hpp"
 
 /********************************* constructor ****************************************************
 Uses the Character base class constructor to create a derived class object. Creates a weapon and 
