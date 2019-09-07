@@ -177,10 +177,26 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 		heroCol = newCol;
 		return 5;
 	}
+
+	// hero rings bell in bell tower
+	else if (room[newRow][newCol].getSymbol() == 'B')
+	{
+		int choice{ utility::getInt("\nRing the BELL? \n1. Yes \n2. No \n", 1, 2) };
+		if (choice == 1)
+		{
+			std::cout << "\nThe ringing of the BELL is louder than you predicted."
+				<< "\nAs its peals slowly fade, you hear an EVIL CACKLE below . . . ";
+
+			//bellRung = true;
+			return 6;
+		}
+
+		return 1;
+	}
 	// invalid move
 	else
 	{
-		return 6;
+		return 7;
 	}
 }
 
@@ -242,16 +258,16 @@ Character* Room::getMonster(int row, int col)
 
 
 
-///************************************ setTileToMonster ************************************************
-//This function fills a room with monsters. It is overridden by Sanctuary, because that room must be filled
-//with monsters if the player rings the bell in the bell tower.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Room::fillRoomMonsters()
-//{
-//}
-//
+/************************************ fillRoomMonsters ************************************************
+This function fills a room with monsters. It is overridden by Sanctuary, because that room must be filled
+with monsters if the player rings the bell in the bell tower. It does nothing for every other room.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Room::fillRoomMonsters()
+{
+}
+
 
 /************************************ makeborders ******************************************************
 this function fills a room with monsters. it is overridden by sanctuary, because that room must be filled
@@ -312,10 +328,4 @@ int Room::getHeroCol()
 void Room::setHeroCol(int c)
 {
 	heroCol = c;
-}
-
-// bellRung
-bool Room::getBellRung()
-{
-	return bellRung;
 }

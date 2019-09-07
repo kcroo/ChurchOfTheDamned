@@ -7,7 +7,7 @@ Description: this is the implementation file of the Sanctuary class. It is a der
 Room. The sanctuary contains Dark Priests as enemies.
 ***************************************************************************************************/
 #include "sanctuary.hpp"
-#include "darkPriest.hpp"
+
 
 /************************************ constructor ****************************************************
 The constructor calls the Room constructor. It creates Treasure and enemies to fight.
@@ -105,43 +105,27 @@ Room* Sanctuary::moveNewRoom(int row, int col)
 	}
 }
 
-///************************************ fillRoomMonsters **********************************************
-//This function fills the room with new monsters. It overrides the Room base class function. It makes 
-//4 new monsters and puts them in front of doors/stairs, so the hero must fight at least two of them.
-//It also sets bellRung to false, so that the sanctuary doesn't fill again with monsters later if the 
-//hero leaves and returns to the sanctuary.
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Sanctuary::fillRoomMonsters()
-//{
-//	//std::cout << "\nRinging the bell in the bell tower has summoned a HORDE OF MONSTERS!\n";
-//
-//	//// create new monsters
-//	//monster3 = new DarkPriest;
-//	//monster4 = new Ghost;
-//	//monster5 = new ChoirBoy;
-//	//monster6 = new GhoulTormenter;
-//
-//	//Inventory* monster3Inv{ monster3->getInventory() };
-//	//monster3Inv->add(new Treasure("Studded Leather", 0, 10, 0, Type::armor));
-//
-//	//Inventory* monster4Inv{ monster4->getInventory() };
-//	//monster4Inv->add(new Treasure("Holy Water", 0, 0, 8, Type::holyWater));
-//
-//	//Inventory* monster5Inv{ monster4->getInventory() };
-//	//monster5Inv->add(new Treasure("Holy Water", 0, 0, 6, Type::holyWater));
-//
-//	//Inventory* monster6Inv{ monster6->getInventory() };
-//	//monster6Inv->add(new Treasure("Holy Water", 0, 0, 9, Type::holyWater));
-//	//monster6Inv->add(new Treasure("Chain Mail", 0, 11, 0, Type::armor));
-//
-//	//// set them to places in room
-//	//room[1][12].setToMonster(monster3, 'P');		// in front of door to gallery
-//	//room[1][2].setToMonster(monster4, 'O');		// left of stairs to mezzanine
-//	//room[2][3].setToMonster(monster5, 'C');		// in front of stairs to mezzanine
-//	//room[1][4].setToMonster(monster6, 'G');		// right of stairs to mezzanine
-//
-//	// set bellRung to false, so sanctuary doesn't fill again later
-//	bellRung = false;
-//}
+/************************************ fillRoomMonsters **********************************************
+This function fills the room with new monsters. It overrides the Room base class function. It makes 
+4 new monsters and puts them in front of doors/stairs, so the hero must fight at least two of them.
+It also sets bellRung to false, so that the sanctuary doesn't fill again with monsters later if the 
+hero leaves and returns to the sanctuary.
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Sanctuary::fillRoomMonsters()
+{
+	// create monsters and give them extra items
+	room[1][12].setToMonster(std::make_unique<DarkPriest>());
+	room[1][12].getMonster()->addItem(std::make_unique<Treasure>("Chain Mail", 0, 11, 0, 0, Type::armor));
+
+	room[1][2].setToMonster(std::make_unique<Phantom>());
+	room[1][2].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 4, 0, Type::bread));
+
+	room[2][3].setToMonster(std::make_unique<ChoirBoy>());
+	room[2][3].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Wine", 0, 0, 0, 6, Type::wine));
+
+	room[1][4].setToMonster(std::make_unique<Ghoul>());
+	room[1][4].getMonster()->addItem(std::make_unique<Treasure>("Bastard Sword", 10, 0, 0, 0, Type::weapon));
+	room[1][4].getMonster()->addItem(std::make_unique<Treasure>("Sacramental Bread", 0, 0, 8, 0, Type::bread));
+}

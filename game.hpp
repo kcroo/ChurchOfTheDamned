@@ -46,6 +46,7 @@ class Game
 		bool exitGame;
 		int turns;					// # turns so far 
 		std::unique_ptr<Character> hero;
+		bool bellRung;
 
 		// rooms
 		Room* currentRoom;

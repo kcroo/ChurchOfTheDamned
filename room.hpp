@@ -34,7 +34,7 @@ class Room
 		Character* getMonster(int row, int col);
 		//void setTileToEmpty(int row, int col);
 		//void setTileToHero(int row, int col);
-		//virtual void fillRoomMonsters();
+		virtual void fillRoomMonsters();
 
 		/**** getters and setters******/
 		void setHeroRowCol(int r, int c);
@@ -42,7 +42,6 @@ class Room
 		void setHeroRow(int r);
 		int getHeroCol();
 		void setHeroCol(int c);
-		bool getBellRung();
 		
 
 	protected:		

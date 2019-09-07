@@ -42,7 +42,7 @@ Gallery::Gallery()
 
 	// create treasure and move to appropriate tile
 	room[treas1Row][treas1Col].setToTreasure("Sacramental Bread", 0, 0, 8, 0, Type::bread);
-	room[treas2Row][treas2Col].setToTreasure("Sacramental Wine", 0, 0, 0, 0, Type::wine);
+	room[treas2Row][treas2Col].setToTreasure("Sacramental Wine", 0, 0, 0, 6, Type::wine);
 }
 
 /************************************ deconstructor *************************************************

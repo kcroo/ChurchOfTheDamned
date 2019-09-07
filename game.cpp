@@ -18,8 +18,9 @@ holy water to revive them); or the player defeats the lich cardinal.
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, exitGame{ false }, turns{ 1 }, hero{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
-	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }
+	: gameContinues{ true }, exitGame{ false }, turns{ 1 }, hero{ nullptr }, bellRung{ false },
+	currentRoom{ nullptr }, sanctuary{ nullptr }, mezzanine{ nullptr }, bellTower{ nullptr },
+	gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }
 {
 }
 
@@ -62,7 +63,7 @@ void Game::play()
 {
 	while (!exitGame)
 	{
-		utility::displayTextFile("title.txt");
+		//utility::displayTextFile("title.txt");
 		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
 		switch (choice)
@@ -205,16 +206,23 @@ void Game::move()
 			{
 				currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 
-				// if room is sanctuary and the hero rung the bell in the bell tower, fill it with monsters
-				/*if (currentRoom == sanctuary && bellTower->getBellRung())
+				 // if room is sanctuary and the hero rung the bell in the bell tower, announce that is has been filled with monsters
+				if (currentRoom == sanctuary.get() && bellRung)
 				{
-					currentRoom->fillRoomMonsters();
-				}*/
-
+					std::cout << "\nRinging the bell in the bell tower has summoned a horde of monsters!\n";
+				}
+				
+				bellRung = false;					// won't display same message if hero returns to sanctuary later
 				currentRoom->printContents();
 				break;
 			}
-			case 6:		// invalid move
+			case 6:
+			{
+				sanctuary->fillRoomMonsters();
+				bellRung = true;
+				break;
+			}
+			case 7:		// invalid move
 			{
 				std::cout << "\nInvalid move. Try again.\n";
 				break;

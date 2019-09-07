@@ -10,6 +10,10 @@ Room. The sanctuary contains Dark Priests as enemies.
 #define SANCTUARY_HPP
 
 #include "character.hpp"
+#include "choirBoy.hpp"
+#include "darkPriest.hpp"
+#include "ghoul.hpp"
+#include "phantom.hpp"
 //#include "Inventory.hpp"
 #include "room.hpp"
 
@@ -21,7 +25,7 @@ class Sanctuary : public Room
 		void setRoomConnections(Room* room1, Room* room2) override;
 		void printContents() override;
 		Room* moveNewRoom(int row, int col) override;
-		//void fillRoomMonsters() override;
+		void fillRoomMonsters();
 
 	private:
 };

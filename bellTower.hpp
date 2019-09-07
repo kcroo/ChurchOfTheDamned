@@ -20,8 +20,6 @@ class BellTower : public Room
 		void setRoomConnections(Room* room1, Room* room2) override;
 		void printContents() override;
 		Room* moveNewRoom(int row, int col) override;
-		int moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom) override;
-		bool getBellRung();
 
 	private:
 };
