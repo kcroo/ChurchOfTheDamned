@@ -92,13 +92,11 @@ void Game::play()
 					Game::move();
 					turns++;
 				}
-				break;
 			}
 
 			case 2:
 			{
 				gameContinues = false;
-				break;
 			}
 		 }
 	}
