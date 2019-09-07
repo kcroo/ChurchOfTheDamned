@@ -62,61 +62,60 @@ void Game::play()
 {
 	utility::displayTextFile("title.txt");
 
-	Game::createRooms();
-	currentRoom = sanctuary.get();
-	hero = std::make_unique<Fighter>("Santiago");
+	//Game::createRooms();
+	//currentRoom = sanctuary.get();
+	
 	
 
 	while (gameContinues)
 	{
-		currentRoom->printRoom();
-		Game::move();
+		//currentRoom->printRoom();
+		//Game::move();
 		
 		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
-		//switch (choice)
-		//{
-		//	case 1:
-		//	{
-		//		Game::printIntro();
-		//		Game::chooseHero();							// user chooses player name
+		switch (choice)
+		{
+			case 1:
+			{
+				Game::printIntro();
+				Game::chooseHeroName();							// user chooses player name
 
-		//		Game::createRooms();
-		//		currentRoom = sanctuary;
-		//		currentRoom->printContents();				// prints intro to room
+				Game::createRooms();
+				currentRoom = sanctuary.get();
+				currentRoom->printContents();				// prints intro to room
 
-		//		while (gameContinues)
-		//		{
-		//			currentRoom->printRoom();
-		//			Game::energyDrain();					// drains 1 HP every 5 turns
-		//			Game::move();
-		//			++turns;
-		//		}
-		//		break;
-		//	}
+				while (gameContinues)
+				{
+					currentRoom->printRoom();
+					//Game::energyDrain();					// drains 1 HP every 5 turns
+					Game::move();
+					turns++;
+				}
+				break;
+			}
 
-		//	case 2:
-		//	{
-		//		gameContinues = false;
-		//		break;
-		//	}
-		// }
+			case 2:
+			{
+				gameContinues = false;
+				break;
+			}
+		 }
 	}
 }
 
-///********************************* chooseHero *****************************************************
-//This function lets the user choose their player's name. It then dynamically creates the Character
-//object and sets it to player.
-//Arguments: none
-//Returns: void
-//***************************************************************************************************/
-//void Game::chooseHero()
-//{
-//	std::string heroName{ utility::getString("\nWhat is your name?\n", 10) };
-//	hero = new Fighter(heroName);
-//	inventory = hero->getInventory();
-//}
-//
+/********************************* chooseHeroName *****************************************************
+This function lets the user choose their player's name. It then dynamically creates the Character
+object and sets it to hero pointer.
+Arguments: none
+Returns: void
+***************************************************************************************************/
+void Game::chooseHeroName()
+{
+	std::string heroName{ utility::getString("\nWhat is your name?\n", 10) };
+	hero = std::make_unique<Fighter>(heroName);
+}
+
 /********************************* move ************************************************************
 This function lets the player move their character. It prints the possible inputs the user can do, 
 then gets user input. It moves the player around the room, fights enemies, gets treasure, tries to 
@@ -515,45 +514,45 @@ void Game::energyDrain()
 	}
 }
 
-///************************************ printIntro ****************************************************
-//This function prints an introduction to the game, including who the player is and what their quest is.
-//It waits to continue until the user presses enter
-//Parameters: none
-//Returns: void
-//*****************************************************************************************************/
-//void Game::printIntro()
-//{
-//	std::cout << "\n***********************************************************************************************\n"
-//		<< "\nYou are a villager, whose home has recently come under attack by evil inhabitants of a DAMNED CHURCH."
-//		<< "\nYou have made it your solemn task to clear the church of the LICH CARDINAL and his followers."
-//		<< "\nArmed with only a wooden mallet, you have arrived in the SANCTUARY of the church,"
-//		<< "\neager to find and kill the LICH CARDINAL however you can. Only then will the church--"
-//		<< "\nand your village--be free of his influence.";
-//
-//	std::cout << "\n\nMark your progress on the map, where your position is displayed with an H."
-//		<< "\nMove around the church using w (north), s (south), d (east), or a (west). Doors in the"
-//		<< "\nchurch are marked with d, while stairs are s. T marks Rooms that contain TREASURE."
-//		<< "\nIf the dread and horror are too much for you, press q to quit.";
-//
-//	std::cout << "\n\nBe cautious, for various types of MONSTERS lurk around the church, marked with different"
-//		<< "\nletters on the map. Identify them by the LEGEND on the bottom of the map."
-//		<< "\nBe sure to take whatever treasure you find and LOOT enemies whom you defeat--"
-//		<< "\nthey may have items you find useful in your quest.";
-//
-//	std::cout << "\n\nTo manage your INVENTORY, press i while on the map. You can remove items, equip different "
-//		<< "\nweapons and armor, or drink holy water to revive hit points. Remove items that you do not need, for"
-//		<< "\nyour inventory can only carry FIVE items. Holy water will be used automatically when your HP drops"
-//		<< "\nto zero.";
-//
-//	std::cout << "\n\nBeware--already, you feel the LICH CARDINAL's demonic power slowly sapping your health. You"
-//		<< "\nwill lose 1 HP every 5 turns while inside the church and within the LICH's clutches.";
-//
-//	std::cout << "\n\nYou are now prepared for your quest. May God have mercy on your soul.\n"
-//		<< "\n********************************************************************************************f***\n";
-//
-//	utility::pressEnter();
-//}
-//
+/************************************ printIntro ****************************************************
+This function prints an introduction to the game, including who the player is and what their quest is.
+It waits to continue until the user presses enter
+Parameters: none
+Returns: void
+*****************************************************************************************************/
+void Game::printIntro()
+{
+	std::cout << "\n***********************************************************************************************\n"
+		<< "\nYou are a villager, whose home has recently come under attack by evil inhabitants of a DAMNED CHURCH."
+		<< "\nYou have made it your solemn task to clear the church of the LICH CARDINAL and his followers."
+		<< "\nArmed with only a wooden mallet, you have arrived in the SANCTUARY of the church,"
+		<< "\neager to find and kill the LICH CARDINAL however you can. Only then will the church--"
+		<< "\nand your village--be free of his influence.";
+
+	std::cout << "\n\nMark your progress on the map, where your position is displayed with an H."
+		<< "\nMove around the church using w (north), s (south), d (east), or a (west). Doors in the"
+		<< "\nchurch are marked with d, while stairs are s. T marks Rooms that contain TREASURE."
+		<< "\nIf the dread and horror are too much for you, press q to quit.";
+
+	std::cout << "\n\nBe cautious, for various types of MONSTERS lurk around the church, marked with different"
+		<< "\nletters on the map. Identify them by the LEGEND on the bottom of the map."
+		<< "\nBe sure to take whatever treasure you find and LOOT enemies whom you defeat--"
+		<< "\nthey may have items you find useful in your quest.";
+
+	std::cout << "\n\nTo manage your INVENTORY, press i while on the map. You can remove items, equip different "
+		<< "\nweapons and armor, or drink holy water to revive hit points. Remove items that you do not need, for"
+		<< "\nyour inventory can only carry FIVE items. Holy water will be used automatically when your HP drops"
+		<< "\nto zero.";
+
+	std::cout << "\n\nBeware--already, you feel the LICH CARDINAL's demonic power slowly sapping your health. You"
+		<< "\nwill lose 1 HP every 5 turns while inside the church and within the LICH's clutches.";
+
+	std::cout << "\n\nYou are now prepared for your quest. May God have mercy on your soul.\n"
+		<< "\n********************************************************************************************f***\n";
+
+	utility::pressEnter();
+}
+
 ///************************************ getters and setters *********************************************/
 //Room* Game::getCurrentRoom()
 //{

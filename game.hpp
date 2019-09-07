@@ -57,7 +57,7 @@ class Game
 		void createRooms();
 	
 		// inventory management
-		//void chooseHero();
+		void chooseHeroName();
 		void addTreasureToInv(int row, int col);
 		void manageInventory();
 		void removeItemInventory();
@@ -69,8 +69,8 @@ class Game
 		void combat();
 		void energyDrain();
 
-		//// print
-		//void printIntro();
+		// print
+		void printIntro();
 };
 
 
