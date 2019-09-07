@@ -60,7 +60,7 @@ Returns: void
 ***************************************************************************************************/
 void Game::play()
 {
-	//utility::displayTextFile("title.txt");
+	utility::displayTextFile("title.txt");
 
 	Game::createRooms();
 	currentRoom = sanctuary.get();
@@ -72,7 +72,7 @@ void Game::play()
 		currentRoom->printRoom();
 		Game::move();
 		
-		//int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
+		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
 		//switch (choice)
 		//{
