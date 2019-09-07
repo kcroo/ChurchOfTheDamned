@@ -43,6 +43,7 @@ class Game
 		
 	private:
 		bool gameContinues;
+		bool exitGame;
 		int turns;					// # turns so far 
 		std::unique_ptr<Character> hero;
 
@@ -71,6 +72,8 @@ class Game
 
 		// print
 		void printIntro();
+
+		void resetGame();
 };
 
 

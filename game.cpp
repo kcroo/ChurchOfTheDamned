@@ -18,7 +18,7 @@ holy water to revive them); or the player defeats the lich cardinal.
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, turns{ 1 }, hero{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
+	: gameContinues{ true }, exitGame{ false }, turns{ 1 }, hero{ nullptr }, currentRoom{ nullptr }, sanctuary{ nullptr },
 	mezzanine{ nullptr }, bellTower{ nullptr }, gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }
 {
 }
@@ -60,10 +60,9 @@ Returns: void
 ***************************************************************************************************/
 void Game::play()
 {
-	utility::displayTextFile("title.txt");
-
-	while (gameContinues)
+	while (!exitGame)
 	{
+		utility::displayTextFile("title.txt");
 		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
 		switch (choice)
@@ -84,11 +83,14 @@ void Game::play()
 					Game::move();
 					turns++;
 				}
+				Game::resetGame();
+				break;
 			}
 
 			case 2:
 			{
-				gameContinues = false;
+				exitGame = true;
+				break;
 			}
 		 }
 	}
@@ -543,6 +545,21 @@ void Game::printIntro()
 	utility::pressEnter();
 }
 
+/************************************ resetGame ****************************************************
+
+*****************************************************************************************************/
+void Game::resetGame()
+{
+	gameContinues = true;
+	hero = nullptr;
+	sanctuary = nullptr;
+	mezzanine = nullptr;
+	bellTower = nullptr;
+	gallery = nullptr;
+	dungeon = nullptr;
+	crypt = nullptr;
+
+}
 ///************************************ getters and setters *********************************************/
 //Room* Game::getCurrentRoom()
 //{
