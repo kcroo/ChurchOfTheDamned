@@ -62,16 +62,8 @@ void Game::play()
 {
 	utility::displayTextFile("title.txt");
 
-	//Game::createRooms();
-	//currentRoom = sanctuary.get();
-	
-	
-
 	while (gameContinues)
 	{
-		//currentRoom->printRoom();
-		//Game::move();
-		
 		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
 		switch (choice)
