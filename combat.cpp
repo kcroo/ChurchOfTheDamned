@@ -100,12 +100,16 @@ void Combat::heroAttacks()
 
     while (stillChoosingAttack)
     {
-        int choice{ utility::getInt("\n1. Standard attack \n2. Special action \n3. Drink sacramental wine\n", 1, 3) };
-        if (choice == 1)
+        int choice{ utility::getInt("\n1. Standard attack \n2. Special action \n3. Eat sacramental bread (restores HP) \n4. Drink sacramental wine (restores MP)\n", 1, 4) };
+        
+		// standard attack 
+		if (choice == 1)
         {
             Combat::standardAttack(hero, enemy, heroWeaponDamage, enemyArmorRating);
             stillChoosingAttack = false;
         }
+
+		// special action 
         else if (choice == 2)
         {
             SpecialAction* actionChoice{ Combat::chooseSpecialAction(hero) };
@@ -115,7 +119,25 @@ void Combat::heroAttacks()
                 stillChoosingAttack = false;
             }
         }
+
+		// sacramental wine (recovers HP)
 		else if (choice == 3)
+		{
+			int HPRecovered{ hero->drinkSacramentalWine() };
+
+			if (HPRecovered == 0)
+			{
+				std::cout << "\nError. Inventory does not contain sacramental bread.\n";
+			}
+			else
+			{
+				std::cout << "\n" << hero->getName() << " ate sacramental bread, restoring " << HPRecovered << " HP.\n";
+				stillChoosingAttack = false;
+			}
+		}
+
+		// sacramental bread (recovers MP)
+		else if (choice == 4)
 		{
 			int MPRecovered{ hero->drinkSacramentalWine() };
 
