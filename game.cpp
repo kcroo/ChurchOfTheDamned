@@ -79,7 +79,7 @@ void Game::play()
 				while (gameContinues)
 				{
 					currentRoom->printRoom();
-					//Game::energyDrain();					// drains 1 HP every 5 turns
+					Game::energyDrain();					// drains 1 HP every 5 turns
 					Game::move();
 					turns++;
 				}
@@ -117,6 +117,12 @@ Returns: void
 ***************************************************************************************************/
 void Game::move()
 {
+	// go back to title menu if hero died from energy drain
+	if (!gameContinues)
+	{
+		return;
+	}
+
 	std::cout << "\nLEGEND\n";
 	utility::printLegend("H - hero", "T - treasure", "s - stairs", "d - door", "D - Dark Priest");
 	utility::printLegend("C - Zombie Choir Boy", "P - Corrupted Phantom", "G - Ghoul Tormenter", "L - Lich Cardinal");
@@ -484,7 +490,7 @@ void Game::energyDrain()
 		{
 			int HPRecovered{ hero->eatSacramentalBread() };
 
-			if (HPRecovered == -1)
+			if (HPRecovered == 0)
 			{
 				std::cout << "\nThe church's evil energy has drained " << hero->getName() << "'s last remaining HP!"
 					<< "\nThe hero is dead. The last thing you hear is the cackling of the LICH CARDINAL in your ear."
