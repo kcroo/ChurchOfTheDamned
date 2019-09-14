@@ -572,8 +572,3 @@ void Game::resetGame()
 	crypt = nullptr;
 
 }
-///************************************ getters and setters *********************************************/
-//Room* Game::getCurrentRoom()
-//{
-//	return currentRoom;
-//}

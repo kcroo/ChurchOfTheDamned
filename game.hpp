@@ -36,8 +36,6 @@ class Game
 		Game();
 		~Game();
 		void play();
-
-		//Room* getCurrentRoom();
 		
 	private:
 		bool gameContinues;
