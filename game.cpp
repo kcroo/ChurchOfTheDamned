@@ -1,18 +1,16 @@
 /**************************************************************************************************
-Program Name: Final Project
-File: game.cpp
+Program Name: Church of the Damned
+File: game.hpp
 Author: Kirsten Corrao
-Date: 03/05/2019
-Description: this is the implementation file for Game class. The Game class implements other classes to play
-the game. It has Room pointers for each room, which are used to dynamically allocate each room. An
-Inventory object manages the player's inventory. The player is given an introduction to the game, then
-asked what their name is. The player takes that name. Then the player moves the player around the church,
-fighting monsters and collecting items. The game ends when the player's HP reaches 0 (without any more
-holy water to revive them); or the player defeats the lich cardinal.
+Date: 09/13/2019
+Description: this is the header file for Game class, which implements the game Church of the Damned.
+The play function is a public function that runs the game. The premise of the game is that dark forces
+have taken over a church, and the player must defeat them to save their village. To play, the player
+must enter their name. Then they move around the rooms in the church, collecting items and fighting
+monsters. They must find a key to continue further into the church. In the crypt, they find the final
+boss, the Lich King, whom they must defeat to win the game.
 ***************************************************************************************************/
 #include "game.hpp"
-#include <assert.h>
-
 
 /********************************* constructor *****************************************************
 The constructors initializes all member variables.
@@ -63,7 +61,7 @@ void Game::play()
 {
 	while (!exitGame)
 	{
-		//utility::displayTextFile("title.txt");
+		utility::displayTextFile("title.txt");
 		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
 
 		switch (choice)
