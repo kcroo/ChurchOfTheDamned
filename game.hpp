@@ -40,9 +40,9 @@ class Game
 	private:
 		bool gameContinues;
 		bool exitGame;
-		int turns;					// # turns so far 
-		std::unique_ptr<Character> hero;
 		bool bellRung;
+		int turns;	
+		std::unique_ptr<Character> hero;
 
 		// rooms
 		Room* currentRoom;
@@ -64,7 +64,7 @@ class Game
 		void eatSacramentalBread();
 		void drinkSacramentalWine();
 
-		//// combat 
+		// combat 
 		void combat();
 		void energyDrain();
 

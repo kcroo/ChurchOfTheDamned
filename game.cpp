@@ -16,7 +16,7 @@ boss, the Lich King, whom they must defeat to win the game.
 The constructors initializes all member variables.
 ***************************************************************************************************/
 Game::Game()
-	: gameContinues{ true }, exitGame{ false }, turns{ 1 }, hero{ nullptr }, bellRung{ false },
+	: gameContinues{ true }, exitGame{ false }, bellRung{ false }, turns{ 1 }, hero{ nullptr },
 	currentRoom{ nullptr }, sanctuary{ nullptr }, mezzanine{ nullptr }, bellTower{ nullptr },
 	gallery{ nullptr }, dungeon{ nullptr }, crypt{ nullptr }
 {
