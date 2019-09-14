@@ -22,14 +22,65 @@ Game::Game()
 {
 }
 
+
 /********************************* destructor *****************************************************
 ***************************************************************************************************/
 Game::~Game()
 {
 }
 
+
+/********************************* play ********************************************************
+This is a public function that runs the game. It should be used in main.cpp. It displays a text file 
+containing CHURCH OF THE DAMNED and asks the player if they want to play. If yes, the user then enters
+their name, and the game begins. They move around the church, collecting items and fighting monsters, 
+until they are killed, they defeat the Lich King, or they hit 'q'. In any event, the game returns 
+to the title screen, where the player chooses to play again or exit.
+Arguments: none
+Returns: void
+***************************************************************************************************/
+void Game::play()
+{
+	while (!exitGame)
+	{
+		utility::displayTextFile("title.txt");
+		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
+
+		switch (choice)
+		{
+		case 1:
+		{
+			Game::printIntro();
+			Game::chooseHeroName();							// user chooses player name
+
+			Game::createRooms();
+			currentRoom = sanctuary.get();
+			currentRoom->printContents();				// prints intro to room
+
+			while (gameContinues)
+			{
+				currentRoom->printRoom();
+				Game::energyDrain();					// drains 1 HP every 5 turns
+				Game::move();
+				turns++;
+			}
+			Game::resetGame();
+			break;
+		}
+
+		case 2:
+		{
+			exitGame = true;
+			break;
+		}
+		}
+	}
+}
+
+
 /********************************* createRooms ******************************************************
- This function creates all rooms in the church.
+ This function creates all rooms in the church. It also sets connections between the rooms, so that 
+ the player can move between rooms in the church.
 Arguments: none
 Returns: void
 ***************************************************************************************************/
@@ -52,48 +103,6 @@ void Game::createRooms()
 	crypt->setRoomConnections(dungeon.get());
 }
 
-/********************************* play ********************************************************
-This function is the game's start menu. It lets the user start a new game, read instructions, or exit.
-Arguments: none
-Returns: void
-***************************************************************************************************/
-void Game::play()
-{
-	while (!exitGame)
-	{
-		utility::displayTextFile("title.txt");
-		int choice{ utility::getInt("\n1. Play game \n2. Exit\n", 1, 2) };
-
-		switch (choice)
-		{
-			case 1:
-			{
-				Game::printIntro();
-				Game::chooseHeroName();							// user chooses player name
-
-				Game::createRooms();
-				currentRoom = sanctuary.get();
-				currentRoom->printContents();				// prints intro to room
-
-				while (gameContinues)
-				{
-					currentRoom->printRoom();
-					Game::energyDrain();					// drains 1 HP every 5 turns
-					Game::move();
-					turns++;
-				}
-				Game::resetGame();
-				break;
-			}
-
-			case 2:
-			{
-				exitGame = true;
-				break;
-			}
-		 }
-	}
-}
 
 /********************************* chooseHeroName *****************************************************
 This function lets the user choose their player's name. It then dynamically creates the Character
