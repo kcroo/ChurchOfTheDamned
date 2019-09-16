@@ -131,21 +131,7 @@ void Game::move()
 		return;
 	}
 
-	std::cout << "\nLEGEND\n";
-	utility::printLegend("H - hero", "T - treasure", "s - stairs", "d - door", "b - bell");
-	utility::printLegend("D - Dark Priest", "Z - Zombie Choir Boy", "P - Corrupted Phantom", "G - Ghoul Tormenter", "L - Lich Cardinal");
-	
-	Treasure* currentWeapon{ hero->getCurrentWeapon() };
-	Treasure* currentArmor{ hero->getCurrentArmor() };
-
-	std::cout << "\nSTATUS\n";
-	utility::printStatus("Name", "HP", "MP", "Weapon", "Armor");
-	utility::printStatus(hero->getName(), hero->getHP(), hero->getMP(), currentWeapon->getName(), currentArmor->getName());
-
-	std::cout << "\nMOVEMENT\n"
-		<< "w - up    s - down    d - right    a - left    i - inventory    q - quit";
-
-	std::cout << "\n***********************************************************************************************\n";
+	Game::printLegendAndStatus();
 
 	char direction = utility::getChar("\nYour move: ");
 
@@ -566,9 +552,34 @@ void Game::printIntro()
 	utility::pressEnter();
 }
 
-/************************************ resetGame ****************************************************
+/************************************ printLegendAndStatus ****************************************************
+This prints the legend for the game's map; the player's name, HP, MP, current weapon, and current armor; and 
+the allowable movements that the player can make.
+Parameters: none
+Returns: void 
+**************************************************************************************************************/
+void Game::printLegendAndStatus()
+{
+	Treasure* currentWeapon{ hero->getCurrentWeapon() };
+	Treasure* currentArmor{ hero->getCurrentArmor() };
 
-*****************************************************************************************************/
+	std::cout << "\nLEGEND\n";
+	utility::printLegend("H - hero", "T - treasure", "s - stairs", "d - door", "b - bell");
+	utility::printLegend("D - Dark Priest", "Z - Zombie Choir Boy", "P - Corrupted Phantom", "G - Ghoul Tormenter", "L - Lich Cardinal");
+
+	std::cout << "\nSTATUS\n";
+	utility::printStatus("Name", "HP", "MP", "Weapon", "Armor");
+	utility::printStatus(hero->getName(), hero->getHP(), hero->getMP(), currentWeapon->getName(), currentArmor->getName());
+
+	std::cout << "\nMOVEMENT\n"
+		<< "w - up    s - down    d - right    a - left    i - inventory    q - quit";
+
+	std::cout << "\n***********************************************************************************************\n";
+}
+
+/******************************************* resetGame ****************************************************
+
+***********************************************************************************************************/
 void Game::resetGame()
 {
 	gameContinues = true;

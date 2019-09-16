@@ -70,6 +70,7 @@ class Game
 
 		// print
 		void printIntro();
+		void printLegendAndStatus();
 
 		void resetGame();
 };
