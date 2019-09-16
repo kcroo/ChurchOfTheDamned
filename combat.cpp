@@ -58,7 +58,8 @@ void Combat::fight()
 	// display final results after one of them dies
 	Combat::displayHPWeaponArmor();
 
-	if (hero->getHP() > 0)
+	// if hero won and isn't final enemy, loot body 
+	if (hero->getHP() > 0 && enemy->getType() != "Lich Cardinal")
 	{
 		Combat::lootBody();
 	}
