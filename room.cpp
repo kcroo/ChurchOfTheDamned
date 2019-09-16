@@ -11,12 +11,8 @@ The constructor creates a 2D array made of Tile objects, then creates a border a
 Parameters: # of rows in room, # of columns in room, string for name of room
 *****************************************************************************************************/
 Room::Room(int rows, int cols, std::string n)
-	: roomRows{ rows }, roomCols{ cols }, name{ n },
-	heroRow{ -1 }, heroCol{ -1 },
-	north{ nullptr }, south{ nullptr }, east{ nullptr }, west{ nullptr }, above{ nullptr }, below{ nullptr }
-	/*treasure1{ nullptr }, treasure2{ nullptr },
-	monster1{ nullptr }, monster2{ nullptr }, monster3{ nullptr }, monster4{ nullptr }, monster5{ nullptr }, 
-	monster6{ nullptr }, bellRung{ false }*/
+	: roomRows{ rows }, roomCols{ cols }, name{ n }, heroRow{ -1 }, heroCol{ -1 }, north{ nullptr },
+	south{ nullptr }, east{ nullptr }, west{ nullptr }, above{ nullptr }, below{ nullptr }
 {
 	// create 2D array of Tile objs
 	room = new Tile*[roomRows];						// rows 
@@ -45,25 +41,6 @@ Room::~Room()
 	// delete room
 	delete[] room;
 	room = nullptr;
-
-	//// delete treasure and monsters in room
-	//delete treasure1;
-	//treasure1 = nullptr;
-	//delete treasure2;
-	//treasure2 = nullptr;
-
-	//delete monster1;
-	//monster1 = nullptr;
-	//delete monster2;
-	//monster2 = nullptr;
-	//delete monster3;
-	//monster3 = nullptr;
-	//delete monster4;
-	//monster4 = nullptr;
-	//delete monster5;
-	//monster5 = nullptr;
-	//delete monster6;
-	//monster6 = nullptr;
 }
 
 /************************************ printRoom *****************************************************
@@ -231,29 +208,6 @@ Character* Room::getMonster(int row, int col)
 {
 	return room[row][col].getMonster();
 }
-
-///************************************ setTileToEmpty ************************************************
-//This function sets a tile to empty (for example, after treasure has been taken, or an enemy has been
-//fought.)
-//Parameters: int for row, int for column
-//Returns: void 
-//*****************************************************************************************************/
-//void Room::setTileToEmpty(int row, int col)
-//{
-//	room[row][col].setToEmpty();
-//}
-//
-
-///************************************ setTileToHero ************************************************
-//This function sets a tile to hero (sets tile symbol to H)
-//Parameters: int for row, int for column
-//Returns: void
-//*****************************************************************************************************/
-//void Room::setTileToHero(int row, int col)
-//{
-//	room[row][col].setToHero();
-//}
-
 
 
 /************************************ fillRoomMonsters ************************************************

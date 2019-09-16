@@ -27,14 +27,12 @@ class Room
 		virtual void setRoomConnections(Room* room1, Room* room2 = nullptr) = 0;
 		void printRoom();
 		virtual void printContents() = 0;
-		virtual Movement moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
+		Movement moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
 		virtual Room* moveNewRoom(int row, int col) = 0;
 
 		Treasure* getTreasure(int row, int col);
 		std::unique_ptr<Treasure> moveTreasure(int row, int col);
 		Character* getMonster(int row, int col);
-		//void setTileToEmpty(int row, int col);
-		//void setTileToHero(int row, int col);
 		virtual void fillRoomMonsters();
 
 		/**** getters and setters******/
@@ -62,21 +60,6 @@ class Room
 		Room* west;
 		Room* above;
 		Room* below;
-
-		//// treasure 
-		//std::unique_ptr<Treasure> treasure1;
-		//std::unique_ptr<Treasure> treasure2;
-
-		//// monsters
-		//Character* monster1;
-		//Character* monster2;
-		//Character* monster3;
-		//Character* monster4;
-		//Character* monster5;
-		//Character* monster6;
-
-		//// move to Game? 
-		bool bellRung;
 
 		void makeBorders(int rows, int cols);
 };
