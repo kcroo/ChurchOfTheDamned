@@ -120,10 +120,10 @@ void Combat::heroAttacks()
             }
         }
 
-		// sacramental wine (recovers HP)
+		// sacramental bread (recovers HP)
 		else if (choice == 3)
 		{
-			int HPRecovered{ hero->drinkSacramentalWine() };
+			int HPRecovered{ hero->eatSacramentalBread() };
 
 			if (HPRecovered == 0)
 			{
