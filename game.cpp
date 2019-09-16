@@ -133,7 +133,7 @@ void Game::move()
 
 	std::cout << "\nLEGEND\n";
 	utility::printLegend("H - hero", "T - treasure", "s - stairs", "d - door", "D - Dark Priest");
-	utility::printLegend("C - Zombie Choir Boy", "P - Corrupted Phantom", "G - Ghoul Tormenter", "L - Lich Cardinal");
+	utility::printLegend("Z - Zombie Choir Boy", "P - Corrupted Phantom", "G - Ghoul Tormenter", "L - Lich Cardinal");
 	
 	Treasure* currentWeapon{ hero->getCurrentWeapon() };
 	Treasure* currentArmor{ hero->getCurrentArmor() };
