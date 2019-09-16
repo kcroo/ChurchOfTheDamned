@@ -85,25 +85,25 @@ Source: https://stackoverflow.com/questions/972152/how-to-create-a-template-func
 			<< std::endl;
 	}
 
-	/********************************* printLegend (template, 4 values) ******************************
-	This function uses a template and takes 4 values to print in columns.
-	**************************************************************************************************/
-	template <class T1, class T2, class T3, class T4>
-	void printLegend(T1 val1, T2 val2, T3 val3, T4 val4)
-	{
-		std::cout << std::left
-			<< std::setw(25) << val1
-			<< std::setw(25) << val2
-			<< std::setw(25) << val3
-			<< std::setw(25) << val4
-			<< std::endl;
-	}
+	///********************************* printLegend (template, 4 values) ******************************
+	//This function uses a template and takes 4 values to print in columns.
+	//**************************************************************************************************/
+	//template <class T1, class T2, class T3, class T4>
+	//void printLegend(T1 val1, T2 val2, T3 val3, T4 val4)
+	//{
+	//	std::cout << std::left
+	//		<< std::setw(25) << val1
+	//		<< std::setw(25) << val2
+	//		<< std::setw(25) << val3
+	//		<< std::setw(25) << val4
+	//		<< std::endl;
+	//}
 
-	/********************************* printLegend (template, 5 values) ******************************
-	This function uses a template and takes 5 values to print in columns.
+	/********************************* printlegend (template, 5 values) ******************************
+	this function uses a template and takes 5 values to print in columns.
 	**************************************************************************************************/
-	template <class T1, class T2, class T3, class T4, class T5>
-	void printLegend(T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
+	template <class t1, class t2, class t3, class t4, class t5>
+	void printLegend(t1 val1, t2 val2, t3 val3, t4 val4, t5 val5)
 	{
 		std::cout << std::left
 			<< std::setw(25) << val1
