@@ -174,25 +174,7 @@ void Game::move()
 			}
 			case Movement::lockedDoor:		
 			{
-				// door to outside of church in sanctuary is always locked
-				if (currentRoom == sanctuary.get() && currentRow == 7)
-				{
-					std::cout << "\nDark forces have barred the door outside, preventing your escape."
-						<< "\nYou must find another way out of the church.";
-				}
-
-				// if player has key, change rooms
-				else if (hero->hasKey())
-				{
-					currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
-					currentRoom->printContents();
-				}
-
-				// if player doesn't have key, display error
-				else
-				{
-					std::cout << "\nThe door is locked. You must find the key to open it.\n";
-				}
+				Game::checkKey(currentRow, currentCol);
 				break;
 			}
 			case Movement::stairsOrDoor:		
@@ -575,6 +557,36 @@ void Game::printLegendAndStatus()
 		<< "w - up    s - down    d - right    a - left    i - inventory    q - quit";
 
 	std::cout << "\n***********************************************************************************************\n";
+}
+
+/************************************ checkKey ****************************************************
+Prints information about the locked door that the hero is trying to open. If the hero has the key for the locked
+door, then the current room is switched to the new room.
+Parameters: int for hero's current row; int for hero's current column
+Returns: void
+**************************************************************************************************************/
+void Game::checkKey(int currentRow, int currentCol)
+{
+	// door to outside of church in sanctuary is always locked
+	if (currentRoom == sanctuary.get() && currentRow == 7)
+	{
+		std::cout << "\nDark forces have barred the door outside, preventing your escape."
+			<< "\nYou must find another way out of the church.";
+	}
+
+	// if player has key, change rooms
+	else if (hero->hasKey())
+	{
+		std::cout << "\nThe key has unlocked the door!\n";
+		currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
+		currentRoom->printContents();
+	}
+
+	// if player doesn't have key, display error
+	else
+	{
+		std::cout << "\nThe door is locked. You must find the key to open it.\n";
+	}
 }
 
 /******************************************* resetGame ****************************************************

@@ -71,6 +71,7 @@ class Game
 		// print
 		void printIntro();
 		void printLegendAndStatus();
+		void checkKey(int currentRow, int currentCol);
 
 		void resetGame();
 };

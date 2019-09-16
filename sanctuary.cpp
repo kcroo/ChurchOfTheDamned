@@ -24,7 +24,7 @@ Sanctuary::Sanctuary()
 	// make door and stairs
 	room[8][8].setToDoor(true);			// door to outside (but is locked and can't leave)
 	room[0][3].setToStairs();			// to mezzanine
-	room[0][12].setToDoor(false);		// door LOCKED to gallery (***** CHANGE TO TRUE AFTER TESTING******)
+	room[0][12].setToDoor(true);		// door LOCKED to gallery
 
 	// put hero in front of door 
 	heroRow = 7;
