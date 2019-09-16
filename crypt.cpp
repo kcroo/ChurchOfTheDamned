@@ -55,7 +55,7 @@ This function prints the contents of the room.
 void Crypt::printContents()
 {
 	std::cout << "\nAll is darkness in the CRYPT. The stagnant air is filled with the stench of decay."
-		<< "\nYou realize that you didn't remember to bring a torch, but thena lone flame appears,"
+		<< "\nYou realize that you didn't remember to bring a torch, but then lone flame appears,"
 		<< "\nhovering above a transparent hand. With horror, you take in the stone coffin, the "
 		<< "\nspiders scurrying away from the apparation, and the lone figure's towering papal cap."
 		<< "\nThis is it. This is the LICH CARDINAL, whose evil prayers have gifted him life immortal."
