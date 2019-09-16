@@ -5,7 +5,6 @@ Author: Kirsten Corrao
 Date: 07/12/2019
 ***************************************************************************************************/
 #include "room.hpp"
-#include <assert.h>
 
 /************************************ constructor ****************************************************
 The constructor creates a 2D array made of Tile objects, then creates a border around the room.
@@ -94,7 +93,7 @@ This function moves a character in the room.
 Parameters: none
 Returns: void
 *****************************************************************************************************/
-int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom)
+Movement Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom)
 {
 	int newRow{ heroRow };
 	int newCol{ heroCol };
@@ -141,7 +140,7 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 
 		heroRow = newRow;
 		heroCol = newCol;
-		return 1;
+		return Movement::move;
 	}
 	// if tile has monster, fight monster
 	else if (room[newRow][newCol].getMonster() != nullptr)
@@ -151,7 +150,7 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 		heroRow = newRow;
 		heroCol = newCol;
 
-		return 2;
+		return Movement::combat;
 	}
 	// if tile has treasure, pick up treasure
 	else if (room[newRow][newCol].getTreasure() != nullptr)
@@ -162,12 +161,12 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 		heroRow = newRow;
 		heroCol = newCol;
 
-		return 3;
+		return Movement::treasure;
 	}
 	// if door is locked
 	else if (room[newRow][newCol].getIsStairsOrDoor() == true && room[newRow][newCol].getIsLocked() == true)
 	{
-		return 4;
+		return Movement::lockedDoor;
 	}
 	// if stairs/door and unlocked, go to new room
 	else if (room[newRow][newCol].getIsStairsOrDoor() == true)
@@ -175,7 +174,7 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 		room[heroRow][heroCol].setToEmpty();
 		heroRow = newRow;
 		heroCol = newCol;
-		return 5;
+		return Movement::stairsOrDoor;
 	}
 
 	// hero rings bell in bell tower
@@ -188,15 +187,15 @@ int Room::moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& cu
 				<< "\nAs its peals slowly fade, you hear an EVIL CACKLE below . . . ";
 
 			//bellRung = true;
-			return 6;
+			return Movement::ringBell;
 		}
 
-		return 1;
+		return Movement::move;
 	}
 	// invalid move
 	else
 	{
-		return 7;
+		return Movement::invalid;
 	}
 }
 
@@ -208,7 +207,6 @@ Returns: Treasure pointer
 Treasure* Room::getTreasure(int row, int col)
 {
 	Treasure* t = room[row][col].getTreasure();			// returns address of smart pointer 
-	assert(t != nullptr);
 	return t;
 }
 

@@ -8,6 +8,7 @@ Date: 07/12/2019
 #define ROOM_HPP
 
 #include "character.hpp"
+#include "movement.hpp"
 #include "phantom.hpp"
 #include "tile.hpp"
 #include "treasure.hpp"
@@ -26,7 +27,7 @@ class Room
 		virtual void setRoomConnections(Room* room1, Room* room2 = nullptr) = 0;
 		void printRoom();
 		virtual void printContents() = 0;
-		virtual int moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
+		virtual Movement moveCharacter(std::unique_ptr<Character>& c, char direction, Room*& currentRoom);
 		virtual Room* moveNewRoom(int row, int col) = 0;
 
 		Treasure* getTreasure(int row, int col);

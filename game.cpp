@@ -150,29 +150,29 @@ void Game::move()
 	// move around room
 	else
 	{
-		int action = currentRoom->moveCharacter(hero, direction, currentRoom);		// updates playerRow and playerCol
+		Movement action = currentRoom->moveCharacter(hero, direction, currentRoom);		// updates playerRow and playerCol
 
 		int currentRow{ currentRoom->getHeroRow() };
 		int currentCol{ currentRoom->getHeroCol() };
 
 		switch (action)
 		{
-			case 1:		// moved into empty tile 
+			case Movement::move:	
 			{
 				break;
 			}
-			case 2:		// monster
+			case Movement::combat:		
 			{
-				Game::combat();					// sets gameContinues to false if player loses or beats lich cardinal
+				Game::combat();			
 				break;
 			}
 
-			case 3:		// treasure
+			case Movement::treasure:		
 			{
 				Game::addTreasureToInv(currentRow, currentCol);
 				break;
 			}
-			case 4:		// door is locked
+			case Movement::lockedDoor:		
 			{
 				// door to outside of church in sanctuary is always locked
 				if (currentRoom == sanctuary.get() && currentRow == 7)
@@ -195,7 +195,7 @@ void Game::move()
 				}
 				break;
 			}
-			case 5:		// move to new room
+			case Movement::stairsOrDoor:		
 			{
 				currentRoom = currentRoom->moveNewRoom(currentRow, currentCol);
 
@@ -209,13 +209,13 @@ void Game::move()
 				currentRoom->printContents();
 				break;
 			}
-			case 6:
+			case Movement::ringBell:
 			{
 				sanctuary->fillRoomMonsters();
 				bellRung = true;
 				break;
 			}
-			case 7:		// invalid move
+			case Movement::invalid:		
 			{
 				std::cout << "\nInvalid move. Try again.\n";
 				break;
