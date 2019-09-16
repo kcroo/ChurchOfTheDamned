@@ -139,8 +139,8 @@ void Game::move()
 	Treasure* currentArmor{ hero->getCurrentArmor() };
 
 	std::cout << "\nSTATUS\n";
-	utility::printStatus("Name", "HP", "Weapon", "Armor");
-	utility::printStatus(hero->getName(), hero->getHP(), currentWeapon->getName(), currentArmor->getName());
+	utility::printStatus("Name", "HP", "MP", "Weapon", "Armor");
+	utility::printStatus(hero->getName(), hero->getHP(), hero->getMP(), currentWeapon->getName(), currentArmor->getName());
 
 	std::cout << "\nMOVEMENT\n"
 		<< "w - up    s - down    d - right    a - left    i - inventory    q - quit";

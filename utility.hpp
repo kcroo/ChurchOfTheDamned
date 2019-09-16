@@ -117,14 +117,15 @@ Source: https://stackoverflow.com/questions/972152/how-to-create-a-template-func
 	/********************************* printStatus (template, 4 values) ******************************
 	This function uses a template and takes 4 values to print in columns.
 	**************************************************************************************************/
-	template <class T1, class T2, class T3, class T4>
-	void printStatus(T1 val1, T2 val2, T3 val3, T4 val4)
+	template <class T1, class T2, class T3, class T4, class T5>
+	void printStatus(T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
 	{
 		std::cout << std::left
 			<< std::setw(15) << val1
 			<< std::setw(10) << val2
-			<< std::setw(20) << val3
+			<< std::setw(10) << val3
 			<< std::setw(20) << val4
+			<< std::setw(20) << val5
 			<< std::endl;
 	}
 
