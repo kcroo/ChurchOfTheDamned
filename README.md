@@ -4,6 +4,13 @@ C++ console game featuring exploration, combat, and inventory management in a ch
 ### Game Storyline
 You, the player, must defeat the forces of evil that have invaded your village's church. Monsters such as dark priets wielding deadly spells and undead choir boys with screeching, demonic voices stand in your way. Find treasure and loot the bodies of fallen enemies to find more powerful weapons and armor. Use special attacks and defense actions to supplement your standard attacks. Only then will you and your village survive the demonic power in the CHURCH OF THE DAMNED.
 
+### Game Features 
+- Movement with wasd keys
+- Quit to the main menu anytime with q 
+- Combat system: choose a standard attack, special action, eat holy bread to restore HP, or drink holy water to restore MP
+- Inventory management: equip weapons/armor, remove items, or consume holy bread/water
+- Energy drain: the hero's HP is drained by 1 every 5 turns
+
 ### C++ Features Used
 - Inheritance and polymorphism for player's class and various classes of enemies 
 - Smart pointers (particularly unique_ptr) for managing the player, enemies, treasure items, and rooms in the church
